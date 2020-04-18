@@ -7,13 +7,17 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  map: any;
   // theDrawingManager: any;
   marker = new google.maps.Marker();
   beginningLat: number;
   beginningLng: number;
   zoom: number;
   myLatLng: any;
+  mapProperties: any;
+  input: any;
+  autocomplete: any;
+  places: any;
+  map: any;
 
   private geoCoder;
 
@@ -31,52 +35,35 @@ export class AppComponent implements OnInit {
         this.beginningLat = position.coords.latitude;
         this.beginningLng = position.coords.longitude;
 
-        let myLatLng = new google.maps.LatLng({ lat: this.beginningLat, lng: this.beginningLng });
+        this.myLatLng = new google.maps.LatLng({ lat: this.beginningLat, lng: this.beginningLng });
 
-        let mapProperties = {
-          center: myLatLng,
+        this.mapProperties = {
+          center: this.myLatLng,
           zoom: 14,
           mapTypeId: 'roadmap'
         }
-        let map = new google.maps.Map(document.getElementById('googlemap'), mapProperties);
+        this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
 
-        let input = <HTMLInputElement>document.getElementById('autocomplete');
+        this.input = <HTMLInputElement>document.getElementById('autocomplete');
 
-        let autocomplete = new google.maps.places.Autocomplete(input, {
+        this.autocomplete = new google.maps.places.Autocomplete(this.input, {
           types: ['(cities)'],
         });
 
-        let places = new google.maps.places.PlacesService(map);
+        let places = new google.maps.places.PlacesService(this.map);
 
-        // autocomplete.addListener('place_changed', this.onPlaceChanged);
+        this.autocomplete.addListener('place_changed', this.onPlaceChanged);
 
-        return map;
+        return this.map;
       });
     }
   }
 
   onPlaceChanged() {
-    let myLatLng = new google.maps.LatLng({ lat: this.beginningLat, lng: this.beginningLng });
-
-    let input = <HTMLInputElement>document.getElementById('autocomplete');
-
-    let autocomplete = new google.maps.places.Autocomplete(input, {
-      types: ['(cities)'],
-    });
-
-    let mapProperties = {
-      center: myLatLng,
-      zoom: 14,
-      mapTypeId: 'roadmap'
-    }
-
-    let map = new google.maps.Map(document.getElementById('googlemap'), mapProperties);
-
-
-    var place = autocomplete.getPlace();
+    var place = this.autocomplete.getPlace();
     if (place.geometry) {
-      map.panTo(place.geometry.location);
-      map.setZoom(15);
+      this.map.panTo(place.geometry.location);
+      this.map.setZoom(15);
     }
   }
 }
