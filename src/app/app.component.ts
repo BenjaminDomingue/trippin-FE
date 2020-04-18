@@ -8,7 +8,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   // theDrawingManager: any;
-  marker = new google.maps.Marker();
+  marker: any;
   beginningLat: number;
   beginningLng: number;
   zoom: number;
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   mapProperties: any;
   input: any;
   autocomplete: any;
-  places: any;
+  place: any;
   map: any;
 
   private geoCoder;
@@ -43,83 +43,31 @@ export class AppComponent implements OnInit {
           mapTypeId: 'roadmap'
         }
         this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
-
-        this.input = <HTMLInputElement>document.getElementById('autocomplete');
+        this.input = document.getElementById('autocomplete');
 
         this.autocomplete = new google.maps.places.Autocomplete(this.input, {
           types: ['(cities)'],
         });
 
-        let places = new google.maps.places.PlacesService(this.map);
-
-        this.autocomplete.addListener('place_changed', this.onPlaceChanged);
-
+        this.autocomplete.addListener('place_changed', () => this.onPlaceChanged());
         return this.map;
       });
     }
   }
 
   onPlaceChanged() {
-    var place = this.autocomplete.getPlace();
-    if (place.geometry) {
-      this.map.panTo(place.geometry.location);
-      this.map.setZoom(15);
+    this.place = this.autocomplete.getPlace();
+    if (this.place.geometry) {
+      this.map.panTo(this.place.geometry.location);
+      this.map.setZoom(6);
     }
+    this.marker = new google.maps.Marker({
+      position: this.place.geometry.location,
+      map: this.map,
+      title: 'Hello World!'
+    });
   }
 }
-  // initSearchBox(map) {
-  //   var input = <HTMLInputElement>document.getElementById('searchInput');
-  //   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  //   var autocomplete = new google.maps.places.Autocomplete(input);
-  //   autocomplete.bindTo('bounds', map);
-
-  //   var infowindow = new google.maps.InfoWindow();
-  //   var marker = new google.maps.Marker({
-  //     map: map,
-  //     anchorPoint: new google.maps.Point(0, -29)
-  //   });
-
-    //   autocomplete.addListener('place_changed', function () {
-    //     infowindow.close();
-    //     marker.setVisible(false);
-    //     var place = autocomplete.getPlace();
-    //     if (!place.geometry) {
-    //       window.alert("Autocomplete's returned place contains no geometry");
-    //       return;
-    //     }
-
-    //     // If the place has a geometry, then present it on a map.
-    //     if (place.geometry.viewport) {
-    //       map.fitBounds(place.geometry.viewport);
-    //     } else {
-    //       map.setCenter(place.geometry.location);
-    //       map.setZoom(17);
-    //     }
-    //     marker.setIcon(({
-    //       url: place.icon,
-    //       size: new google.maps.Size(71, 71),
-    //       origin: new google.maps.Point(0, 0),
-    //       anchor: new google.maps.Point(17, 34),
-    //       scaledSize: new google.maps.Size(35, 35)
-    //     }));
-    //     marker.setPosition(place.geometry.location);
-    //     marker.setVisible(true);
-
-    //     infowindow.open(map, marker);
-
-    //   });
-    // }
-    // setCurrentPosition() {
-    //   if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(position => {
-    //       this.beginningLat = position.coords.latitude;
-    //       this.beginningLng = position.coords.longitude;
-    //       this.zoom = 16;
-    //       this.myLatLng = new google.maps.LatLng({ lat: this.beginningLat, lng: this.beginningLng });
-    //     });
-    //   }
-    // }
 
     // Initialize the drawing manager
     // initializeDrawingManager(map) {
