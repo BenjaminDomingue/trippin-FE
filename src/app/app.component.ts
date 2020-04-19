@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
   map: any;
   marker: any;
   markers = [];
+  origin: any;
+  destination: any;
+  places = [];
 
   private geoCoder;
 
@@ -67,11 +70,30 @@ export class AppComponent implements OnInit {
       position: this.place.geometry.location,
       map: this.map,
     });
-    console.log(this.marker.getPosition().lat())
-    this.markers.push(this.marker);
+    this.places.push(this.place);
+    this.getDirection(this.map, this.places[0].place_id, this.places[1].place_id);
+  }
+
+  getDirection(map, place1, place2) {
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
+
+    var start = place1;
+    var end = place2;
+    var request = {
+      origin: { 'placeId': start },
+      destination: { 'placeId': end },
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function (result, status) {
+      if (status == 'OK') {
+        directionsRenderer.setDirections(result);
+      }
+    });
+
   }
 }
-
     // Initialize the drawing manager
     // initializeDrawingManager(map) {
     //   const drawingManager = new google.maps.drawing.DrawingManager({
