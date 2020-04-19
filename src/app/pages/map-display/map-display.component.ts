@@ -22,11 +22,14 @@ export class MapDisplayComponent implements OnInit {
   origin: any;
   destination: any;
   places = [];
+  theDrawingManager: any;
+
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
 
   ngOnInit() {
     this.initMap();
+
   }
 
   initMap() {
@@ -52,7 +55,7 @@ export class MapDisplayComponent implements OnInit {
   }
 
   initAutocomplete() {
-    this.input = document.getElementById('autocomplete');
+    this.input = document.getElementById('searchCity');
 
     this.autocomplete = new google.maps.places.Autocomplete(this.input, {
       types: ['(cities)'],
@@ -101,40 +104,3 @@ export class MapDisplayComponent implements OnInit {
     });
   }
 }
-
- // Initialize the drawing manager
-  // initializeDrawingManager(map) {
-  //   const drawingManager = new google.maps.drawing.DrawingManager({
-  //     drawingMode: google.maps.drawing.OverlayType.POLYGON,
-  //     drawingControl: true,
-  //     drawingControlOptions: {
-  //       position: google.maps.ControlPosition.TOP_CENTER,
-  //       drawingModes: [
-  //         google.maps.drawing.OverlayType.CIRCLE,
-  //         google.maps.drawing.OverlayType.POLYGON,
-  //       ],
-  //     },
-  //     markerOptions: {
-  //       icon:
-  //         'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-  //     },
-  //     circleOptions: {
-  //       fillColor: '#ffff00',
-  //       fillOpacity: 1,
-  //       strokeWeight: 5,
-  //       clickable: true,
-  //       editable: true,
-  //       zIndex: 1,
-  //     },
-  //     polygonOptions: {
-  //       fillColor: '#ffff00',
-  //       fillOpacity: 1,
-  //       clickable: true,
-  //       editable: true,
-  //       zIndex: 1,
-  //     },
-  //   });
-  //   drawingManager.setMap(map);
-
-  //   return drawingManager;
-  // }
