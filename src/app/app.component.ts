@@ -8,7 +8,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   // theDrawingManager: any;
-  marker: any;
   beginningLat: number;
   beginningLng: number;
   zoom: number;
@@ -18,6 +17,8 @@ export class AppComponent implements OnInit {
   autocomplete: any;
   place: any;
   map: any;
+  marker: any;
+  markers = [];
 
   private geoCoder;
 
@@ -50,13 +51,14 @@ export class AppComponent implements OnInit {
         });
 
         this.autocomplete.addListener('place_changed', () => this.onPlaceChanged());
-        return this.map;
+
       });
     }
   }
 
   onPlaceChanged() {
     this.place = this.autocomplete.getPlace();
+
     if (this.place.geometry) {
       this.map.panTo(this.place.geometry.location);
       this.map.setZoom(6);
@@ -64,8 +66,9 @@ export class AppComponent implements OnInit {
     this.marker = new google.maps.Marker({
       position: this.place.geometry.location,
       map: this.map,
-      title: 'Hello World!'
     });
+    console.log(this.marker.getPosition().lat())
+    this.markers.push(this.marker);
   }
 }
 

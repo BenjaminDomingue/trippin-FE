@@ -13,3 +13,7 @@
   text-overflow: ellipsis;
   width: 400px;
 }
+
+#autocomplete {
+  width: 400px;
+}
