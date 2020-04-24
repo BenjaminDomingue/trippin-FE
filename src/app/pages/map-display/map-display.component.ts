@@ -77,7 +77,6 @@ export class MapDisplayComponent implements OnInit {
       position: this.place.geometry.location,
       map: this.map,
     });
-
     this.places.push(this.place);
 
     for (let i = 0; i < this.places.length; i++) {
