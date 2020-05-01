@@ -7,6 +7,7 @@ import { MapDisplayComponent } from './pages/map-display/map-display.component';
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'map', component: MapDisplayComponent },
+  { path: '**', component: LoginPageComponent },
 ];
 
 @NgModule({
