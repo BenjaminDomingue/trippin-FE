@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthorizationService } from 'src/app/services/authorization.service';
+import { UserToLogin } from 'src/app/models/user-to-login';
 
 @Component({
   selector: 'app-navbar',
@@ -6,15 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  user: any = {};
+  user: UserToLogin = {};
 
-  constructor() { }
+  constructor(private readonly authorizationService: AuthorizationService) { }
 
   ngOnInit() {
   }
 
   login() {
-    console.log(this.user);
+    this.authorizationService.login(this.user).subscribe(next => {
+      console.log('Logged in successfully');
+    }, error => {
+      console.log('Failed to login');
+    })
   }
 
 }

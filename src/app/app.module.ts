@@ -9,6 +9,9 @@ import { SaveButtonComponent } from './components/save-button/save-button.compon
 import { NavbarComponent } from './components/save-button/navbar/navbar.component';
 import { LoginPageComponent } from './pages/map-display/login-page/login-page.component';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthorizationDataService } from './data-services/authorization.data-service';
+import { AuthorizationService } from './services/authorization.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,9 +27,13 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthorizationDataService,
+    AuthorizationService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

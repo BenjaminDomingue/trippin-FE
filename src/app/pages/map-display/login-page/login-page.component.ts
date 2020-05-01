@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthorizationService } from 'src/app/services/authorization.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-login-page',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly authorizationService: AuthorizationService) { }
 
   ngOnInit() {
   }
