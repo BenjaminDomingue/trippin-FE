@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { UserToLogin } from '../models/user-to-login';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
+import { UserToRegister } from '../models/user-to-register.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +28,13 @@ export class AuthorizationDataService {
         }
       })
       );
+  }
+
+  register(userToRegister: UserToRegister) {
+    return this.httpCient
+      .post(this.baseUrl + 'register', userToRegister)
+      .pipe(map((response: User) => {
+        const user = response;
+      }));
   }
 }

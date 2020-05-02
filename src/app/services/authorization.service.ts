@@ -6,6 +6,7 @@ import { AuthorizationDataService } from '../data-services/authorization.data-se
 })
 export class AuthorizationService {
   login = this.authorizationDataService.login;
+  register = this.authorizationDataService.register;
 
   constructor(private readonly authorizationDataService: AuthorizationDataService) { }
 

@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthorizationDataService } from './data-services/authorization.data-service';
 import { AuthorizationService } from './services/authorization.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-up-form.component';
 
 
 @NgModule({
@@ -22,13 +24,16 @@ import { HttpClientModule } from '@angular/common/http';
     SaveButtonComponent,
     NavbarComponent,
     LoginPageComponent,
+    SignUpFormComponent,
+    SignUpFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
   ],
   providers: [
     AuthorizationDataService,

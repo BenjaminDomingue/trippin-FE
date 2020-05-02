@@ -1,0 +1,21 @@
+h3 {
+    color: red;
+}
+
+.navbar {
+    background-color: pink;
+    margin-bottom: 48px;
+}
+
+.navbar-brand {
+    color: black;
+}
+
+.nav-link {
+    color: black;
+}
+
+#loginButton {
+    background-color: fuchsia;
+    color: black;
+}

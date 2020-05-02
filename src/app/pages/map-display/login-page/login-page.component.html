@@ -1,4 +1,18 @@
-<div class="container">
-  <button mat-button>Login</button>
-  <button mat-button>Register</button>
+<div class="page-container">
+  <div class="container" *ngIf="!showRegistrationForm">
+    <h1>Create your next trip's itinerary!</h1>
+    <p>Sign up and plan your next dream!</p>
+    <div>
+      <button type="button" class="button" (click)="ShowRegistrationForm()" [disableRipple]="true" mat-button >Register</button>
+      <button class="button" [disableRipple]="true" mat-button>Learn More</button></div>
+    </div>
+    <div *ngIf="showRegistrationForm">
+      <h1>Sign Up!</h1>
+      <app-sign-up-form></app-sign-up-form>
+      <div>
+        <button id="registerButton" type="button" class="button" (click)="RegisterUser()" [disableRipple]="true" mat-button >Register</button>
+        <button id="cancelButton" type="button" class="button" (click)="CancelUserRegistration()" [disableRipple]="true" mat-button >Cancel</button>
+      </div>
+    </div>
 </div>
+

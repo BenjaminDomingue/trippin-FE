@@ -1,4 +1,28 @@
+.page-container {
+  display: flex;
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   display: flex;
-  flex-direction: row;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  margin-right: 10px;
+}
+
+#registerButton {
+margin-top: 10px;
+margin-bottom: 36px;
+background-color: pink;
 }
