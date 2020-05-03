@@ -1,33 +1,16 @@
-<div class="input-container">
-    <mat-form-field class= "form-field" id="firstNameField" appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput placeholder=" First Name" [(ngModel)]="userToRegister.firstName">
-        >
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
+<div>
+  <h1>Sign Up!</h1>
+  <div class="input-container">
+    <mat-form-field class="form-field" id="firstNameField">
+      <input matInput placeholder=" First Name" [(ngModel)]="userToRegister.firstName">
+      <input matInput placeholder=" Last Name" [(ngModel)]="userToRegister.lastName">
+      <input matInput placeholder=" Username" [(ngModel)]="userToRegister.username">
+      <input matInput placeholder=" Email" [(ngModel)]="userToRegister.email">
+      <input matInput type="password" name="password" placeholder=" Password" [(ngModel)]="userToRegister.password">
     </mat-form-field>
-    <mat-form-field class= "form-field" id="lastNameField" appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput placeholder=" Last Name">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-    <mat-form-field class= "form-field" id="usernameField" appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput placeholder=" Username">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-    <mat-form-field class= "form-field" id="emailField" appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput placeholder=" Email">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-    <mat-form-field class= "form-field" appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput type="password" name="password" placeholder=" Password">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
-    </mat-form-field>
+    <div>
+      <button class="button" (click)="RegisterUser()" mat-button>Register</button>
+      <button class="button" (click)="CancelUserRegistration()" mat-button>Cancel</button>
+    </div>
+  </div>
 </div>

@@ -12,7 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthorizationDataService } from './data-services/authorization.data-service';
 import { AuthorizationService } from './services/authorization.service';
 import { HttpClientModule } from '@angular/common/http';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-up-form.component';
 
 
@@ -34,6 +35,7 @@ import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-
     MatButtonModule,
     HttpClientModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [
     AuthorizationDataService,

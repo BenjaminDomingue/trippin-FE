@@ -19,6 +19,7 @@
 
 .button {
   margin-right: 10px;
+  border: solid 1px grey;
 }
 
 #registerButton {
@@ -26,3 +27,8 @@ margin-top: 10px;
 margin-bottom: 36px;
 background-color: pink;
 }
+
+button:focus, button:active:focus, button.active:focus {
+  outline: none !important;
+  outline-style: none !important;
+  }

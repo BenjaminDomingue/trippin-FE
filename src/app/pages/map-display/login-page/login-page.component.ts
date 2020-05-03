@@ -21,15 +21,7 @@ export class LoginPageComponent implements OnInit {
     this.showRegistrationForm = true;
   }
 
-  CancelUserRegistration() {
+  CancelRegistration = () => {
     this.showRegistrationForm = false;
-  }
-
-  RegisterUser() {
-    this.authorizationService.register(this.userToRegister).subscribe(() => {
-      console.log("Registration successful")
-    }, error => {
-      console.log(error);
-    });
   }
 }
