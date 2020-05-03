@@ -9,11 +9,11 @@
 
   <form *ngIf="!isLoggedIn" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
     <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required
-      [(ngModel)]="user.username">
+      [(ngModel)]="userToLogin.username">
     <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required
-      [(ngModel)]="user.password">
+      [(ngModel)]="userToLogin.password">
     <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit" id="loginButton">Login</button>
   </form>
 
-  <h3 *ngIf="isLoggedIn">Welcome {{user.username}}</h3>
+  <h3 *ngIf="isLoggedIn">Welcome {{userToLogin.username}}</h3>
 </nav>

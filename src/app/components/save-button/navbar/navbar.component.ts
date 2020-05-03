@@ -8,7 +8,7 @@ import { UserToLogin } from 'src/app/models/user-to-login';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  user: UserToLogin = {};
+  userToLogin: UserToLogin = {};
   isLoggedIn: boolean | undefined;
 
   constructor(private readonly authorizationService: AuthorizationService) { }
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   }
 
   login() {
-    this.authorizationService.login(this.user).subscribe(next => {
+    this.authorizationService.login(this.userToLogin).subscribe(next => {
       console.log('Logged in successfully');
       this.isLoggedIn = true;
     }, error => {
