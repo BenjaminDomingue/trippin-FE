@@ -2,11 +2,11 @@
   <h1>Sign Up!</h1>
   <div class="input-container">
     <mat-form-field class="form-field" id="firstNameField">
-      <input matInput placeholder=" First Name" [(ngModel)]="userToRegister.firstName">
-      <input matInput placeholder=" Last Name" [(ngModel)]="userToRegister.lastName">
-      <input matInput placeholder=" Username" [(ngModel)]="userToRegister.username">
-      <input matInput placeholder=" Email" [(ngModel)]="userToRegister.email">
-      <input matInput type="password" name="password" placeholder=" Password" [(ngModel)]="userToRegister.password">
+      <input id="formInput" placeholder=" First Name" [(ngModel)]="userToRegister.firstName">
+      <input id="formInput" placeholder=" Last Name" [(ngModel)]="userToRegister.lastName">
+      <input id="formInput" placeholder=" Username" [(ngModel)]="userToRegister.username">
+      <input id="formInput" placeholder=" Email" [(ngModel)]="userToRegister.email">
+      <input id="formInput" type="password" name="password" placeholder=" Password" [(ngModel)]="userToRegister.password">
     </mat-form-field>
     <div>
       <button class="button" (click)="RegisterUser()" mat-button>Register</button>

@@ -48,7 +48,7 @@ export class MapDisplayComponent implements OnInit {
           center: this.myLatLng,
           zoom: 14,
           mapTypeId: 'roadmap'
-        }
+        };
         this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
       });
     }

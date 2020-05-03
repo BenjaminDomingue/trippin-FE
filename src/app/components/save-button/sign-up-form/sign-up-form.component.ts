@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserToRegister } from 'src/app/models/user-to-register.model';
 import { AuthorizationService } from 'src/app/services/authorization.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -12,7 +13,10 @@ export class SignUpFormComponent implements OnInit {
 
   @Output() cancelRegistration = new EventEmitter<any>();
 
-  constructor(private readonly authorizationService: AuthorizationService) { }
+  constructor(
+    private readonly authorizationService: AuthorizationService,
+    private readonly router: Router,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -20,6 +24,7 @@ export class SignUpFormComponent implements OnInit {
   RegisterUser() {
     this.authorizationService.register(this.userToRegister).subscribe(() => {
       console.log("Registration successful");
+      this.router.navigate(['/map']);
     }, error => {
       console.log(error);
     });

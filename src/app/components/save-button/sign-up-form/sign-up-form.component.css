@@ -10,4 +10,12 @@
     justify-content: center;
     margin-top: 36px;
   }
+
+  #formInput {
+    margin-bottom: 12px;
+  }
   
+  .button {
+    margin-right: 10px;
+    border: solid 1px grey;
+  }
