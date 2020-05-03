@@ -19,7 +19,7 @@ export class SignUpFormComponent implements OnInit {
 
   RegisterUser() {
     this.authorizationService.register(this.userToRegister).subscribe(() => {
-      console.log("Registration successful")
+      console.log("Registration successful");
     }, error => {
       console.log(error);
     });
@@ -27,6 +27,6 @@ export class SignUpFormComponent implements OnInit {
   }
 
   CancelUserRegistration = () => {
-    this.cancelRegistration.emit()
+    this.cancelRegistration.emit();
   }
 }

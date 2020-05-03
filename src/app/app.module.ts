@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-up-form.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthorizationDataService,
