@@ -1,9 +1,12 @@
 <nav class="navbar navbar-expand-md">
-  <a class="navbar-brand" href="#">Trippin'</a>
+  <a class="navbar-brand" href="">Trippin'</a>
 
   <ul class="navbar-nav mr-auto">
     <li class="nav-item active">
       <a class="nav-link" href="#">Maps</a>
+    </li>
+    <li *ngIf="isLoggedIn" nav-item active>
+      <a class="nav-link" href="" (click)="logout()">Logout</a>
     </li>
   </ul>
 
@@ -12,7 +15,8 @@
       [(ngModel)]="userToLogin.username">
     <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required
       [(ngModel)]="userToLogin.password">
-    <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit" id="loginButton">Login</button>
+    <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit"
+      id="loginButton">Login</button>
   </form>
 
   <h3 *ngIf="isLoggedIn">Welcome {{userToLogin.username}}</h3>

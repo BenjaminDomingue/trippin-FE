@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthorizationDataService {
-  baseUrl = 'https://localhost:44337/api/itinerary/';
+  baseUrl = 'https://localhost:5000/api/itinerary/';
 
   constructor(private readonly httpCient: HttpClient) {
     this.login =

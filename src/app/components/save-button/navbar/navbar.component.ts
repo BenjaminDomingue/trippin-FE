@@ -25,5 +25,14 @@ export class NavbarComponent implements OnInit {
       console.log(error);
     });
   }
+  ConfirmUserLogin = () => {
+    this.isLoggedIn = true;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    console.log("logout");
+    this.isLoggedIn = false;
+  }
 
 }

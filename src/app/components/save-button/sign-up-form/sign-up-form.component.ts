@@ -12,6 +12,7 @@ export class SignUpFormComponent implements OnInit {
   userToRegister: UserToRegister = {};
 
   @Output() cancelRegistration = new EventEmitter<any>();
+  @Output() confirmLogin = new EventEmitter<any>();
 
   constructor(
     private readonly authorizationService: AuthorizationService,
@@ -24,6 +25,7 @@ export class SignUpFormComponent implements OnInit {
   RegisterUser() {
     this.authorizationService.register(this.userToRegister).subscribe(() => {
       console.log("Registration successful");
+      this.confirmLogin.emit();
       this.router.navigate(['/map']);
     }, error => {
       console.log(error);

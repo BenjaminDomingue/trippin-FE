@@ -1,10 +1,7 @@
-h3 {
-    color: red;
-}
-
 .navbar {
-    background-color: pink;
+    background-color: #efc3e6;
     margin-bottom: 112px;
+    height: 72px;
 }
 
 .navbar-brand {
@@ -16,6 +13,6 @@ h3 {
 }
 
 #loginButton {
-    background-color: fuchsia;
+    background-color: #e0fbfc;
     color: black;
 }

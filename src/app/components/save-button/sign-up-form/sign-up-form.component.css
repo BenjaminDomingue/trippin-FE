@@ -11,11 +11,23 @@
     margin-top: 36px;
   }
 
-  #formInput {
+  .formInput {
     margin-bottom: 12px;
+    width:250px;
   }
-  
+
   .button {
     margin-right: 10px;
     border: solid 1px grey;
+  }
+
+  .container {
+    display: flex;
+    width: 400px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    width: 250px !important;
   }
