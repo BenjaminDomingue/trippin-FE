@@ -1,0 +1,12 @@
+#googlemap {
+  height: 600px;
+  width: 100%;
+}
+
+#searchCity {
+  width: 500px;
+}
+
+#transportationMode {
+  width: 500px;
+}
