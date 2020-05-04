@@ -24,9 +24,8 @@ export class SignUpFormComponent implements OnInit {
 
   RegisterUser() {
     this.authorizationService.register(this.userToRegister).subscribe(() => {
-      console.log("Registration successful");
       this.confirmLogin.emit();
-      this.router.navigate(['/map']);
+      this.router.navigate(['/user']);
     }, error => {
       console.log(error);
     });

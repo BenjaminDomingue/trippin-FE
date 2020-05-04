@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizationService } from 'src/app/services/authorization.service';
 import { UserToRegister } from 'src/app/models/user-to-register.model';
 
 @Component({
@@ -11,7 +10,7 @@ export class LoginPageComponent implements OnInit {
   showRegistrationForm: boolean | undefined;
   userToRegister: UserToRegister;
 
-  constructor(private readonly authorizationService: AuthorizationService) { }
+  constructor() { }
 
   ngOnInit() {
     this.showRegistrationForm = false;

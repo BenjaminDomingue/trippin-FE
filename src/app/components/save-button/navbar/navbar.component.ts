@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { UserToLogin } from 'src/app/models/user-to-login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,10 @@ export class NavbarComponent implements OnInit {
   userToLogin: UserToLogin = {};
   isLoggedIn: boolean | undefined;
 
-  constructor(private readonly authorizationService: AuthorizationService) { }
+  constructor(
+    private readonly authorizationService: AuthorizationService,
+    private readonly router: Router,
+  ) { }
 
   ngOnInit() {
     this.isLoggedIn = false;
@@ -19,8 +23,8 @@ export class NavbarComponent implements OnInit {
 
   login() {
     this.authorizationService.login(this.userToLogin).subscribe(next => {
-      console.log('Logged in successfully');
       this.isLoggedIn = true;
+      this.router.navigate(['user']);
     }, error => {
       console.log(error);
     });
@@ -31,7 +35,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    console.log("logout");
     this.isLoggedIn = false;
   }
 

@@ -15,18 +15,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-up-form.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserPageComponent } from './pages/map-display/user-page/user-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapDisplayComponent,
     MapDisplayComponent,
     SaveButtonComponent,
     NavbarComponent,
     LoginPageComponent,
     SignUpFormComponent,
     SignUpFormComponent,
+    UserPageComponent,
   ],
   imports: [
     BrowserModule,
