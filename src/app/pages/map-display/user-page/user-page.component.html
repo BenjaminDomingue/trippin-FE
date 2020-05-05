@@ -1,11 +1,4 @@
 <div class="container">
-  <input id="searchCity" class="controls" type="text" placeholder="Enter a city!">
-  <!-- <input id="transportationMode" class="controls" type="text" placeholder="Enter your transportation mode"> -->
-  <div id="googlemap"></div>
+  <app-map></app-map>
   <app-save-button (handleSaveEvent)="saveItinerary()"></app-save-button>
-</div>
-
-<div>
-  <button class="btn btn-success" mat-button>See your itinerary</button>
-  <button class="btn btn-success mat-button">Create new itinerary</button>
 </div>

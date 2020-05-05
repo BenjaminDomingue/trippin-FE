@@ -1,5 +1,5 @@
-/* #googlemap {
-  height: 600px;
+#googlemap {
+  height: 500px;
   width: 100%;
 }
 
@@ -9,4 +9,4 @@
 
 #transportationMode {
   width: 500px;
-} */
+}

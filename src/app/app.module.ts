@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-up-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserPageComponent } from './pages/map-display/user-page/user-page.component';
+import { MapComponent } from './pages/map-display/map/map.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UserPageComponent } from './pages/map-display/user-page/user-page.compo
     SignUpFormComponent,
     SignUpFormComponent,
     UserPageComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
