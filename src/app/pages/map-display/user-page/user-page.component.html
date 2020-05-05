@@ -2,8 +2,7 @@
   <input id="searchCity" class="controls" type="text" placeholder="Enter a city!">
   <!-- <input id="transportationMode" class="controls" type="text" placeholder="Enter your transportation mode"> -->
   <div id="googlemap"></div>
-  <app-save-button>
-  </app-save-button>
+  <app-save-button (handleSaveEvent)="saveItinerary()"></app-save-button>
 </div>
 
 <div>

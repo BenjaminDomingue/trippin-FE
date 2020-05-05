@@ -35,10 +35,6 @@ export class AuthorizationDataService {
       );
   }
 
-  // register(userToRegister: UserToRegister) {
-  //   return this.httpCient.post(this.baseUrl + 'register', userToRegister);
-  // }
-
   register(userToRegister: UserToRegister) {
     return this.httpCient
       .post(this.baseUrl + 'register', userToRegister)

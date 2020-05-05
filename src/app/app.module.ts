@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { MapDisplayComponent } from './pages/map-display/map-display.component';
 import { SaveButtonComponent } from './components/save-button/save-button.component';
 import { NavbarComponent } from './components/save-button/navbar/navbar.component';
 import { LoginPageComponent } from './pages/map-display/login-page/login-page.component';
@@ -21,7 +20,6 @@ import { UserPageComponent } from './pages/map-display/user-page/user-page.compo
 @NgModule({
   declarations: [
     AppComponent,
-    // MapDisplayComponent,
     SaveButtonComponent,
     NavbarComponent,
     LoginPageComponent,

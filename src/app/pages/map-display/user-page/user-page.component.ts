@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { } from 'googlemaps';
+import { ItineraryService } from 'src/app/services/itinerary.service';
+import { Itinerary } from 'src/app/models/itinerary.model';
 
 @Component({
   selector: 'app-user-page',
@@ -7,6 +9,7 @@ import { } from 'googlemaps';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit {
+  itineraries: Itinerary = {};
 
   beginningLat: number;
   beginningLng: number;
@@ -24,7 +27,9 @@ export class UserPageComponent implements OnInit {
   places = [];
   theDrawingManager: any;
 
+  constructor(private readonly itineraryService: ItineraryService) {
 
+  }
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
 
   ngOnInit() {
@@ -101,5 +106,9 @@ export class UserPageComponent implements OnInit {
         directionsRenderer.setDirections(result);
       }
     });
+  }
+
+  saveItinerary() {
+    this.itineraryService.saveItinerary(this.itineraries);
   }
 }
