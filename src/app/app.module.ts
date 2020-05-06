@@ -38,6 +38,7 @@ import { MapComponent } from './pages/map-display/map/map.component';
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
+    FormsModule,
   ],
   providers: [
     AuthorizationDataService,

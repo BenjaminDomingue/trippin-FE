@@ -10,3 +10,8 @@
 #transportationMode {
   width: 500px;
 }
+
+.save-button {
+  margin-top: 24px;
+  background-color: #efc3e6;
+}

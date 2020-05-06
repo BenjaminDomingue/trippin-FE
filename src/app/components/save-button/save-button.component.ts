@@ -1,6 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ItineraryService } from 'src/app/services/itinerary.service';
-import { Itinerary } from 'src/app/models/itinerary.model';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-save-button',
@@ -9,16 +7,10 @@ import { Itinerary } from 'src/app/models/itinerary.model';
 })
 export class SaveButtonComponent implements OnInit {
 
-  @Output()
-  handleSaveEvent = new EventEmitter<any>();
-
   constructor() { }
 
   ngOnInit() {
   }
 
-  saveItinerary() {
-    return this.handleSaveEvent.emit();
-  }
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Itinerary } from 'src/app/models/itinerary.model';
+import { City } from 'src/app/models/city.model';
 
 @Component({
   selector: 'app-map',
@@ -7,6 +9,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class MapComponent implements OnInit {
 
+  @Output()
+  handleSaveEvent = new EventEmitter<Itinerary>();
+
+  itinerary: Itinerary = {};
+  city: City = {};
   beginningLat: number;
   beginningLng: number;
   zoom: number;
@@ -28,7 +35,10 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.initMap();
+  }
 
+  constructor() {
+    this.itinerary.city = this.city;
   }
 
   initMap() {
@@ -76,7 +86,14 @@ export class MapComponent implements OnInit {
       position: this.place.geometry.location,
       map: this.map,
     });
+
     this.places.push(this.place);
+    // console.log('lat:', this.places[0].geometry.location.lat());
+
+    this.places.forEach(place => {
+      this.city.name = place.formatted_address;
+      this.itinerary.city.name = this.city.name;
+    })
 
     for (let i = 0; i < this.places.length; i++) {
       this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
@@ -100,5 +117,9 @@ export class MapComponent implements OnInit {
         directionsRenderer.setDirections(result);
       }
     });
+  }
+
+  saveItinerary() {
+    return this.handleSaveEvent.emit(this.itinerary);
   }
 }
