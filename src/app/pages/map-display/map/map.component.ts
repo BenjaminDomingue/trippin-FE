@@ -98,10 +98,10 @@ export class MapComponent implements OnInit {
   }
 
   getCityProperties(place: any, city: City) {
-    city1 = new City();
-    city1.name = place.formatted_address;
-    city1.lat = place.geometry.location.lat();
-    city1.lng = place.geometry.location.lng();
+    city = {}
+    city.name = place.formatted_address;
+    city.lat = place.geometry.location.lat();
+    city.lng = place.geometry.location.lng();
     return city;
   }
 
