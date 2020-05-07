@@ -12,8 +12,9 @@ export class MapComponent implements OnInit {
   @Output()
   handleSaveEvent = new EventEmitter<Itinerary>();
 
-  itinerary: Itinerary = {};
+  itinerary: Itinerary = { cities: [] };
   city: City = {};
+  cities: City[];
   beginningLat: number;
   beginningLng: number;
   zoom: number;
@@ -38,7 +39,6 @@ export class MapComponent implements OnInit {
   }
 
   constructor() {
-    this.itinerary.city = this.city;
   }
 
   initMap() {
@@ -88,16 +88,21 @@ export class MapComponent implements OnInit {
     });
 
     this.places.push(this.place);
-    // console.log('lat:', this.places[0].geometry.location.lat());
 
-    this.places.forEach(place => {
-      this.city.name = place.formatted_address;
-      this.itinerary.city.name = this.city.name;
-    })
+    var city = this.getCityProperties(this.place, this.city);
+    this.itinerary.cities.push(city);
 
     for (let i = 0; i < this.places.length; i++) {
       this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
     }
+  }
+
+  getCityProperties(place: any, city: City) {
+    city1 = new City();
+    city1.name = place.formatted_address;
+    city1.lat = place.geometry.location.lat();
+    city1.lng = place.geometry.location.lng();
+    return city;
   }
 
   getDirection(map, place1, place2) {

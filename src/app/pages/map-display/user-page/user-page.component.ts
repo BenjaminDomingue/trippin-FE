@@ -9,11 +9,10 @@ import { Itinerary } from 'src/app/models/itinerary.model';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent {
-  itineraries: Itinerary = {};
 
   constructor(private readonly itineraryService: ItineraryService) { }
 
-  saveItinerary() {
-    this.itineraryService.saveItinerary(this.itineraries);
+  saveItinerary(itinerary: Itinerary) {
+    this.itineraryService.saveItinerary(itinerary);
   }
 }
