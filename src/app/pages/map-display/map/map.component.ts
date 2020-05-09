@@ -12,7 +12,7 @@ export class MapComponent implements OnInit {
   @Output()
   handleSaveEvent = new EventEmitter<Itinerary>();
 
-  itinerary: Itinerary = { cities: [] };
+  itinerary: Itinerary = { id: "", name: "", cities: [] };
   city: City = {};
   cities: City[];
   beginningLat: number;
@@ -101,6 +101,7 @@ export class MapComponent implements OnInit {
     city = {}
     city.name = place.formatted_address;
     city.lat = place.geometry.location.lat();
+    console.log(typeof (city.lat));
     city.lng = place.geometry.location.lng();
     return city;
   }
@@ -125,6 +126,11 @@ export class MapComponent implements OnInit {
   }
 
   saveItinerary() {
+    return this.handleSaveEvent.emit(this.itinerary);
+  }
+
+  saveItineraryName(itineraryName: string) {
+    this.itinerary.name = itineraryName;
     return this.handleSaveEvent.emit(this.itinerary);
   }
 }

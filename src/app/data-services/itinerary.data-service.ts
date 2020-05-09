@@ -18,9 +18,9 @@ export class ItineraryDataService {
 
   saveItinerary(itinerary: Itinerary) {
     return this.httpClient
-      .post(this.baseUrl + '${itineraryId}', itinerary)
+      .post(this.baseUrl + 'user', itinerary)
       .pipe(map((response: any) => {
-        const itinerary = response
+        const returnedItinerary = response
       }));
   }
 }

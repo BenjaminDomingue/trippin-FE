@@ -13,6 +13,8 @@ export class UserPageComponent {
   constructor(private readonly itineraryService: ItineraryService) { }
 
   saveItinerary(itinerary: Itinerary) {
-    this.itineraryService.saveItinerary(itinerary);
+    this.itineraryService.saveItinerary(itinerary).subscribe(response => {
+      return response;
+    });
   }
 }
