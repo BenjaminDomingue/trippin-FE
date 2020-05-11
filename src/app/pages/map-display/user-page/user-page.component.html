@@ -1,3 +1,7 @@
 <div class="container">
-  <app-map (handleSaveEvent)="saveItinerary($event)"></app-map>
+    <div class="buttons" *ngIf="showButtons">
+      <button class="button" (click)="createItinerary()">Click to create a new itinerary</button>
+      <button class="button" (click)="lookItineraries()">Click to look at your itineraries?</button>
+    </div>
+  <app-map *ngIf="showMap" (handleSaveEvent)="saveItinerary($event)"></app-map>
 </div>

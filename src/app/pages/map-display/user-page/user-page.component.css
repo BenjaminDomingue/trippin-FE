@@ -1,0 +1,11 @@
+.button {
+    margin-top: 24px;
+    background-color: #efc3e6;
+    margin-right: 10px;
+    width: 260px;
+  }
+
+  .buttons {
+      display: flex;
+      flex-direction: column;
+  }
