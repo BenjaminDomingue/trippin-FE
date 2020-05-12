@@ -29,7 +29,7 @@ export class AuthorizationDataService {
       .pipe(map((response: any) => {
         const user = response;
         if (user) {
-          localStorage.setItem('token', user);
+          localStorage.setItem('token', user.userToken);
         }
       })
       );
@@ -42,4 +42,6 @@ export class AuthorizationDataService {
         const user = response;
       }));
   }
+
+  
 }

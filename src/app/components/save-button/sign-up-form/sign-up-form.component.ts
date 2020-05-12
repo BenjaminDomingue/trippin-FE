@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-up-form.component.css']
 })
 export class SignUpFormComponent implements OnInit {
-  userToRegister: UserToRegister = {};
+  userToRegister: UserToRegister = { id: ""};
 
   @Output() cancelRegistration = new EventEmitter<any>();
   @Output() confirmLogin = new EventEmitter<any>();

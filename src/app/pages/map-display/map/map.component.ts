@@ -13,7 +13,7 @@ export class MapComponent implements OnInit {
   handleSaveEvent = new EventEmitter<Itinerary>();
 
   itinerary: Itinerary = { id: "", name: "", cities: [] };
-  city: City = {};
+  city: City = { id: "",};
   cities: City[];
   beginningLat: number;
   beginningLng: number;
@@ -98,7 +98,7 @@ export class MapComponent implements OnInit {
   }
 
   getCityProperties(place: any, city: City) {
-    city = {}
+    city = { id: "",}
     city.name = place.formatted_address;
     city.lat = place.geometry.location.lat();
     console.log(typeof (city.lat));

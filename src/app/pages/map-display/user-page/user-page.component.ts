@@ -33,4 +33,8 @@ export class UserPageComponent implements OnInit{
   lookItineraries() {
     this.showButtons = false;
   }
+
+  getUserItinerary() {
+    
+  }
 }
