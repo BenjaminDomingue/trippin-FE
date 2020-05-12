@@ -17,6 +17,7 @@ export class UserPageComponent implements OnInit{
   ngOnInit() {
     this.showButtons = true;
     this.showMap = false;
+    
   }
 
   saveItinerary(itinerary: Itinerary) {

@@ -8,14 +8,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthorizationService {
   login = this.authorizationDataService.login;
   register = this.authorizationDataService.register;
+  loggedIn = this.authorizationDataService.loggedIn;
+  decodedToken: any;
 
-  jwtHelper = new JwtHelperService();
-  decodedToken: any
-
-  constructor(private readonly authorizationDataService: AuthorizationDataService) { }
-
-  loggedIn() {
-    const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
-  }
+  constructor(private readonly authorizationDataService: AuthorizationDataService) {
+    this.decodedToken = this.authorizationDataService.decodedToken;
+   }
 }

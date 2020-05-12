@@ -4,12 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
 import { UserToRegister } from '../models/user-to-register.model';
 import { User } from '../models/user.model';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationDataService {
   baseUrl = 'https://localhost:5000/api/itinerary/';
+
+  jwtHelper = new JwtHelperService();
+  decodedToken: any
 
   constructor(private readonly httpCient: HttpClient) {
     this.login =
@@ -21,6 +25,11 @@ export class AuthorizationDataService {
       this
         .register
         .bind(this);
+
+    this.loggedIn = 
+      this
+        .loggedIn
+        .bind(this);
   }
 
   login(userToLogin: UserToLogin) {
@@ -30,6 +39,7 @@ export class AuthorizationDataService {
         const user = response;
         if (user) {
           localStorage.setItem('token', user.userToken);
+          this.decodedToken = this.jwtHelper.decodeToken(user.userToken);
         }
       })
       );
@@ -43,5 +53,9 @@ export class AuthorizationDataService {
       }));
   }
 
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
+  }
   
 }

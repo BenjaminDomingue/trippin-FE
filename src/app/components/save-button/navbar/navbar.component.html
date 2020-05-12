@@ -19,5 +19,5 @@
       id="loginButton">Login</button>
   </form>
 
-  <h3 *ngIf="loggedIn()">Welcome {{userToLogin.username}}</h3>
+  <h3 *ngIf="loggedIn()">Welcome {{ getUserName() | titlecase}}</h3>
 </nav>

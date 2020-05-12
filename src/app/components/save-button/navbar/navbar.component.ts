@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { UserToLogin } from 'src/app/models/user-to-login';
 import { Router } from '@angular/router';
+import { AuthorizationDataService } from 'src/app/data-services/authorization.data-service';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +16,7 @@ export class NavbarComponent {
   constructor(
     private readonly authorizationService: AuthorizationService,
     private readonly router: Router,
+    private readonly authorizationDataService: AuthorizationDataService,
   ) { }
 
   login() {
@@ -31,5 +34,9 @@ export class NavbarComponent {
 
   logout() {
     localStorage.removeItem('token');
+  }
+
+  getUserName() {
+    return this.authorizationDataService.decodedToken.unique_name;
   }
 }
