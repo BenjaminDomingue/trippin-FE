@@ -6,7 +6,7 @@ import { UserPageComponent } from './pages/map-display/user-page/user-page.compo
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: 'user/:id', component: UserPageComponent },
+  { path: 'user', component: UserPageComponent },
   { path: '**', component: LoginPageComponent },
 ];
 

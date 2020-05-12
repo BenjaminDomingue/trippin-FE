@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class AuthorizationDataService {
-  baseUrl = 'https://localhost:5000/api/itinerary/';
+  baseUrl = 'https://localhost:5000/api/user/';
 
   jwtHelper = new JwtHelperService();
   decodedToken: any

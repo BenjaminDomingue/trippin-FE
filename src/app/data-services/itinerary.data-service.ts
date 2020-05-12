@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ItineraryDataService {
-  baseUrl = 'https://localhost:5000/api/itinerary/';
+  baseUrl = 'https://localhost:5000/api/user/';
 
   constructor(private readonly httpClient: HttpClient) {
     this.saveItinerary =
@@ -18,7 +18,7 @@ export class ItineraryDataService {
 
   saveItinerary(itinerary: Itinerary) {
     return this.httpClient
-      .post(this.baseUrl + 'user', itinerary)
+      .post(this.baseUrl + 'user-page', itinerary)
       .pipe(map((response: any) => {
         const returnedItinerary = response
       }));
