@@ -9,6 +9,7 @@ export class AuthorizationService {
   login = this.authorizationDataService.login;
   register = this.authorizationDataService.register;
   loggedIn = this.authorizationDataService.loggedIn;
+  getUserById = this.authorizationDataService.getUserById;
   decodedToken: any;
 
   constructor(private readonly authorizationDataService: AuthorizationDataService) {

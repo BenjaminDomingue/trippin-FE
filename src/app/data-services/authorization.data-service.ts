@@ -30,6 +30,11 @@ export class AuthorizationDataService {
       this
         .loggedIn
         .bind(this);
+
+    this.getUserById =
+    this
+      .getUserById
+      .bind(this);
   }
 
   login(userToLogin: UserToLogin) {
@@ -58,4 +63,11 @@ export class AuthorizationDataService {
     return !this.jwtHelper.isTokenExpired(token);
   }
   
+  getUserById(userId: string) {
+    return this.httpCient
+      .get(`${this.baseUrl}${userId}`)
+      .pipe(map((response: any) => {
+        const user = response;
+      }))
+  }
 }
