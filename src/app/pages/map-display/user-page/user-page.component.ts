@@ -4,6 +4,7 @@ import { ItineraryService } from 'src/app/services/itinerary.service';
 import { Itinerary } from 'src/app/models/itinerary.model';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { AuthorizationDataService } from 'src/app/data-services/authorization.data-service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user-page',
@@ -13,7 +14,7 @@ import { AuthorizationDataService } from 'src/app/data-services/authorization.da
 export class UserPageComponent implements OnInit{
   showButtons: boolean | undefined;
   showMap: boolean | undefined;
-  userId: string | undefined;
+  user: User = { id:"", firstName:"", lastName:"", email:"", username:"", itineraries: [] };
 
   constructor(
     private readonly itineraryService: ItineraryService,
@@ -23,7 +24,6 @@ export class UserPageComponent implements OnInit{
   ngOnInit() {
     this.showButtons = true;
     this.showMap = false;
-    
   }
 
   saveItinerary(itinerary: Itinerary) {
@@ -38,13 +38,21 @@ export class UserPageComponent implements OnInit{
   }
 
   lookItineraries() {
-    this.showButtons = false;
     this.getUserById(this.authorizationDataService.decodedToken.nameid);
+    this.showButtons = false;
   }
 
-  getUserById(userId) {
-    this.authorizationServce.getUserById(userId).subscribe(response => {
-      const user = response;
+  getUserById(userId: string) {
+    this.authorizationServce.getUserById(userId).subscribe((response) => {
+      console.log('response', response)
+      this.user = response;
+      console.log('user', this.user)
     });
+  }
+
+  getItinerary(itineraryId: string){
+    this.itineraryService.getItinerary(this.user.itineraries[0]).subscribe(response => {
+      response;
+    })
   }
 }

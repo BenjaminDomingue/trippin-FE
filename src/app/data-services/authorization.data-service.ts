@@ -66,8 +66,8 @@ export class AuthorizationDataService {
   getUserById(userId: string) {
     return this.httpCient
       .get(`${this.baseUrl}${userId}`)
-      .pipe(map((response: any) => {
-        const user = response;
+      .pipe(map((response: User) => {
+        return response;
       }))
   }
 }
