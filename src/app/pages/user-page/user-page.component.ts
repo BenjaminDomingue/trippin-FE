@@ -55,6 +55,7 @@ export class UserPageComponent implements OnInit{
     this.itineraryService.getItineraryById(this.user.itineraries[0].id).subscribe((response) => {
       this.itinerary = response;
       this.router.navigate(['itinerary-page'])
+      
     })
   }
 }

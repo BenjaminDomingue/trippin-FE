@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Itinerary } from 'src/app/models/itinerary.model';
 import { City } from 'src/app/models/city.model';
+import { ItineraryInformationService } from 'src/app/services/itinerary-information.service';
 
 @Component({
   selector: 'app-itinerary-page',
@@ -15,8 +16,6 @@ export class ItineraryPageComponent implements OnInit {
   itinerary: Itinerary = { id: "", name: "", cities: [] };
   city: City = { id: "",};
   cities: City[];
-  beginningLat: number;
-  beginningLng: number;
   zoom: number;
   myLatLng: any;
   mapProperties: any;
@@ -28,7 +27,6 @@ export class ItineraryPageComponent implements OnInit {
   origin: any;
   destination: any;
   places = [];
-  theDrawingManager: any;
 
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
@@ -37,7 +35,7 @@ export class ItineraryPageComponent implements OnInit {
     this.initMap();
   }
 
-  constructor() {
+  constructor(private readonly itineraryInformationService: ItineraryInformationService) {
   }
 
   initMap() {
@@ -52,28 +50,40 @@ export class ItineraryPageComponent implements OnInit {
         };
         this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
   }
-  onPlaceChanged() {
-    this.place = this.autocomplete.getPlace();
 
-    if (this.place.geometry) {
-      this.map.panTo(this.place.geometry.location);
-      this.map.setZoom(6);
-    }
-
-    this.marker = new google.maps.Marker({
-      position: this.place.geometry.location,
-      map: this.map,
-    });
-
-    this.places.push(this.place);
-
-    var city = this.getCityProperties(this.place, this.city);
-    this.itinerary.cities.push(city);
-
-    for (let i = 0; i < this.places.length; i++) {
-      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
+  getItinerariesInformation(itinerary: Itinerary){
+    this.itinerary = itinerary;
+    if (this.itinerary != null){
+      this.itineraryInformationService.getItineraryById(this.itinerary.id).subscribe(
+        response => {
+          this.itinerary = response;
+        }
+      )
     }
   }
+
+  // onPlaceChanged() {
+  //   this.place = this.autocomplete.getPlace();
+
+  //   if (this.place.geometry) {
+  //     this.map.panTo(this.place.geometry.location);
+  //     this.map.setZoom(6);
+  //   }
+
+  //   this.marker = new google.maps.Marker({
+  //     position: this.place.geometry.location,
+  //     map: this.map,
+  //   });
+
+  //   this.places.push(this.place);
+
+  //   var city = this.getCityProperties(this.place, this.city);
+  //   this.itinerary.cities.push(city);
+
+  //   for (let i = 0; i < this.places.length; i++) {
+  //     this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
+  //   }
+  // }
 
   getCityProperties(place: any, city: City) {
     city = { id: "",}
@@ -102,4 +112,6 @@ export class ItineraryPageComponent implements OnInit {
       }
     });
   }
+
+
 }
