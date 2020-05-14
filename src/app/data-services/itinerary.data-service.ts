@@ -14,13 +14,27 @@ export class ItineraryDataService {
       this
         .saveItinerary
         .bind(this);
+
+    this.getItineraryById =
+      this  
+        .getItineraryById
+        .bind(this);
   }
 
   saveItinerary(itinerary: Itinerary) {
     return this.httpClient
       .post(this.baseUrl + 'user-page', itinerary)
       .pipe(map((response: any) => {
-        const returnedItinerary = response
+        const returnedItinerary = response;
       }));
+  }
+
+  getItineraryById(itineraryId: string) {
+    return this.httpClient
+      .get(`${this.baseUrl}` + 'itineraries/' + `${itineraryId}`)
+      .pipe(map((response: Itinerary) => {
+        return response;
+
+      }))
   }
 }

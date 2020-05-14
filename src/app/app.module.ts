@@ -17,6 +17,9 @@ import { SignUpFormComponent } from './components/save-button/sign-up-form/sign-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserPageComponent } from './pages/map-display/user-page/user-page.component';
 import { MapComponent } from './pages/map-display/map/map.component';
+import { ItineraryPageComponent } from './pages/itinerary-page/itinerary-page.component';
+import { ItineraryDataService } from './data-services/itinerary.data-service';
+import { ItineraryService } from './services/itinerary.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { MapComponent } from './pages/map-display/map/map.component';
     SignUpFormComponent,
     UserPageComponent,
     MapComponent,
+    ItineraryPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +47,18 @@ import { MapComponent } from './pages/map-display/map/map.component';
   providers: [
     AuthorizationDataService,
     AuthorizationService,
+    ItineraryDataService,
+    ItineraryService,
+  ],
+  exports: [
+    SaveButtonComponent,
+    NavbarComponent,
+    LoginPageComponent,
+    SignUpFormComponent,
+    SignUpFormComponent,
+    UserPageComponent,
+    MapComponent,
+    ItineraryPageComponent
   ],
   bootstrap: [AppComponent]
 })

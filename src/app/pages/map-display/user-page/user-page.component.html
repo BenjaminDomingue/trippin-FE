@@ -10,7 +10,7 @@
   <div *ngFor="let itinerary of user.itineraries">
 
     <li>
-      <button (click)="getItinerary()">{{itinerary.name}}</button>
+      <button (click)="getItineraryById(itinerary.id)">{{itinerary.name}}</button>
     </li>
   </div>
 </div>
