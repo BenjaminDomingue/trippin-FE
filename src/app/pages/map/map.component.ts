@@ -79,8 +79,6 @@ export class MapComponent implements OnInit {
 
     if (this.place.geometry) {
       this.map.panTo(this.place.geometry.location);
-      // console.log('location', this.place.geometry.location);
-      // console.log('separate', { lat: this.place.geometry.location.lat(), lng: this.place.geometry.location.lng()})
       this.map.setZoom(6);
     }
 
@@ -105,7 +103,6 @@ export class MapComponent implements OnInit {
     city.lat = place.geometry.location.lat();
     city.lng = place.geometry.location.lng();
     city.id = place.place_id;
-    console.log(city.position);
     return city;
   }
 
