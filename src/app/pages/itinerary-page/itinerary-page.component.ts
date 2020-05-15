@@ -21,7 +21,6 @@ export class ItineraryPageComponent implements OnInit {
   myLatLng: any;
   mapProperties: any;
   input: any;
-  place: any;
   map: any;
   marker: any;
   markers = [];
@@ -48,11 +47,6 @@ export class ItineraryPageComponent implements OnInit {
   }
 
   setMap() {
-        this.mapProperties = {
-          center: { lat: 45.508888, lng: -73.5673 },
-          zoom: 14,
-          mapTypeId: 'roadmap'
-        };
         this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
   }
 
@@ -76,37 +70,23 @@ export class ItineraryPageComponent implements OnInit {
   }
 
   onPlaceChanged() {
-    // this.place = this.autocomplete.getPlace();
-
     if (this.itinerary.cities) {
-      this.map.panTo( { lat: this.itinerary.cities[0].lat,lng: this.itinerary.cities[0].lng } )
-      this.map.setZoom(6);
+      this.itinerary.cities.forEach(city => {
+        this.map.panTo( { lat: city.lat,lng: city.lng } )
+        this.map.setZoom(6);
+      })
     }
 
-    this.marker = new google.maps.Marker({
-      position: { lat: this.itinerary.cities[0].lat,lng: this.itinerary.cities[0].lng },
-      map: this.map,
-    });
+    this.itinerary.cities.forEach(city => {
+      this.marker = new google.maps.Marker({
+        position: { lat: city.lat,lng: city.lng },
+        map: this.map,
+      });
+    })
 
-    // this.itinerary.cities.push(this.itinerary.cities[0]);
-
-    // var city = this.getCityProperties(this.city);
-    // this.itinerary.cities.push(city);
-
-    // for (let i = 0; i < this.places.length; i++) {
-    //   this.getDirection(this.map, this.itinerary.cities[i].id, this.itinerary.cities[i + 1].id);
-    // }
-  }
-
-  getCityProperties(city: City) {
-    city = { id: ""};
-    city.name = this.itinerary.cities[0].name;
-    // city.lat = place.geometry.location.lat();
-    city.lat = this.itinerary.cities[0].lat;
-    console.log(typeof (city.lat));
-    // city.lng = place.geometry.location.lng();
-    city.lng = this.itinerary.cities[0].lng;
-    return city;
+    for (let i = 0; i < this.itinerary.cities.length; i++) {
+      this.getDirection(this.map, this.itinerary.cities[i].id, this.itinerary.cities[i + 1].id);
+    }
   }
 
   getDirection(map, place1, place2) {
