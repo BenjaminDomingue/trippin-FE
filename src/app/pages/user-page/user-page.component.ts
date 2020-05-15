@@ -33,7 +33,8 @@ export class UserPageComponent implements OnInit{
   }
 
   saveItinerary(itinerary: Itinerary) {
-    this.itineraryService.saveItinerary(itinerary).subscribe(response => {
+    const userId = this.authorizationDataService.decodedToken.nameid;
+    this.itineraryService.saveItinerary(itinerary, userId).subscribe(response => {
       return response;
     });
   }

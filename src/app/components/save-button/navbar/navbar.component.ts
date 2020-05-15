@@ -21,7 +21,8 @@ export class NavbarComponent {
 
   login() {
     this.authorizationService.login(this.userToLogin).subscribe(next => {
-      this.router.navigate(['user']);
+      const userId = this.authorizationDataService.decodedToken.nameid;
+      this.router.navigate([`user/${userId}`]);
     }, error => {
       console.log(error);
     });

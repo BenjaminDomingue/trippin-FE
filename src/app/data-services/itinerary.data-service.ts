@@ -21,9 +21,10 @@ export class ItineraryDataService {
         .bind(this);
   }
 
-  saveItinerary(itinerary: Itinerary) {
+  saveItinerary(itinerary: Itinerary, userId: string) {
+    console.log(`${this.baseUrl}${userId}` + '/itinerary');
     return this.httpClient
-      .post(this.baseUrl + 'user-page', itinerary)
+      .post(`${this.baseUrl}${userId}` + '/itinerary', itinerary)
       .pipe(map((response: any) => {
         const returnedItinerary = response;
       }));

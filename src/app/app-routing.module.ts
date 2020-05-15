@@ -8,7 +8,7 @@ import { MapComponent } from './pages/map/map.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: 'user', component: UserPageComponent },
+  { path: 'user/:userId', component: UserPageComponent },
   { path: '', component: LoginPageComponent },
   { path: 'itinerary-page', component: ItineraryPageComponent },
 ];
