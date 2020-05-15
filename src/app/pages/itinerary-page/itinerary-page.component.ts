@@ -18,15 +18,12 @@ export class ItineraryPageComponent implements OnInit {
   city: City = { id: "", name:""};
   cities: City[];
   zoom: number;
-  myLatLng: any;
   mapProperties: any;
-  input: any;
   map: any;
   marker: any;
   markers = [];
   origin: any;
   destination: any;
-  places = [];
   itineraryInformation: ItineraryInformation;
   information: ItineraryInformation;
 
