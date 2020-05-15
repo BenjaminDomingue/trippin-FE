@@ -13,7 +13,7 @@ export class MapComponent implements OnInit {
   handleSaveEvent = new EventEmitter<Itinerary>();
 
   itinerary: Itinerary = { id: "", name: "", cities: [] };
-  city: City = { id: "",};
+  city: City = { id: ""};
   cities: City[];
   beginningLat: number;
   beginningLng: number;
@@ -79,6 +79,8 @@ export class MapComponent implements OnInit {
 
     if (this.place.geometry) {
       this.map.panTo(this.place.geometry.location);
+      // console.log('location', this.place.geometry.location);
+      // console.log('separate', { lat: this.place.geometry.location.lat(), lng: this.place.geometry.location.lng()})
       this.map.setZoom(6);
     }
 
@@ -98,11 +100,12 @@ export class MapComponent implements OnInit {
   }
 
   getCityProperties(place: any, city: City) {
-    city = { id: "",}
+    city = { id: ""};
     city.name = place.formatted_address;
     city.lat = place.geometry.location.lat();
-    console.log(typeof (city.lat));
     city.lng = place.geometry.location.lng();
+    city.id = place.place_id;
+    console.log(city.position);
     return city;
   }
 

@@ -69,40 +69,43 @@ export class ItineraryPageComponent implements OnInit {
       this.itineraryInformationService.getItineraryById(this.itineraryInformation.id).subscribe(
         response => {
           this.itinerary = response;
+          this.onPlaceChanged();
         }
       )
     }
   }
 
-  // onPlaceChanged() {
-  //   this.place = this.autocomplete.getPlace();
+  onPlaceChanged() {
+    // this.place = this.autocomplete.getPlace();
 
-  //   if (this.place.geometry) {
-  //     this.map.panTo(this.place.geometry.location);
-  //     this.map.setZoom(6);
-  //   }
+    if (this.itinerary.cities) {
+      this.map.panTo( { lat: this.itinerary.cities[0].lat,lng: this.itinerary.cities[0].lng } )
+      this.map.setZoom(6);
+    }
 
-  //   this.marker = new google.maps.Marker({
-  //     position: this.place.geometry.location,
-  //     map: this.map,
-  //   });
+    this.marker = new google.maps.Marker({
+      position: { lat: this.itinerary.cities[0].lat,lng: this.itinerary.cities[0].lng },
+      map: this.map,
+    });
 
-  //   this.places.push(this.place);
+    // this.itinerary.cities.push(this.itinerary.cities[0]);
 
-  //   var city = this.getCityProperties(this.place, this.city);
-  //   this.itinerary.cities.push(city);
+    // var city = this.getCityProperties(this.city);
+    // this.itinerary.cities.push(city);
 
-  //   for (let i = 0; i < this.places.length; i++) {
-  //     this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
-  //   }
-  // }
+    // for (let i = 0; i < this.places.length; i++) {
+    //   this.getDirection(this.map, this.itinerary.cities[i].id, this.itinerary.cities[i + 1].id);
+    // }
+  }
 
-  getCityProperties(place: any, city: City) {
-    city = { id: "",}
-    city.name = place.formatted_address;
-    city.lat = place.geometry.location.lat();
+  getCityProperties(city: City) {
+    city = { id: ""};
+    city.name = this.itinerary.cities[0].name;
+    // city.lat = place.geometry.location.lat();
+    city.lat = this.itinerary.cities[0].lat;
     console.log(typeof (city.lat));
-    city.lng = place.geometry.location.lng();
+    // city.lng = place.geometry.location.lng();
+    city.lng = this.itinerary.cities[0].lng;
     return city;
   }
 
