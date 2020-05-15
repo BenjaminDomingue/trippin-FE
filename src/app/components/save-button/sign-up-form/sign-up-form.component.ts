@@ -29,7 +29,6 @@ export class SignUpFormComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-    console.log("hello");
   }
 
   CancelUserRegistration = () => {
