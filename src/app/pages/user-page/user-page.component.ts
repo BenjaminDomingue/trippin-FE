@@ -6,6 +6,8 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
 import { AuthorizationDataService } from 'src/app/data-services/authorization.data-service';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { ItineraryInformationService } from 'src/app/services/itinerary-information.service';
+import { ItineraryInformation } from 'src/app/models/itineraryInformation.model';
 
 @Component({
   selector: 'app-user-page',
@@ -16,13 +18,14 @@ export class UserPageComponent implements OnInit{
   showButtons: boolean | undefined;
   showMap: boolean | undefined;
   user: User = { id:"", firstName:"", lastName:"", email:"", username:"", itineraries: [] };
-  itinerary: Itinerary = {id:"", name:"", cities: []}
+  itineraryInformation: ItineraryInformation = {id:"", cities: []}
 
   constructor(
     private readonly itineraryService: ItineraryService,
     private readonly authorizationServce: AuthorizationService,
     private readonly authorizationDataService: AuthorizationDataService,
-    private readonly router: Router) { }
+    private readonly router: Router,
+    private readonly itineraryInformationService: ItineraryInformationService) { }
 
   ngOnInit() {
     this.showButtons = true;
@@ -53,9 +56,10 @@ export class UserPageComponent implements OnInit{
 
   getItineraryById(itineraryId: string){
     this.itineraryService.getItineraryById(this.user.itineraries[0].id).subscribe((response) => {
-      this.itinerary = response;
+      this.itineraryInformation.cities = response.cities;
+      this.itineraryInformation.id = response.id;
+      this.itineraryInformationService.setItinerary(this.itineraryInformation);
       this.router.navigate(['itinerary-page'])
-      
     })
   }
 }

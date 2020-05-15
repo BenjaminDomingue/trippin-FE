@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Itinerary } from '../models/itinerary.model';
 import { ItineraryDataService } from '../data-services/itinerary.data-service';
+import { ItineraryInformation } from '../models/itineraryInformation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,15 @@ export class ItineraryInformationService {
 
   getItineraryById = this.itinerarieDataService.getItineraryById;
 
-  private _itinerary: BehaviorSubject<Itinerary> = new BehaviorSubject<Itinerary>(null);
+  private _itineraryInformation: BehaviorSubject<ItineraryInformation> = new BehaviorSubject<ItineraryInformation>(null);
 
   constructor(private readonly itinerarieDataService: ItineraryDataService) { }
 
-  setItinerary(itinerary: Itinerary){
-    this._itinerary.next(itinerary);
+  setItinerary(itineraryInformation: ItineraryInformation){
+    this._itineraryInformation.next(itineraryInformation);
   }
 
-  getItinerary(): Itinerary {
-    return this._itinerary.getValue();
+  getItinerary(): ItineraryInformation {
+    return this._itineraryInformation.getValue();
   }
 }

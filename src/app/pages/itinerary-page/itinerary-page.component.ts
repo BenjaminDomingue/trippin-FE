@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '
 import { Itinerary } from 'src/app/models/itinerary.model';
 import { City } from 'src/app/models/city.model';
 import { ItineraryInformationService } from 'src/app/services/itinerary-information.service';
+import { ItineraryInformation } from 'src/app/models/itineraryInformation.model';
 
 @Component({
   selector: 'app-itinerary-page',
@@ -14,7 +15,7 @@ export class ItineraryPageComponent implements OnInit {
   handleSaveEvent = new EventEmitter<Itinerary>();
 
   itinerary: Itinerary = { id: "", name: "", cities: [] };
-  city: City = { id: "",};
+  city: City = { id: "", name:""};
   cities: City[];
   zoom: number;
   myLatLng: any;
@@ -27,6 +28,8 @@ export class ItineraryPageComponent implements OnInit {
   origin: any;
   destination: any;
   places = [];
+  itineraryInformation: ItineraryInformation;
+  information: ItineraryInformation;
 
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
@@ -40,6 +43,8 @@ export class ItineraryPageComponent implements OnInit {
 
   initMap() {
     this.setMap();
+    this.getItinerary();
+    this.setAllItineraryInformation();
   }
 
   setMap() {
@@ -51,10 +56,17 @@ export class ItineraryPageComponent implements OnInit {
         this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
   }
 
-  getItinerariesInformation(itinerary: Itinerary){
-    this.itinerary = itinerary;
-    if (this.itinerary != null){
-      this.itineraryInformationService.getItineraryById(this.itinerary.id).subscribe(
+  setAllItineraryInformation() {
+    this.itineraryInformation = this.information;
+    if (this.itineraryInformation != undefined) {
+      this.getItinerariesInformation(this.itineraryInformation);
+    }
+  }
+
+  getItinerariesInformation(itineraryInformation: ItineraryInformation){
+    this.itineraryInformation = itineraryInformation;
+    if (this.itineraryInformation != null) {
+      this.itineraryInformationService.getItineraryById(this.itineraryInformation.id).subscribe(
         response => {
           this.itinerary = response;
         }
@@ -112,6 +124,12 @@ export class ItineraryPageComponent implements OnInit {
       }
     });
   }
+private getItinerary(){
+  const information = this.itineraryInformationService.getItinerary();
 
+  if(information){
+    this.information = information;
+  }
+}
 
 }
