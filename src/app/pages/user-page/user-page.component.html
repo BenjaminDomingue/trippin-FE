@@ -8,7 +8,6 @@
 <div *ngIf="!showButtons" class="userItineraries">
   <h1>Which itinerary do you want to see?</h1>
   <div *ngFor="let itinerary of user.itineraries">
-
     <li>
       <button (click)="getItineraryById(itinerary.id)">{{itinerary.name}}</button>
     </li>
