@@ -31,6 +31,8 @@ export class MapComponent implements OnInit {
   destination: any;
   places = [];
   selectedTravelMode: any;
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer;
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
 
@@ -103,9 +105,7 @@ export class MapComponent implements OnInit {
     return city;
   }
 
-  getDirection(map, place1, place2) {
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
+  getDirection(map, place1, place2, directionsRenderer, directionsService) {
     directionsRenderer.setMap(map);
 
     var start = place1;
@@ -134,7 +134,7 @@ export class MapComponent implements OnInit {
   receivedSelectedTravelMode($event) {
     this.selectedTravelMode = $event;
     for (let i = 0; i < this.places.length; i++) {
-      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
+      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id, this.directionsRenderer, this.directionsService);
     }
   }
 }
