@@ -3,6 +3,7 @@ import { Itinerary } from 'src/app/models/itinerary.model';
 import { City } from 'src/app/models/city.model';
 import { ItineraryInformationService } from 'src/app/services/itinerary-information.service';
 import { ItineraryInformation } from 'src/app/models/itineraryInformation.model';
+import { TravelMode } from 'src/app/models/travelModeEnum.mode';
 
 @Component({
   selector: 'app-itinerary-page',
@@ -14,7 +15,7 @@ export class ItineraryPageComponent implements OnInit {
   @Output()
   handleSaveEvent = new EventEmitter<Itinerary>();
 
-  itinerary: Itinerary = { id: "", name: "", cities: [] };
+  itinerary: Itinerary = { id: "", name: "", cities: [], travelMode: TravelMode.DRIVING };
   city: City = { id: "", name:""};
   cities: City[];
   zoom: number;

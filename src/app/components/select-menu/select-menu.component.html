@@ -1,0 +1,10 @@
+<div class="container">
+    <mat-form-field>
+        <select (change)="selectChangeHandler($event)">
+            <option value="">Choose your travel mode</option>
+            <option *ngFor="let mode of travelModeArray" [(ngModel)]="selectedTravelMode">
+            {{mode}}
+            </option>
+        </select>
+        </mat-form-field>
+</div>

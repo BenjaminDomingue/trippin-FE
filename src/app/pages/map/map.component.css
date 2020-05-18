@@ -4,14 +4,29 @@
 }
 
 #searchCity {
-  width: 500px;
-}
-
-#transportationMode {
-  width: 500px;
+  width: 300px;
 }
 
 .save-button {
   margin-top: 24px;
   background-color: #efc3e6;
+}
+
+.mapOptions {
+  display: flex;
+}
+
+.inputs {
+  display: flex;
+}
+
+#itineraryName {
+  margin-bottom: 24px;
+  margin-right: 24px;
+  width: 400px;
+}
+
+#searchCity {
+  margin-bottom: 24px;
+  margin-right: 24px;
 }

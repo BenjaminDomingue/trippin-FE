@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Itinerary } from 'src/app/models/itinerary.model';
 import { City } from 'src/app/models/city.model';
+import { TravelMode } from 'src/app/models/travelModeEnum.mode';
 
 @Component({
   selector: 'app-map',
@@ -12,7 +13,7 @@ export class MapComponent implements OnInit {
   @Output()
   handleSaveEvent = new EventEmitter<Itinerary>();
 
-  itinerary: Itinerary = { id: "", name: "", cities: [] };
+  itinerary: Itinerary = { id: "", name: "", cities: [], travelMode: TravelMode.DRIVING };
   city: City = { id: ""};
   cities: City[];
   beginningLat: number;
@@ -29,8 +30,7 @@ export class MapComponent implements OnInit {
   origin: any;
   destination: any;
   places = [];
-  theDrawingManager: any;
-
+  selectedTravelMode: any;
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
 
@@ -92,9 +92,6 @@ export class MapComponent implements OnInit {
     var city = this.getCityProperties(this.place, this.city);
     this.itinerary.cities.push(city);
 
-    for (let i = 0; i < this.places.length; i++) {
-      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
-    }
   }
 
   getCityProperties(place: any, city: City) {
@@ -116,7 +113,7 @@ export class MapComponent implements OnInit {
     var request = {
       origin: { 'placeId': start },
       destination: { 'placeId': end },
-      travelMode: google.maps.TravelMode.DRIVING
+      travelMode: google.maps.TravelMode[this.selectedTravelMode],
     };
     directionsService.route(request, function (result, status) {
       if (status == 'OK') {
@@ -132,5 +129,12 @@ export class MapComponent implements OnInit {
   saveItineraryName(itineraryName: string) {
     this.itinerary.name = itineraryName;
     return this.handleSaveEvent.emit(this.itinerary);
+  }
+
+  receivedSelectedTravelMode($event) {
+    this.selectedTravelMode = $event;
+    for (let i = 0; i < this.places.length; i++) {
+      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id);
+    }
   }
 }

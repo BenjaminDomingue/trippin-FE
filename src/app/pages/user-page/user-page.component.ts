@@ -64,16 +64,3 @@ export class UserPageComponent implements OnInit{
     })
   }
 }
-
-
-// getItineraryById(itineraryId: string){
-//   this.user.itineraries.forEach(itinerary => {
-//     this.itineraryService.getItineraryById(itinerary.id).subscribe((response) => {
-//       console.log(response);
-//       this.itineraryInformation.cities = response.cities;
-//       this.itineraryInformation.id = response.id;
-//       this.itineraryInformationService.setItinerary(this.itineraryInformation);
-//       this.router.navigate(['itinerary-page'])
-//     })
-//   })
-// }
