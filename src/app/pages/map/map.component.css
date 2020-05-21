@@ -5,6 +5,7 @@
 
 #searchCity {
   width: 300px;
+  height: 32px;
 }
 
 .save-button {
@@ -12,21 +13,44 @@
   background-color: #efc3e6;
 }
 
-.mapOptions {
+.optionsInput {
   display: flex;
-}
-
-.inputs {
-  display: flex;
-}
-
-#itineraryName {
+  flex-direction: row;
   margin-bottom: 24px;
   margin-right: 24px;
-  width: 400px;
 }
 
 #searchCity {
   margin-bottom: 24px;
-  margin-right: 24px;
+  margin-right: 12px;
+}
+
+.mat-button {
+  outline: none;
+}
+
+.container {
+  padding-top: 12px;
+  display: flex;
+  padding: 0px
+}
+
+.cityName {
+  display: flex;
+  height: 32px;
+  margin-top: 56px;
+}
+
+.nameInput {
+  display: flex;
+  margin-left: 62px;
+}
+
+.map {
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  margin-right: 48px;
 }

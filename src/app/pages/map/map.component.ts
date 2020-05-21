@@ -32,7 +32,8 @@ export class MapComponent implements OnInit {
   places = [];
   selectedTravelMode: any;
   directionsService = new google.maps.DirectionsService();
-  directionsRenderer = new google.maps.DirectionsRenderer;
+  directionsRenderer = new google.maps.DirectionsRenderer();
+  inputFields = new Array;
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
 
@@ -137,4 +138,13 @@ export class MapComponent implements OnInit {
       this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id, this.directionsRenderer, this.directionsService);
     }
   }
+
+  add(){ 
+    let row = document.createElement('input');   
+      row.className = 'row'; 
+      row.innerHTML = ` 
+      <br> 
+      <input type="text">`; 
+      document.querySelector('.cityInput').appendChild(row); 
+  } 
 }

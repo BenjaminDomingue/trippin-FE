@@ -21,6 +21,8 @@ import { ItineraryDataService } from './data-services/itinerary.data-service';
 import { ItineraryService } from './services/itinerary.service';
 import { SelectMenuComponent } from './components/select-menu/select-menu.component';
 import {MatSelectModule} from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
   ],
   providers: [
     AuthorizationDataService,

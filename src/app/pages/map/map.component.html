@@ -1,11 +1,22 @@
-<div class="container">
-  <div class="mapOptions">
-    <div class="inputs">
-      <input id="itineraryName" [(ngModel)]="itinerary.name" type="text" placeholder="Enter your itinerary's name">
-      <input id="searchCity" class="controls" type="text" placeholder="Enter a city!">
-      <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
+<div class="page-container">
+  <!-- <div class="nameInput">
+    <input id="itineraryName" [(ngModel)]="itinerary.name" type="text" placeholder="Enter your itinerary's name">
+    <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
+  </div> -->
+  <div class="container">
+    <div class="cityName">
+      <button mat-button>
+        <mat-icon (click)="add()">add</mat-icon>
+      </button> 
+        <input id="searchCity" class="controls" type="text" placeholder="Enter a city!">   
+    </div>  
+    <div class="map">
+      <div class="optionsInput">
+        <input id="itineraryName" [(ngModel)]="itinerary.name" type="text" placeholder="Enter your itinerary's name">
+        <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
+      </div>
+      <div id="googlemap"></div>
+    </div>
   </div>
-  </div>
-  <div id="googlemap"></div>
   <button class="save-button" mat-button (click)="saveItinerary()">Save your itinerary</button>
 </div>
