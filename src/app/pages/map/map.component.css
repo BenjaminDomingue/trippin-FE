@@ -32,7 +32,7 @@
 .container {
   padding-top: 12px;
   display: flex;
-  padding: 0px
+  padding: 0px;
 }
 
 .cityName {
@@ -53,4 +53,9 @@
 input {
   width: 100%;
   margin-right: 48px;
+}
+
+.cityInput {
+  width: 200px;
+  margin-right: 20px;
 }

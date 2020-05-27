@@ -28,6 +28,6 @@
     align-items: center;
   }
 
-  ::ng-deep .mat-form-field-infix {
+  ::ng-deep .form-field-infix {
     width: 250px !important;
   }

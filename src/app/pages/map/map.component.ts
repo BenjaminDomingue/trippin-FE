@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Itinerary } from 'src/app/models/itinerary.model';
 import { City } from 'src/app/models/city.model';
 import { TravelMode } from 'src/app/models/travelModeEnum.mode';
@@ -8,7 +8,7 @@ import { TravelMode } from 'src/app/models/travelModeEnum.mode';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
   @Output()
   handleSaveEvent = new EventEmitter<Itinerary>();
@@ -21,8 +21,6 @@ export class MapComponent implements OnInit {
   zoom: number;
   myLatLng: any;
   mapProperties: any;
-  input: any;
-  autocomplete: any;
   place: any;
   map: any;
   marker: any;
@@ -33,12 +31,18 @@ export class MapComponent implements OnInit {
   selectedTravelMode: any;
   directionsService = new google.maps.DirectionsService();
   directionsRenderer = new google.maps.DirectionsRenderer();
-  inputFields = new Array;
+  inputFields = [{id: 0}];
+  autocomplete = [];
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
 
   ngOnInit() {
     this.initMap();
+
+  }
+
+  ngAfterViewInit(){
+    // this.initMap();
   }
 
   constructor() {
@@ -46,7 +50,7 @@ export class MapComponent implements OnInit {
 
   initMap() {
     this.setMapAndGetCurrentPosition();
-    this.initAutocomplete();
+    // this.initAutocomplete(0);
   }
 
   setMapAndGetCurrentPosition() {
@@ -66,19 +70,8 @@ export class MapComponent implements OnInit {
     }
   }
 
-  initAutocomplete() {
-    this.input = document.getElementById('searchCity');
-
-    this.autocomplete = new google.maps.places.Autocomplete(this.input, {
-      types: ['(cities)'],
-    });
-
-    this.autocomplete.addListener('place_changed', () => this.onPlaceChanged());
-    this.autocomplete.set('place', null);
-  }
-
-  onPlaceChanged() {
-    this.place = this.autocomplete.getPlace();
+  onPlaceChanged(autocomplete: any) {
+    this.place = autocomplete.getPlace();
 
     if (this.place.geometry) {
       this.map.panTo(this.place.geometry.location);
@@ -114,7 +107,8 @@ export class MapComponent implements OnInit {
     var request = {
       origin: { 'placeId': start },
       destination: { 'placeId': end },
-      travelMode: google.maps.TravelMode[this.selectedTravelMode],
+      travelMode: google.maps.TravelMode.DRIVING,
+      // travelMode: google.maps.TravelMode[this.selectedTravelMode],
     };
     directionsService.route(request, function (result, status) {
       if (status == 'OK') {
@@ -140,11 +134,19 @@ export class MapComponent implements OnInit {
   }
 
   add(){ 
-    let row = document.createElement('input');   
-      row.className = 'row'; 
-      row.innerHTML = ` 
-      <br> 
-      <input type="text">`; 
-      document.querySelector('.cityInput').appendChild(row); 
-  } 
+    var input = {id: this.inputFields.length};
+    this.inputFields = this.inputFields.concat(input)
+  }
+
+  inputChange(event: any, index: number){
+    var input = document.getElementById('searchCity-' + index);
+
+    this.autocomplete.push(new google.maps.places.Autocomplete(input as any, {
+      fields: ["geometry"],
+    }));
+
+    google.maps.event.addListener(this.autocomplete[index], 'place_changed', () => this.onPlaceChanged(this.autocomplete[index]))
+    // this.autocomplete[index].addListener('place_changed', () => this.onPlaceChanged(this.autocomplete[index]));
+    this.autocomplete[index].set('place', null);
+  }
 }

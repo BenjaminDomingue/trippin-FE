@@ -1,14 +1,14 @@
 <div class="container">
   <h1>Sign Up!</h1>
   <div class="input-container">
-    <mat-form-field class="form-field" id="firstNameField">
+    <form class="form-field" id="firstNameField">
       <input class="formInput" placeholder=" First Name" [(ngModel)]="userToRegister.firstName">
       <input class="formInput" placeholder=" Last Name" [(ngModel)]="userToRegister.lastName">
       <input class="formInput" placeholder=" Username" [(ngModel)]="userToRegister.username">
       <input class="formInput" placeholder=" Email" [(ngModel)]="userToRegister.email">
       <input class="formInput" type="password" name="password" placeholder=" Password"
         [(ngModel)]="userToRegister.password">
-    </mat-form-field>
+    </form>
     <div>
       <button class="button" (click)="RegisterUser()" mat-button>Register</button>
       <button class="button" (click)="CancelUserRegistration()" mat-button>Cancel</button>

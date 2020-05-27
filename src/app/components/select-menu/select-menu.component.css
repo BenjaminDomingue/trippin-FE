@@ -2,7 +2,7 @@
     width: 200px;
 }
 
-.mat-form-field-infix {
+.form-field-infix {
     display: flex !important; 
     width: 300px !important;   
 }
