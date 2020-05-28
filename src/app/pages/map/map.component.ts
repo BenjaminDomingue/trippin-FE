@@ -32,7 +32,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   directionsService = new google.maps.DirectionsService();
   directionsRenderer = new google.maps.DirectionsRenderer();
   inputFields = [{id: 0}];
-  autocomplete = [];
+  autocompletes = [];
 
   @ViewChild('googlemap', { static: true }) mapView: ElementRef;
 
@@ -141,12 +141,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   inputChange(event: any, index: number){
     var input = document.getElementById('searchCity-' + index);
 
-    this.autocomplete.push(new google.maps.places.Autocomplete(input as any, {
-      fields: ["geometry"],
-    }));
+    var autocomplete = this.autocompletes.find(autocomplete => autocomplete.id === index)
 
-    google.maps.event.addListener(this.autocomplete[index], 'place_changed', () => this.onPlaceChanged(this.autocomplete[index]))
-    // this.autocomplete[index].addListener('place_changed', () => this.onPlaceChanged(this.autocomplete[index]));
-    this.autocomplete[index].set('place', null);
+    if (autocomplete == undefined){
+      autocomplete = { id: index, autocomplete: new google.maps.places.Autocomplete(input as any, {
+        fields: ["geometry"],
+      })};
+      this.autocompletes.push(autocomplete);
+      google.maps.event.addListener(autocomplete.autocomplete, 'place_changed', () => this.onPlaceChanged(autocomplete.autocomplete))
+    }
   }
 }
