@@ -7,8 +7,7 @@
         <mat-icon (click)="add()">add</mat-icon>
       </button> 
       <div class="cityInput">
-        <input id="{{'searchCity-'+ input.id}}" class="controls" type="text" placeholder="Enter a city!">
-        <input id="{{'searchCity-'+ input.id}}" class="controls" type="text" placeholder="Enter a city!">
+        <input (keyup)="inputChange($event, input.id)" id="{{'searchCity-'+ input.id}}" class="controls" type="text" placeholder="Enter a city!">
       </div>
     </div>  
     </div>
