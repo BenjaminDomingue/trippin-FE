@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Itinerary } from 'src/app/models/itinerary.model';
 import { City } from 'src/app/models/city.model';
 import { TravelMode } from 'src/app/models/travelModeEnum.mode';
@@ -8,7 +8,7 @@ import { TravelMode } from 'src/app/models/travelModeEnum.mode';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit {
 
   @Output()
   handleSaveEvent = new EventEmitter<Itinerary>();
@@ -29,8 +29,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   destination: any;
   places = [];
   selectedTravelMode: any;
-  directionsService = new google.maps.DirectionsService();
-  directionsRenderer = new google.maps.DirectionsRenderer();
+  // directionsService = new google.maps.DirectionsService();
+  // directionsRenderer = new google.maps.DirectionsRenderer();
   inputFields = [{id: 0}];
   autocompletes = [];
 
@@ -41,16 +41,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(){
-    // this.initMap();
-  }
-
-  constructor() {
-  }
-
   initMap() {
     this.setMapAndGetCurrentPosition();
-    // this.initAutocomplete(0);
   }
 
   setMapAndGetCurrentPosition() {
@@ -72,7 +64,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   onPlaceChanged(autocomplete: any) {
     this.place = autocomplete.getPlace();
-
     if (this.place.geometry) {
       this.map.panTo(this.place.geometry.location);
       this.map.setZoom(6);
@@ -107,8 +98,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     var request = {
       origin: { 'placeId': start },
       destination: { 'placeId': end },
-      travelMode: google.maps.TravelMode.DRIVING,
-      // travelMode: google.maps.TravelMode[this.selectedTravelMode],
+      travelMode: google.maps.TravelMode[this.selectedTravelMode],
     };
     directionsService.route(request, function (result, status) {
       if (status == 'OK') {
@@ -129,7 +119,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   receivedSelectedTravelMode($event) {
     this.selectedTravelMode = $event;
     for (let i = 0; i < this.places.length; i++) {
-      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id, this.directionsRenderer, this.directionsService);
+      var directionsRenderer = new google.maps.DirectionsRenderer();
+      var directionsService = new google.maps.DirectionsService();      
+      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id, directionsRenderer, directionsService);
     }
   }
 
@@ -144,9 +136,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     var autocomplete = this.autocompletes.find(autocomplete => autocomplete.id === index)
 
     if (autocomplete == undefined){
-      autocomplete = { id: index, autocomplete: new google.maps.places.Autocomplete(input as any, {
-        fields: ["geometry"],
-      })};
+      autocomplete = { id: index, autocomplete: new google.maps.places.Autocomplete(input as any)};
       this.autocompletes.push(autocomplete);
       google.maps.event.addListener(autocomplete.autocomplete, 'place_changed', () => this.onPlaceChanged(autocomplete.autocomplete))
     }
