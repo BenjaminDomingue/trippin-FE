@@ -90,21 +90,24 @@ export class MapComponent implements OnInit {
     return city;
   }
 
-  getDirection(map, place1, place2, directionsRenderer, directionsService) {
+  getDirection(map, directionsRenderer, directionsService) {
     directionsRenderer.setMap(map);
 
-    var start = place1;
-    var end = place2;
-    var request = {
-      origin: { 'placeId': start },
-      destination: { 'placeId': end },
-      travelMode: google.maps.TravelMode[this.selectedTravelMode],
-    };
-    directionsService.route(request, function (result, status) {
-      if (status == 'OK') {
-        directionsRenderer.setDirections(result);
-      }
-    });
+    for (let i = 0; i < this.places.length; i++) {
+      var start = this.places[i].place_id;
+      var end = this.places[i + 1].place_id;
+      var request = {
+        origin: { 'placeId': start },
+        destination: { 'placeId': end },
+        travelMode: google.maps.TravelMode[this.selectedTravelMode],
+      };
+
+      directionsService.route(request, function (result, status) {
+        if (status == 'OK') {
+          directionsRenderer.setDirections(result);
+        }
+      });
+    }
   }
 
   saveItinerary() {
@@ -121,7 +124,7 @@ export class MapComponent implements OnInit {
     for (let i = 0; i < this.places.length; i++) {
       var directionsRenderer = new google.maps.DirectionsRenderer();
       var directionsService = new google.maps.DirectionsService();      
-      this.getDirection(this.map, this.places[i].place_id, this.places[i + 1].place_id, directionsRenderer, directionsService);
+      this.getDirection(this.map, directionsRenderer, directionsService);
     }
   }
 
