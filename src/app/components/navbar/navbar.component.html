@@ -12,18 +12,17 @@
       >Maps</a>
     </li>
     <li
-      *ngIf="loggedIn()"
       nav-item
       active
     >
       <a
+        *ngIf="isUserLoggedIn"
         class="nav-link"
         href=""
         (click)="logout()"
       >Logout</a>
     </li>
   </ul>
-  <button (click)="logout()">Logout</button>
   <button
     (click)="login()"
     type="submit"

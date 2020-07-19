@@ -20,14 +20,17 @@ export class NavbarComponent {
 
   login() {
     this.router.navigate(["/login"]);
+    this.isUserLoggedIn = true;
   }
 
   register() {
     this.router.navigate(["/registration"]);
+    this.isUserLoggedIn = true;
   }
 
   logout() {
     this.authorizationService.logoutUser();
     this.router.navigate(["/login"]);
+    this.isUserLoggedIn = false;
   }
 }
