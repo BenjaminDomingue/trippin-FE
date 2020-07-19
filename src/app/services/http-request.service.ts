@@ -1,18 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class HttpRequestService {
-  headers = new HttpHeaders()
-    .set('Content-Type', 'application-json');
+  headers = new HttpHeaders().set("Content-Type", "application/json");
 
-  constructor(private readonly httpClient: HttpClient) { }
+  constructor(private readonly httpClient: HttpClient) {}
 
   get<TResponse>(url: string) {
-    return this.httpClient
-      .get<TResponse>(url).pipe();
+    return this.httpClient.get<TResponse>(url).pipe();
   }
 
   patch<TResponse>(url: string) {
@@ -32,5 +30,4 @@ export class HttpRequestService {
       .post<TResponse>(url, data, { headers: this.headers })
       .pipe();
   }
-
 }

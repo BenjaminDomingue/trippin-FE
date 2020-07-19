@@ -1,3 +1,3 @@
 {
-  "apiBaseEndpoint": "https://localhost:5000/api"
+  "apiBaseEndpoint": "https://localhost:44337/api"
 }

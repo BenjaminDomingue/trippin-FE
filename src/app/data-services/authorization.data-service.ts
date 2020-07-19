@@ -13,22 +13,16 @@ export class AuthorizationDataService {
   // baseUrl = 'https://localhost:5000/api/user/';
 
   constructor(private readonly httpRequestService: HttpRequestService) {
-    this.login =
-      this
-        .login
-        .bind(this);
+    this.login = this.login.bind(this);
 
     this.register = this.register.bind(this);
 
-    this.getUserById =
-    this
-      .getUserById
-      .bind(this);
+    this.getUserById = this.getUserById.bind(this);
   }
 
   register(userToRegister: UserToRegister) {
     const url = `${AppConfig.current.apiBaseEndpoint}/user/register`;
-
+    console.log(url);
     return this.httpRequestService.post<UserToRegister, User>(
       url,
       userToRegister

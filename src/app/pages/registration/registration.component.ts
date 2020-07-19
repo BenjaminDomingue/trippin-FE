@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthorizationService } from "src/app/services/authorization.service";
-import { Router } from "@angular/router";
 import { UserToRegister } from "src/app/models/user-to-register.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
@@ -38,6 +37,7 @@ export class RegistrationComponent implements OnInit {
       lastName: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
+      username: ["", Validators.required],
     });
   }
 
@@ -46,7 +46,6 @@ export class RegistrationComponent implements OnInit {
 
     const userToRegister = {
       id: "",
-      type: "",
       firstName: this.firstName.value,
       lastName: this.lastName.value,
       email: this.email.value,
