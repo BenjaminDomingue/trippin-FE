@@ -1,2 +1,14 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div id=app-root>
+  <app-navbar [isUserLoggedIn]="isUserLoggedIn"></app-navbar>
+  <div id="body-wrapper">
+    <div
+      id="navbar-wrapper"
+      *ngIf="isUserLoggedIn"
+    >
+    </div>
+
+    <div id="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

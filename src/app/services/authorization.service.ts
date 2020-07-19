@@ -14,6 +14,7 @@ import { map } from "rxjs/internal/operators/map";
 export class AuthorizationService {
   private jwtHelper = new JwtHelperService();
   private decodedToken: any;
+  userId: string | undefined;
 
   loginState = new BehaviorSubject<boolean>(false);
 
@@ -24,9 +25,7 @@ export class AuthorizationService {
   constructor(
     private readonly authorizationDataService: AuthorizationDataService,
     private readonly router: Router
-  ) {
-    // this.decodedToken = this.authorizationDataService.decodedToken;
-  }
+  ) {}
 
   loginUser(userToLogin: UserToLogin) {
     return this.authorizationDataService.login(userToLogin).pipe(
@@ -45,9 +44,6 @@ export class AuthorizationService {
       id: registeredUser.id,
       email: registeredUser.email,
       password: registeredUser.password,
-      // organizationName: registeredUser.organizationName,
-      // department: registeredUser.department,
-      // dateAddedToOrganization: registeredUser.dateAddedToOrganization,
     };
 
     return this.loginUser(userToLogin);
@@ -64,10 +60,9 @@ export class AuthorizationService {
     const token = localStorage.getItem("token");
 
     this.decodedToken = this.jwtHelper.decodeToken(token);
-    // this.organizationId = this.decodedToken.organizationId;
-    // this.userName = this.decodedToken.unique_name;
+    this.userId = this.decodedToken.nameid;
 
-    // this.router.navigate(['organizations', this.organizationId, 'dashboard']);
+    this.router.navigate(["users", this.userId]);
   };
 
   logoutUser = () => {

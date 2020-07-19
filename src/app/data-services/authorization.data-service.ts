@@ -10,13 +10,9 @@ import { Token } from "../models/token.model";
   providedIn: "root",
 })
 export class AuthorizationDataService {
-  // baseUrl = 'https://localhost:5000/api/user/';
-
   constructor(private readonly httpRequestService: HttpRequestService) {
     this.login = this.login.bind(this);
-
     this.register = this.register.bind(this);
-
     this.getUserById = this.getUserById.bind(this);
   }
 
@@ -29,24 +25,11 @@ export class AuthorizationDataService {
     );
   }
 
-  // login(userToLogin: UserToLogin) {
-  //   return this.httpRequestService
-  //     .post(this.baseUrl + 'login', userToLogin);
-  // }
-
   login(userToLogin: UserToLogin) {
     const url = `${AppConfig.current.apiBaseEndpoint}/user/login`;
 
     return this.httpRequestService.post<UserToLogin, Token>(url, userToLogin);
   }
-
-  // register(userToRegister: UserToRegister) {
-  //   return this.httpCient
-  //     .post(this.baseUrl + 'register', userToRegister)
-  //     .pipe(map((response: User) => {
-  //       const user = response;
-  //     }));
-  // }
 
   getUserById(userId: string) {
     const url = `${AppConfig.current.apiBaseEndpoint}/users/${userId}`;

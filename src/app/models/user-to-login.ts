@@ -1,5 +1,5 @@
 export interface UserToLogin {
-  id: string,
+  id: string;
   username?: string;
   password?: string;
 }

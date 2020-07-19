@@ -1,9 +1,35 @@
-<div class="page-container">
-  <div class="container" *ngIf="!showRegistrationForm">
-    <h1>Create your next trip itinerary!</h1>
-    <p>Sign up and plan your next dream!</p>
+<div class="container">
+  <h1>Sign Up!</h1>
+  <div class="input-container">
+    <form
+      [formGroup]="loginForm"
+      class="form-field"
+      id="firstNameField"
+    >
+      <input
+        class="formInput"
+        placeholder=" Email"
+        formControlName="email"
+      >
+      <input
+        class="formInput"
+        type="password"
+        name="password"
+        placeholder=" Password"
+        formControlName="password"
+      >
+    </form>
     <div>
-      <button class="button" (click)="ShowRegistrationForm()" [disableRipple]="true" mat-button>Register</button>
-      <button class="button" [disableRipple]="true" mat-button>Learn More</button></div>
+      <button
+        class="button"
+        (click)="loginUser()"
+        mat-button
+      >Sign In</button>
+      <button
+        class="button"
+        (click)="CancelRegistration()"
+        mat-button
+      >Cancel</button>
+    </div>
   </div>
 </div>

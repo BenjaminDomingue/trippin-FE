@@ -1,42 +1,33 @@
-import { Component } from '@angular/core';
-import { AuthorizationService } from 'src/app/services/authorization.service';
-import { UserToLogin } from 'src/app/models/user-to-login';
-import { Router } from '@angular/router';
-import { AuthorizationDataService } from 'src/app/data-services/authorization.data-service';
-import { TitleCasePipe } from '@angular/common';
+import { Component, Input } from "@angular/core";
+import { AuthorizationService } from "src/app/services/authorization.service";
+import { UserToLogin } from "src/app/models/user-to-login";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.css"],
 })
 export class NavbarComponent {
-  userToLogin: UserToLogin = { id: "",};
+  userToLogin: UserToLogin = { id: "" };
+  @Input()
+  isUserLoggedIn = false;
 
   constructor(
     private readonly authorizationService: AuthorizationService,
-    private readonly router: Router,
-    private readonly authorizationDataService: AuthorizationDataService,
-  ) { }
+    private readonly router: Router
+  ) {}
 
   login() {
-    // this.authorizationService.login(this.userToLogin).subscribe(next => {
-    //   const userId = this.authorizationDataService.decodedToken.nameid;
-    //   this.router.navigate([`user/${userId}`]);
-    // }, error => {
-    //   console.log(error);
-    // });
+    this.router.navigate(["/login"]);
   }
 
-  loggedIn() {
-    // return this.authorizationService.loggedIn();
+  register() {
+    this.router.navigate(["/registration"]);
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.authorizationService.logoutUser();
+    this.router.navigate(["/login"]);
   }
-
-  // getUserName() {
-  //   return this.authorizationDataService.decodedToken.unique_name;
-  // }
 }

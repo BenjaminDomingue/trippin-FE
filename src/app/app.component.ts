@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthorizationDataService } from './data-services/authorization.data-service';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Component, OnInit } from "@angular/core";
+import { AuthorizationService } from "./services/authorization.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
-export class AppComponent implements OnInit{
-  jwtHelper = new JwtHelperService();
-  constructor(private auhtorizationDataService: AuthorizationDataService) {
-
+export class AppComponent implements OnInit {
+  isUserLoggedIn = false;
+  constructor(
+    private authorizationService: AuthorizationService,
+    private readonly router: Router
+  ) {
+    this.authorizationService.loginState.subscribe(
+      (isUserLoggedIn) => (this.isUserLoggedIn = isUserLoggedIn)
+    );
   }
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // this.auhtorizationDataService.decodedToken = this.jwtHelper.decodeToken(token);
+    if (!this.isUserLoggedIn) {
+      this.router.navigate(["login"]);
+    } else {
+      this.authorizationService.effectivelyLoginUser();
     }
   }
 }
