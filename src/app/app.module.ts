@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule  } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -15,13 +15,14 @@ import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { UserPageComponent } from "./pages/user-page/user-page.component";
 import { MapComponent } from "./pages/map/map.component";
-import { ItineraryPageComponent } from "./pages/itinerary-page/itinerary-page.component";
+import { UserItinerariesComponent } from "./pages/user-itineraries/user-itineraries.component";
 import { ItineraryDataService } from "./data-services/itinerary.data-service";
 import { ItineraryService } from "./services/itinerary.service";
 import { SelectMenuComponent } from "./components/select-menu/select-menu.component";
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { RegistrationComponent } from "./pages/registration/registration.component";
+import { UserItineraryComponent } from './pages/user-itinerary/user-itinerary.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,10 @@ import { RegistrationComponent } from "./pages/registration/registration.compone
     LoginPageComponent,
     UserPageComponent,
     MapComponent,
-    ItineraryPageComponent,
+    UserItinerariesComponent,
     SelectMenuComponent,
     RegistrationComponent,
+    UserItineraryComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import { RegistrationComponent } from "./pages/registration/registration.compone
     LoginPageComponent,
     UserPageComponent,
     MapComponent,
-    ItineraryPageComponent,
+    UserItinerariesComponent,
   ],
   bootstrap: [AppComponent],
 })

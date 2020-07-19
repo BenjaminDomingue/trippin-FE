@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItineraryPageComponent } from './itinerary-page.component';
+import { UserItineraryComponent } from './user-itinerary.component';
 
-describe('ItineraryPageComponent', () => {
-  let component: ItineraryPageComponent;
-  let fixture: ComponentFixture<ItineraryPageComponent>;
+describe('UserItineraryComponent', () => {
+  let component: UserItineraryComponent;
+  let fixture: ComponentFixture<UserItineraryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItineraryPageComponent ]
+      declarations: [ UserItineraryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItineraryPageComponent);
+    fixture = TestBed.createComponent(UserItineraryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
