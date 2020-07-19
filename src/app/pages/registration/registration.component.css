@@ -19,6 +19,7 @@
   .button {
     margin-right: 10px;
     border: solid 1px grey;
+    outline: none;
   }
 
   .container {

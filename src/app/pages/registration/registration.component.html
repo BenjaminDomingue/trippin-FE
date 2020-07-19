@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>Sign Up!</h1>
+  <div class="input-container">
+    <form
+      [formGroup]="registerForm"
+      class="form-field"
+      id="firstNameField"
+    >
+      <input
+        class="formInput"
+        placeholder=" First Name"
+        formControlName="firstName"
+      >
+      <input
+        class="formInput"
+        placeholder=" Last Name"
+        formControlName="lastName"
+      >
+      <input
+        class="formInput"
+        placeholder=" Username"
+        formControlName="username"
+      >
+      <input
+        class="formInput"
+        placeholder=" Email"
+        formControlName="email"
+      >
+      <input
+        class="formInput"
+        type="password"
+        name="password"
+        placeholder=" Password"
+        formControlName="password"
+      >
+    </form>
+    <div>
+      <button
+        class="button"
+        (click)="RegisterUser()"
+        mat-button
+      >Register</button>
+      <button
+        class="button"
+        (click)="CancelUserRegistration()"
+        mat-button
+      >Cancel</button>
+    </div>
+  </div>
+</div>

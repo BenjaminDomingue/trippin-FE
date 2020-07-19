@@ -1,2 +1,20 @@
 {
-}
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "workbench.editor.enablePreview": false,
+    "editor.rulers": [
+      80,
+      120
+    ],
+    "azure.resourceFilter": [
+      "cd34c2c6-a4f8-4af1-bdd5-497e97626cae/2cb9864b-81c1-4fe8-9d0c-df7d86d9e3a2"
+    ],
+    "editor.renameOnType": true,
+    "editor.formatOnPaste": true,
+    "editor.find.autoFindInSelection": "always",
+    "html.format.wrapAttributes": "force-expand-multiline",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "javascript.updateImportsOnFileMove.enabled": "always"
+  }
+  

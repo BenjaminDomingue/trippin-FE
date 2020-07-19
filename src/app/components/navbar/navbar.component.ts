@@ -20,23 +20,23 @@ export class NavbarComponent {
   ) { }
 
   login() {
-    this.authorizationService.login(this.userToLogin).subscribe(next => {
-      const userId = this.authorizationDataService.decodedToken.nameid;
-      this.router.navigate([`user/${userId}`]);
-    }, error => {
-      console.log(error);
-    });
+    // this.authorizationService.login(this.userToLogin).subscribe(next => {
+    //   const userId = this.authorizationDataService.decodedToken.nameid;
+    //   this.router.navigate([`user/${userId}`]);
+    // }, error => {
+    //   console.log(error);
+    // });
   }
 
   loggedIn() {
-    return this.authorizationService.loggedIn();
+    // return this.authorizationService.loggedIn();
   }
 
   logout() {
     localStorage.removeItem('token');
   }
 
-  getUserName() {
-    return this.authorizationDataService.decodedToken.unique_name;
-  }
+  // getUserName() {
+  //   return this.authorizationDataService.decodedToken.unique_name;
+  // }
 }

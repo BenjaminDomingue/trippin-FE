@@ -1,35 +1,24 @@
-import { Injectable } from '@angular/core';
-import { UserToLogin } from '../models/user-to-login';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators'
-import { UserToRegister } from '../models/user-to-register.model';
-import { User } from '../models/user.model';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Injectable } from "@angular/core";
+import { UserToLogin } from "../models/user-to-login";
+import { UserToRegister } from "../models/user-to-register.model";
+import { User } from "../models/user.model";
+import { AppConfig } from "../constants/app.config";
+import { HttpRequestService } from "../services/http-request.service";
+import { Token } from "../models/token.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthorizationDataService {
-  baseUrl = 'https://localhost:5000/api/user/';
+  // baseUrl = 'https://localhost:5000/api/user/';
 
-  jwtHelper = new JwtHelperService();
-  decodedToken: any
-
-  constructor(private readonly httpCient: HttpClient) {
+  constructor(private readonly httpRequestService: HttpRequestService) {
     this.login =
       this
         .login
         .bind(this);
 
-    this.register =
-      this
-        .register
-        .bind(this);
-
-    this.loggedIn = 
-      this
-        .loggedIn
-        .bind(this);
+    this.register = this.register.bind(this);
 
     this.getUserById =
     this
@@ -37,37 +26,43 @@ export class AuthorizationDataService {
       .bind(this);
   }
 
-  login(userToLogin: UserToLogin) {
-    return this.httpCient
-      .post(this.baseUrl + 'login', userToLogin)
-      .pipe(map((response: any) => {
-        const user = response;
-        if (user) {
-          localStorage.setItem('token', user.userToken);
-          this.decodedToken = this.jwtHelper.decodeToken(user.userToken);
-        }
-      })
-      );
-  }
-
   register(userToRegister: UserToRegister) {
-    return this.httpCient
-      .post(this.baseUrl + 'register', userToRegister)
-      .pipe(map((response: User) => {
-        const user = response;
-      }));
+    const url = `${AppConfig.current.apiBaseEndpoint}/user/register`;
+
+    return this.httpRequestService.post<UserToRegister, User>(
+      url,
+      userToRegister
+    );
   }
 
-  loggedIn() {
-    const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
+  // login(userToLogin: UserToLogin) {
+  //   return this.httpRequestService
+  //     .post(this.baseUrl + 'login', userToLogin);
+  // }
+
+  login(userToLogin: UserToLogin) {
+    const url = `${AppConfig.current.apiBaseEndpoint}/user/login`;
+
+    return this.httpRequestService.post<UserToLogin, Token>(url, userToLogin);
   }
-  
+
+  // register(userToRegister: UserToRegister) {
+  //   return this.httpCient
+  //     .post(this.baseUrl + 'register', userToRegister)
+  //     .pipe(map((response: User) => {
+  //       const user = response;
+  //     }));
+  // }
+
   getUserById(userId: string) {
-    return this.httpCient
-      .get(`${this.baseUrl}${userId}`)
-      .pipe(map((response: User) => {
-        return response;
-      }))
+    const url = `${AppConfig.current.apiBaseEndpoint}/users/${userId}`;
+
+    return this.httpRequestService.get<User>(url);
+
+    // return this.httpRequestService.get(`${this.baseUrl}${userId}`).pipe(
+    //   map((response: User) => {
+    //     return response;
+    //   })
+    // );
   }
 }

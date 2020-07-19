@@ -33,10 +33,10 @@ export class UserPageComponent implements OnInit{
   }
 
   saveItinerary(itinerary: Itinerary) {
-    const userId = this.authorizationDataService.decodedToken.nameid;
-    this.itineraryService.saveItinerary(itinerary, userId).subscribe(response => {
-      return response;
-    });
+    // const userId = this.authorizationDataService.decodedToken.nameid;
+    // this.itineraryService.saveItinerary(itinerary, userId).subscribe(response => {
+    //   return response;
+    // });
   }
 
   createItinerary() {
@@ -45,7 +45,7 @@ export class UserPageComponent implements OnInit{
   }
 
   lookItineraries() {
-    this.getUserById(this.authorizationDataService.decodedToken.nameid);
+    // this.getUserById(this.authorizationDataService.decodedToken.nameid);
     this.showButtons = false;
   }
 
@@ -60,7 +60,7 @@ export class UserPageComponent implements OnInit{
       this.itineraryInformation.cities = response.cities;
       this.itineraryInformation.id = response.id;
       this.itineraryInformationService.setItinerary(this.itineraryInformation);
-      this.router.navigate(['itinerary-page'])
+      this.router.navigate(['itinerary-page']);
     })
   }
 }
