@@ -54,6 +54,7 @@ export class UserPageComponent implements OnInit {
 
   lookItineraries() {
     this.showButtons = false;
+    this.router.navigate(["users", this.userId, "itineraries"]);
   }
 
   getUserById(userId: string) {

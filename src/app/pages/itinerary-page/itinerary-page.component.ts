@@ -1,22 +1,33 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Itinerary } from 'src/app/models/itinerary.model';
-import { City } from 'src/app/models/city.model';
-import { ItineraryInformationService } from 'src/app/services/itinerary-information.service';
-import { ItineraryInformation } from 'src/app/models/itineraryInformation.model';
-import { TravelMode } from 'src/app/models/travelModeEnum.mode';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
+import { Itinerary } from "src/app/models/itinerary.model";
+import { City } from "src/app/models/city.model";
+import { ItineraryInformationService } from "src/app/services/itinerary-information.service";
+import { ItineraryInformation } from "src/app/models/itineraryInformation.model";
+import { TravelMode } from "src/app/models/travelModeEnum.mode";
 
 @Component({
-  selector: 'app-itinerary-page',
-  templateUrl: './itinerary-page.component.html',
-  styleUrls: ['./itinerary-page.component.css']
+  selector: "app-itinerary-page",
+  templateUrl: "./itinerary-page.component.html",
+  styleUrls: ["./itinerary-page.component.css"],
 })
 export class ItineraryPageComponent implements OnInit {
-
   @Output()
   handleSaveEvent = new EventEmitter<Itinerary>();
 
-  itinerary: Itinerary = { id: "", name: "", cities: [], travelMode: TravelMode.DRIVING };
-  city: City = { id: "", name:""};
+  itinerary: Itinerary = {
+    id: "",
+    name: "",
+    cities: [],
+    travelMode: TravelMode.DRIVING,
+  };
+  city: City = { id: "", name: "" };
   cities: City[];
   zoom: number;
   mapProperties: any;
@@ -28,15 +39,15 @@ export class ItineraryPageComponent implements OnInit {
   itineraryInformation: ItineraryInformation;
   information: ItineraryInformation;
 
-
-  @ViewChild('googlemap', { static: true }) mapView: ElementRef;
+  @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   ngOnInit() {
     this.initMap();
   }
 
-  constructor(private readonly itineraryInformationService: ItineraryInformationService) {
-  }
+  constructor(
+    private readonly itineraryInformationService: ItineraryInformationService
+  ) {}
 
   initMap() {
     this.setMap();
@@ -45,7 +56,10 @@ export class ItineraryPageComponent implements OnInit {
   }
 
   setMap() {
-        this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
+    this.map = new google.maps.Map(
+      document.getElementById("googlemap"),
+      this.mapProperties
+    );
   }
 
   setAllItineraryInformation() {
@@ -55,35 +69,39 @@ export class ItineraryPageComponent implements OnInit {
     }
   }
 
-  getItinerariesInformation(itineraryInformation: ItineraryInformation){
+  getItinerariesInformation(itineraryInformation: ItineraryInformation) {
     this.itineraryInformation = itineraryInformation;
     if (this.itineraryInformation != null) {
-      this.itineraryInformationService.getItineraryById(this.itineraryInformation.id).subscribe(
-        response => {
+      this.itineraryInformationService
+        .getItineraryById(this.itineraryInformation.id)
+        .subscribe((response) => {
           this.itinerary = response;
           this.onPlaceChanged();
-        }
-      )
+        });
     }
   }
 
   onPlaceChanged() {
     if (this.itinerary.cities) {
-      this.itinerary.cities.forEach(city => {
-        this.map.panTo( { lat: city.lat,lng: city.lng } )
+      this.itinerary.cities.forEach((city) => {
+        this.map.panTo({ lat: city.lat, lng: city.lng });
         this.map.setZoom(6);
-      })
+      });
     }
 
-    this.itinerary.cities.forEach(city => {
+    this.itinerary.cities.forEach((city) => {
       this.marker = new google.maps.Marker({
-        position: { lat: city.lat,lng: city.lng },
+        position: { lat: city.lat, lng: city.lng },
         map: this.map,
       });
-    })
+    });
 
     for (let i = 0; i < this.itinerary.cities.length; i++) {
-      this.getDirection(this.map, this.itinerary.cities[i].id, this.itinerary.cities[i + 1].id);
+      this.getDirection(
+        this.map,
+        this.itinerary.cities[i].id,
+        this.itinerary.cities[i + 1].id
+      );
     }
   }
 
@@ -95,22 +113,21 @@ export class ItineraryPageComponent implements OnInit {
     var start = place1;
     var end = place2;
     var request = {
-      origin: { 'placeId': start },
-      destination: { 'placeId': end },
-      travelMode: google.maps.TravelMode.DRIVING
+      origin: { placeId: start },
+      destination: { placeId: end },
+      travelMode: google.maps.TravelMode.DRIVING,
     };
     directionsService.route(request, function (result, status) {
-      if (status == 'OK') {
+      if (status == "OK") {
         directionsRenderer.setDirections(result);
       }
     });
   }
-private getItinerary(){
-  const information = this.itineraryInformationService.getItinerary();
+  private getItinerary() {
+    const information = this.itineraryInformationService.getItinerary();
 
-  if(information){
-    this.information = information;
+    if (information) {
+      this.information = information;
+    }
   }
-}
-
 }
