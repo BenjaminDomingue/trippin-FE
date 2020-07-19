@@ -1,11 +1,26 @@
 <div class="container">
-    <div class="buttons" *ngIf="showButtons">
-      <button class="button" (click)="createItinerary()">Click to create a new itinerary</button>
-      <button class="button" (click)="lookItineraries()">Click to look at your itineraries?</button>
-    </div>
-  <app-map *ngIf="showMap" (handleSaveEvent)="saveItinerary($event)"></app-map>
+  <div
+    class="buttons"
+    *ngIf="showButtons"
+  >
+    <button
+      class="button"
+      (click)="createItinerary()"
+    >Click to create a new itinerary</button>
+    <button
+      class="button"
+      (click)="lookItineraries()"
+    >Click to look at your itineraries?</button>
+  </div>
+  <app-map
+    *ngIf="showMap"
+    (handleSaveEvent)="saveItinerary($event)"
+  ></app-map>
 </div>
-<div *ngIf="!showButtons" class="userItineraries">
+<div
+  *ngIf="!showButtons"
+  class="userItineraries"
+>
   <h1>Which itinerary do you want to see?</h1>
   <div *ngFor="let itinerary of user.itineraries">
     <li>
