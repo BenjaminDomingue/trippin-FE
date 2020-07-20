@@ -17,7 +17,7 @@ export class AuthorizationDataService {
   }
 
   register(userToRegister: UserToRegister) {
-    const url = `${AppConfig.current.apiBaseEndpoint}/user/register`;
+    const url = `${AppConfig.current.apiBaseEndpoint}/users/register`;
     console.log(url);
     return this.httpRequestService.post<UserToRegister, User>(
       url,
@@ -26,7 +26,7 @@ export class AuthorizationDataService {
   }
 
   login(userToLogin: UserToLogin) {
-    const url = `${AppConfig.current.apiBaseEndpoint}/user/login`;
+    const url = `${AppConfig.current.apiBaseEndpoint}/users/login`;
 
     return this.httpRequestService.post<UserToLogin, Token>(url, userToLogin);
   }
@@ -35,11 +35,5 @@ export class AuthorizationDataService {
     const url = `${AppConfig.current.apiBaseEndpoint}/users/${userId}`;
 
     return this.httpRequestService.get<User>(url);
-
-    // return this.httpRequestService.get(`${this.baseUrl}${userId}`).pipe(
-    //   map((response: User) => {
-    //     return response;
-    //   })
-    // );
   }
 }

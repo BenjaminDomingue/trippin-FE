@@ -5,13 +5,33 @@ import { UserPageComponent } from "./pages/user-page/user-page.component";
 import { UserItinerariesComponent } from "./pages/user-itineraries/user-itineraries.component";
 import { RegistrationComponent } from "./pages/registration/registration.component";
 import { MapComponent } from "./pages/map/map.component";
+import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
 
 const routes: Routes = [
-  { path: "login", component: LoginPageComponent },
-  { path: "registration", component: RegistrationComponent },
-  { path: "users/:userId", component: UserPageComponent },
-  { path: "users/:userId/itineraries", component: UserItinerariesComponent },
-  { path: "users/:userId/itineraries/new", component: MapComponent },
+  {
+    path: "login",
+    component: LoginPageComponent,
+  },
+  {
+    path: "registration",
+    component: RegistrationComponent,
+  },
+  {
+    path: "users/:userId",
+    component: UserPageComponent,
+  },
+  {
+    path: "users/:userId/itineraries",
+    component: UserItinerariesComponent,
+  },
+  {
+    path: "users/:userId/itineraries/new",
+    component: MapComponent,
+  },
+  {
+    path: "users/:userId/itineraries/:itineraryId",
+    component: UserItineraryComponent,
+  },
   { path: "", component: RegistrationComponent },
 ];
 

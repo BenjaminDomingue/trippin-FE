@@ -14,6 +14,7 @@ import { TravelMode } from "src/app/models/travelModeEnum.mode";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { User } from "src/app/models/user.model";
 import { ItineraryService } from "src/app/services/itinerary.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-user-itineraries",
@@ -33,28 +34,30 @@ export class UserItinerariesComponent implements OnInit {
   userId: string | undefined;
   itineraries: Itinerary[] | undefined;
 
-  city: City = { id: "", name: "" };
-  cities: City[];
-  zoom: number;
-  mapProperties: any;
-  map: any;
-  marker: any;
-  markers = [];
-  origin: any;
-  destination: any;
-  itineraryInformation: ItineraryInformation;
-  information: ItineraryInformation;
+  // city: City = { id: "", name: "" };
+  // cities: City[];
+  // zoom: number;
+  // mapProperties: any;
+  // map: any;
+  // marker: any;
+  // markers = [];
+  // origin: any;
+  // destination: any;
+  // itineraryInformation: ItineraryInformation;
+  // information: ItineraryInformation;
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   ngOnInit() {
     this.userId = this.authorizationService.userId;
+    this.getUserItineraries();
     // this.initMap();
   }
 
   constructor(
     private readonly authorizationService: AuthorizationService,
-    private readonly itineraryService: ItineraryService
+    private readonly itineraryService: ItineraryService,
+    private readonly router: Router
   ) {}
 
   getUserItineraries = () => {
@@ -66,88 +69,15 @@ export class UserItinerariesComponent implements OnInit {
   };
 
   getItineraryById = (itineraryId: string) => {
-    this.itineraryService.getItineraryById(itineraryId).subscribe();
+    this.itineraryService
+      .getItineraryById(this.userId, itineraryId)
+      .subscribe(() => {
+        this.router.navigate([
+          "/users",
+          this.userId,
+          "itineraries",
+          itineraryId,
+        ]);
+      });
   };
-
-  // initMap() {
-  //   this.setMap();
-  //   this.getItinerary();
-  //   this.setAllItineraryInformation();
-  // }
-
-  // setMap() {
-  //   this.map = new google.maps.Map(
-  //     document.getElementById("googlemap"),
-  //     this.mapProperties
-  //   );
-  // }
-
-  // setAllItineraryInformation() {
-  //   this.itineraryInformation = this.information;
-  //   if (this.itineraryInformation != undefined) {
-  //     this.getItinerariesInformation(this.itineraryInformation);
-  //   }
-  // }
-
-  // getItinerariesInformation(itineraryInformation: ItineraryInformation) {
-  //   this.itineraryInformation = itineraryInformation;
-  //   if (this.itineraryInformation != null) {
-  //     this.itineraryInformationService
-  //       .getItineraryById(this.itineraryInformation.id)
-  //       .subscribe((response) => {
-  //         this.itinerary = response;
-  //         this.onPlaceChanged();
-  //       });
-  //   }
-  // }
-
-  // onPlaceChanged() {
-  //   if (this.itinerary.cities) {
-  //     this.itinerary.cities.forEach((city) => {
-  //       this.map.panTo({ lat: city.lat, lng: city.lng });
-  //       this.map.setZoom(6);
-  //     });
-  //   }
-
-  //   this.itinerary.cities.forEach((city) => {
-  //     this.marker = new google.maps.Marker({
-  //       position: { lat: city.lat, lng: city.lng },
-  //       map: this.map,
-  //     });
-  //   });
-
-  //   for (let i = 0; i < this.itinerary.cities.length; i++) {
-  //     this.getDirection(
-  //       this.map,
-  //       this.itinerary.cities[i].id,
-  //       this.itinerary.cities[i + 1].id
-  //     );
-  //   }
-  // }
-
-  // getDirection(map, place1, place2) {
-  //   var directionsService = new google.maps.DirectionsService();
-  //   var directionsRenderer = new google.maps.DirectionsRenderer();
-  //   directionsRenderer.setMap(map);
-
-  //   var start = place1;
-  //   var end = place2;
-  //   var request = {
-  //     origin: { placeId: start },
-  //     destination: { placeId: end },
-  //     travelMode: google.maps.TravelMode.DRIVING,
-  //   };
-  //   directionsService.route(request, function (result, status) {
-  //     if (status == "OK") {
-  //       directionsRenderer.setDirections(result);
-  //     }
-  //   });
-  // }
-  // private getItinerary() {
-  //   const information = this.itineraryInformationService.getItinerary();
-
-  //   if (information) {
-  //     this.information = information;
-  //   }
-  // }
 }

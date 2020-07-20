@@ -63,16 +63,16 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  getItineraryById(itineraryId: string) {
-    this.itineraryService
-      .getItineraryById(itineraryId)
-      .subscribe((response) => {
-        this.itineraryInformation.cities = response.cities;
-        this.itineraryInformation.id = response.id;
-        this.itineraryInformationService.setItinerary(
-          this.itineraryInformation
-        );
-        this.router.navigate(["itinerary-page"]);
-      });
-  }
+  // getItineraryById(itineraryId: string) {
+  //   this.itineraryService
+  //     .getItineraryById(this.userId, itineraryId)
+  //     .subscribe((response) => {
+  //       this.itineraryInformation.cities = response.cities;
+  //       this.itineraryInformation.id = response.id;
+  //       this.itineraryInformationService.setItinerary(
+  //         this.itineraryInformation
+  //       );
+  //       this.router.navigate(["itinerary-page"]);
+  //     });
+  // }
 }

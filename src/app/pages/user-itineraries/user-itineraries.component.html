@@ -1,6 +1,7 @@
   <h1>Which itinerary do you want to see?</h1>
   <div *ngFor="let itinerary of itineraries">
-    <li>
-      <button (click)="getItineraryById(itinerary.id)">{{itinerary.name}}</button>
-    </li>
+    <button
+      class="button"
+      (click)="getItineraryById(itinerary.id)"
+    >{{itinerary.name}}</button>
   </div>
