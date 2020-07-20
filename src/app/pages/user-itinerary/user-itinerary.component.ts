@@ -3,6 +3,9 @@ import { City } from "src/app/models/city.model";
 import { ItineraryInformation } from "src/app/models/itineraryInformation.model";
 import { ItineraryInformationService } from "src/app/services/itinerary-information.service";
 import { Itinerary } from "src/app/models/itinerary.model";
+import { ActivatedRoute } from "@angular/router";
+import { ItineraryService } from "src/app/services/itinerary.service";
+import { AuthorizationService } from "src/app/services/authorization.service";
 
 @Component({
   selector: "app-user-itinerary",
@@ -22,19 +25,22 @@ export class UserItineraryComponent implements OnInit {
   itineraryInformation: ItineraryInformation;
   information: ItineraryInformation;
   itinerary: Itinerary | undefined;
-
-  constructor(
-    private readonly itineraryInformationService: ItineraryInformationService
-  ) {}
+  itineraryId: string | undefined;
+  userId: string | undefined;
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
-  ngOnInit(): void {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly itineraryService: ItineraryService,
+    private readonly authorizationService: AuthorizationService
+  ) {}
 
-  initMap() {
+  ngOnInit(): void {
     this.setMap();
-    this.getItinerary();
-    this.setAllItineraryInformation();
+    this.route.params.subscribe((params) => {
+      this.itineraryId = params.itineraryId;
+    });
   }
 
   setMap() {
@@ -44,23 +50,13 @@ export class UserItineraryComponent implements OnInit {
     );
   }
 
-  setAllItineraryInformation() {
-    this.itineraryInformation = this.information;
-    if (this.itineraryInformation != undefined) {
-      this.getItinerariesInformation(this.itineraryInformation);
-    }
-  }
-
-  getItinerariesInformation(itineraryInformation: ItineraryInformation) {
-    this.itineraryInformation = itineraryInformation;
-    if (this.itineraryInformation != null) {
-      // this.itineraryInformationService
-      //   .getItineraryById(this.itineraryInformation.id)
-      //   .subscribe((response) => {
-      //     this.itinerary = response;
-      //     this.onPlaceChanged();
-      //   });
-    }
+  getItineraryById() {
+    this.userId = this.authorizationService.userId;
+    this.itineraryService
+      .getItineraryById(this.userId, this.itineraryId)
+      .subscribe((response: Itinerary) => {
+        this.itinerary = response;
+      });
   }
 
   onPlaceChanged() {
@@ -104,12 +100,5 @@ export class UserItineraryComponent implements OnInit {
         directionsRenderer.setDirections(result);
       }
     });
-  }
-  private getItinerary() {
-    const information = this.itineraryInformationService.getItinerary();
-
-    if (information) {
-      this.information = information;
-    }
   }
 }
