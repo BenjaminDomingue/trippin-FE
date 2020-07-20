@@ -1,20 +1,24 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { Itinerary } from 'src/app/models/itinerary.model';
-import { City } from 'src/app/models/city.model';
-import { TravelMode } from 'src/app/models/travelModeEnum.mode';
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Itinerary } from "src/app/models/itinerary.model";
+import { City } from "src/app/models/city.model";
+import { TravelMode } from "src/app/models/travelModeEnum.mode";
+import { ItineraryService } from "src/app/services/itinerary.service";
+import { AuthorizationService } from "src/app/services/authorization.service";
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: "app-map",
+  templateUrl: "./map.component.html",
+  styleUrls: ["./map.component.css"],
 })
 export class MapComponent implements OnInit {
-
-  @Output()
-  handleSaveEvent = new EventEmitter<Itinerary>();
-
-  itinerary: Itinerary = { id: "", name: "", cities: [], travelMode: TravelMode.DRIVING };
-  city: City = { id: ""};
+  userId: string | undefined;
+  itinerary: Itinerary = {
+    id: "",
+    name: "",
+    cities: [],
+    travelMode: TravelMode.DRIVING,
+  };
+  city: City = { id: "" };
   cities: City[];
   beginningLat: number;
   beginningLng: number;
@@ -31,15 +35,19 @@ export class MapComponent implements OnInit {
   selectedTravelMode: any;
   // directionsService = new google.maps.DirectionsService();
   // directionsRenderer = new google.maps.DirectionsRenderer();
-  inputFields = [{id: 0}];
+  inputFields = [{ id: 0 }];
   autocompletes = [];
 
-  @ViewChild('googlemap', { static: true }) mapView: ElementRef;
+  @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   ngOnInit() {
     this.initMap();
-
   }
+
+  constructor(
+    private readonly itineraryService: ItineraryService,
+    private readonly authorizationService: AuthorizationService
+  ) {}
 
   initMap() {
     this.setMapAndGetCurrentPosition();
@@ -47,17 +55,23 @@ export class MapComponent implements OnInit {
 
   setMapAndGetCurrentPosition() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+      navigator.geolocation.getCurrentPosition((position) => {
         this.beginningLat = position.coords.latitude;
         this.beginningLng = position.coords.longitude;
-        this.myLatLng = new google.maps.LatLng({ lat: this.beginningLat, lng: this.beginningLng });
+        this.myLatLng = new google.maps.LatLng({
+          lat: this.beginningLat,
+          lng: this.beginningLng,
+        });
 
         this.mapProperties = {
           center: this.myLatLng,
           zoom: 14,
-          mapTypeId: 'roadmap'
+          mapTypeId: "roadmap",
         };
-        this.map = new google.maps.Map(document.getElementById('googlemap'), this.mapProperties);
+        this.map = new google.maps.Map(
+          document.getElementById("googlemap"),
+          this.mapProperties
+        );
       });
     }
   }
@@ -76,13 +90,12 @@ export class MapComponent implements OnInit {
 
     this.places.push(this.place);
 
-    var city = this.getCityProperties(this.place, this.city);
+    const city = this.getCityProperties(this.place, this.city);
     this.itinerary.cities.push(city);
-
   }
 
   getCityProperties(place: any, city: City) {
-    city = { id: ""};
+    city = { id: "" };
     city.name = place.formatted_address;
     city.lat = place.geometry.location.lat();
     city.lng = place.geometry.location.lng();
@@ -94,54 +107,64 @@ export class MapComponent implements OnInit {
     directionsRenderer.setMap(map);
 
     for (let i = 0; i < this.places.length; i++) {
-      var start = this.places[i].place_id;
-      var end = this.places[i + 1].place_id;
-      var request = {
-        origin: { 'placeId': start },
-        destination: { 'placeId': end },
+      const start = this.places[i].place_id;
+      const end = this.places[i + 1].place_id;
+      const request = {
+        origin: { placeId: start },
+        destination: { placeId: end },
         travelMode: google.maps.TravelMode[this.selectedTravelMode],
       };
 
       directionsService.route(request, function (result, status) {
-        if (status == 'OK') {
+        if (status === "OK") {
           directionsRenderer.setDirections(result);
         }
       });
     }
   }
 
-  saveItinerary() {
-    return this.handleSaveEvent.emit(this.itinerary);
+  saveItinerary(itinerary: Itinerary) {
+    this.userId = this.authorizationService.userId;
+    this.itineraryService.saveItinerary(itinerary, this.userId).subscribe();
   }
 
   saveItineraryName(itineraryName: string) {
     this.itinerary.name = itineraryName;
-    return this.handleSaveEvent.emit(this.itinerary);
+    // return this.handleSaveEvent.emit(this.itinerary);
   }
 
   receivedSelectedTravelMode($event) {
     this.selectedTravelMode = $event;
     for (let i = 0; i < this.places.length; i++) {
-      var directionsRenderer = new google.maps.DirectionsRenderer();
-      var directionsService = new google.maps.DirectionsService();      
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      const directionsService = new google.maps.DirectionsService();
       this.getDirection(this.map, directionsRenderer, directionsService);
     }
   }
 
-  add(){ 
-    var input = {id: this.inputFields.length};
-    this.inputFields = this.inputFields.concat(input)
+  add() {
+    const input = { id: this.inputFields.length };
+    this.inputFields = this.inputFields.concat(input);
   }
 
-  inputChange(event: any, index: number){
-    var input = document.getElementById('searchCity-' + index);
+  inputChange(event: any, index: number) {
+    const input = document.getElementById("searchCity-" + index);
 
-    var autocomplete = this.autocompletes.find(autocomplete => autocomplete.id === index)
+    let autocomplete = this.autocompletes.find(
+      (element) => element.id === index
+    );
 
-    if (autocomplete == undefined){
-      autocomplete = { id: index, autocomplete: new google.maps.places.Autocomplete(input as any)};
+    if (autocomplete == undefined) {
+      autocomplete = {
+        id: index,
+        autocomplete: new google.maps.places.Autocomplete(input as any),
+      };
       this.autocompletes.push(autocomplete);
-      google.maps.event.addListener(autocomplete.autocomplete, 'place_changed', () => this.onPlaceChanged(autocomplete.autocomplete))
+      google.maps.event.addListener(
+        autocomplete.autocomplete,
+        "place_changed",
+        () => this.onPlaceChanged(autocomplete.autocomplete)
+      );
     }
   }
 }

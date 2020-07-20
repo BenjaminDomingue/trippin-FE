@@ -16,14 +16,8 @@ export class ItineraryDataService {
   }
 
   saveItinerary(itinerary: Itinerary, userId: string) {
-    // console.log(`${this.baseUrl}${userId}` + "/itinerary");
-    // return this.httpClient
-    //   .post(`${this.baseUrl}${userId}` + "/itinerary", itinerary)
-    //   .pipe(
-    //     map((response: any) => {
-    //       const returnedItinerary = response;
-    //     })
-    //   );
+    const url = `${AppConfig.current.apiBaseEndpoint}/users/${userId}/itinerary`;
+    return this.httpRequestService.post<Itinerary, Itinerary>(url, itinerary);
   }
 
   getItineraryById(userId: string, itineraryId: string) {
