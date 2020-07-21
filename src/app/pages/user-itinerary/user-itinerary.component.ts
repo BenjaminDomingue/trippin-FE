@@ -41,12 +41,17 @@ export class UserItineraryComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.itineraryId = params.itineraryId;
     });
+    this.getItineraryById();
   }
 
   setMap() {
+    const mapProperties = {
+      zoom: 14,
+      mapTypeId: "roadmap",
+    };
     this.map = new google.maps.Map(
       document.getElementById("googlemap"),
-      this.mapProperties
+      mapProperties
     );
   }
 
@@ -56,6 +61,7 @@ export class UserItineraryComponent implements OnInit {
       .getItineraryById(this.userId, this.itineraryId)
       .subscribe((response: Itinerary) => {
         this.itinerary = response;
+        this.onPlaceChanged();
       });
   }
 
