@@ -1,12 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import {} from "googlemaps";
-import { ItineraryService } from "src/app/services/itinerary.service";
 import { Itinerary } from "src/app/models/itinerary.model";
 import { AuthorizationService } from "src/app/services/authorization.service";
-import { AuthorizationDataService } from "src/app/data-services/authorization.data-service";
 import { User } from "src/app/models/user.model";
 import { Router } from "@angular/router";
-import { ItineraryInformationService } from "src/app/services/itinerary-information.service";
 import { ItineraryInformation } from "src/app/models/itineraryInformation.model";
 
 @Component({
@@ -29,10 +26,8 @@ export class UserPageComponent implements OnInit {
   userId: string | undefined;
 
   constructor(
-    private readonly itineraryService: ItineraryService,
     private readonly authorizationServce: AuthorizationService,
     private readonly router: Router,
-    private readonly itineraryInformationService: ItineraryInformationService
   ) {}
 
   ngOnInit() {
@@ -62,17 +57,4 @@ export class UserPageComponent implements OnInit {
       this.user = response;
     });
   }
-
-  // getItineraryById(itineraryId: string) {
-  //   this.itineraryService
-  //     .getItineraryById(this.userId, itineraryId)
-  //     .subscribe((response) => {
-  //       this.itineraryInformation.cities = response.cities;
-  //       this.itineraryInformation.id = response.id;
-  //       this.itineraryInformationService.setItinerary(
-  //         this.itineraryInformation
-  //       );
-  //       this.router.navigate(["itinerary-page"]);
-  //     });
-  // }
 }

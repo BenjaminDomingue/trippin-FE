@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { City } from "src/app/models/city.model";
 import { ItineraryInformation } from "src/app/models/itineraryInformation.model";
-import { ItineraryInformationService } from "src/app/services/itinerary-information.service";
 import { Itinerary } from "src/app/models/itinerary.model";
 import { ActivatedRoute } from "@angular/router";
 import { ItineraryService } from "src/app/services/itinerary.service";

@@ -7,9 +7,6 @@ import {
   ElementRef,
 } from "@angular/core";
 import { Itinerary } from "src/app/models/itinerary.model";
-import { City } from "src/app/models/city.model";
-import { ItineraryInformationService } from "src/app/services/itinerary-information.service";
-import { ItineraryInformation } from "src/app/models/itineraryInformation.model";
 import { TravelMode } from "src/app/models/travelModeEnum.mode";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { User } from "src/app/models/user.model";

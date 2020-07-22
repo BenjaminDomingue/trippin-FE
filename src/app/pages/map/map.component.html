@@ -1,8 +1,15 @@
-<div class="page-container">
   <div class="container">
-    <div>
+    <div class="itinerary-inputs">
+      <div class="itinerary-name">
+        <input
+          id="itineraryName"
+          [(ngModel)]="itinerary.name"
+          type="text"
+          placeholder="Enter your itinerary's name"
+        >
+      </div>
       <div
-        class="cityName"
+        class="city-inputs"
         *ngFor="let input of inputFields"
       >
         <button mat-button>
@@ -18,23 +25,12 @@
           >
         </div>
       </div>
+      <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
     </div>
-    <div class="map">
-      <div class="optionsInput">
-        <input
-          id="itineraryName"
-          [(ngModel)]="itinerary.name"
-          type="text"
-          placeholder="Enter your itinerary's name"
-        >
-        <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
-      </div>
-      <div id="googlemap"></div>
-    </div>
+    <div id="googlemap"></div>
   </div>
   <button
     class="save-button"
     mat-button
     (click)="saveItinerary(itinerary)"
   >Save your itinerary</button>
-</div>

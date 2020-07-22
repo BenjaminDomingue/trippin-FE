@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
   selectedTravelMode: any;
   // directionsService = new google.maps.DirectionsService();
   // directionsRenderer = new google.maps.DirectionsRenderer();
-  inputFields = [{ id: 0 }];
+  inputFields = [{ id: 0 }, { id: 1 }];
   autocompletes = [];
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
@@ -154,7 +154,7 @@ export class MapComponent implements OnInit {
       (element) => element.id === index
     );
 
-    if (autocomplete == undefined) {
+    if (autocomplete === undefined) {
       autocomplete = {
         id: index,
         autocomplete: new google.maps.places.Autocomplete(input as any),
