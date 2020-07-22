@@ -1,8 +1,16 @@
-.label {
+.container {
+  display: flex;
+}
+
+.icon {
+  color: grey;
+}
+
+/* .label {
     width: 200px;
 }
 
 .form-field-infix {
     display: flex !important; 
     width: 300px !important;   
-}
+} */

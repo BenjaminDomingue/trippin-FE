@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <form>
     <select
       formControlName="selectedTravelMode"
@@ -10,4 +10,12 @@
       </option>
     </select>
   </form>
+</div> -->
+<div class="container">
+  <mat-icon *ngFor="let icon of travelModeIcon"
+    class="icon"
+    (click)="selectTravelMode(icon)"
+  >
+    {{icon}}
+  </mat-icon>
 </div>

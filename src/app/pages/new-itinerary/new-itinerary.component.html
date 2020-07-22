@@ -26,11 +26,11 @@
         </div>
       </div>
       <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
+      <button
+        class="save-button"
+        mat-button
+        (click)="saveItinerary(itinerary)"
+      >Save your itinerary</button>
     </div>
     <div id="googlemap"></div>
   </div>
-  <button
-    class="save-button"
-    mat-button
-    (click)="saveItinerary(itinerary)"
-  >Save your itinerary</button>
