@@ -14,7 +14,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { UserPageComponent } from "./pages/user-page/user-page.component";
-import { MapComponent } from "./pages/map/map.component";
+import { NewItineraryComponent } from "./pages/new-itinerary/new-itinerary.component";
 import { UserItinerariesComponent } from "./pages/user-itineraries/user-itineraries.component";
 import { ItineraryDataService } from "./data-services/itinerary.data-service";
 import { ItineraryService } from "./services/itinerary.service";
@@ -22,7 +22,7 @@ import { SelectMenuComponent } from "./components/select-menu/select-menu.compon
 import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { RegistrationComponent } from "./pages/registration/registration.component";
-import { UserItineraryComponent } from './pages/user-itinerary/user-itinerary.component';
+import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { UserItineraryComponent } from './pages/user-itinerary/user-itinerary.co
     NavbarComponent,
     LoginPageComponent,
     UserPageComponent,
-    MapComponent,
+    NewItineraryComponent,
     UserItinerariesComponent,
     SelectMenuComponent,
     RegistrationComponent,
@@ -62,7 +62,7 @@ import { UserItineraryComponent } from './pages/user-itinerary/user-itinerary.co
     NavbarComponent,
     LoginPageComponent,
     UserPageComponent,
-    MapComponent,
+    NewItineraryComponent,
     UserItinerariesComponent,
   ],
   bootstrap: [AppComponent],

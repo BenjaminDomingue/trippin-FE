@@ -6,11 +6,11 @@ import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
 
 @Component({
-  selector: "app-map",
-  templateUrl: "./map.component.html",
-  styleUrls: ["./map.component.css"],
+  selector: "app-new-itinerary",
+  templateUrl: "./new-itinerary.component.html",
+  styleUrls: ["./new-itinerary.component.css"],
 })
-export class MapComponent implements OnInit {
+export class NewItineraryComponent implements OnInit {
   userId: string | undefined;
   itinerary: Itinerary = {
     id: "",

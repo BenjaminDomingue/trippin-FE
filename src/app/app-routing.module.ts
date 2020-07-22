@@ -4,8 +4,8 @@ import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { UserPageComponent } from "./pages/user-page/user-page.component";
 import { UserItinerariesComponent } from "./pages/user-itineraries/user-itineraries.component";
 import { RegistrationComponent } from "./pages/registration/registration.component";
-import { MapComponent } from "./pages/map/map.component";
 import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
+import { NewItineraryComponent } from "./pages/new-itinerary/new-itinerary.component";
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: "users/:userId/itineraries/new",
-    component: MapComponent,
+    component: NewItineraryComponent,
   },
   {
     path: "users/:userId/itineraries/:itineraryId",

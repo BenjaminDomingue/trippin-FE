@@ -12,8 +12,8 @@
       (click)="lookItineraries()"
     >Click to look at your itineraries?</button>
   </div>
-  <app-map
+  <app-new-itinerary
     *ngIf="showMap"
     (handleSaveEvent)="saveItinerary($event)"
-  ></app-map>
+  ></app-new-itinerary>
 </div>
