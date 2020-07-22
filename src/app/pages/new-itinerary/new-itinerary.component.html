@@ -10,7 +10,7 @@
       </div>
       <div
         class="city-inputs"
-        *ngFor="let input of inputFields"
+        *ngFor="let input of inputFields, index as i; let last = last"
       >
         <button mat-button>
           <mat-icon (click)="add()">add</mat-icon>
@@ -23,9 +23,11 @@
             type="text"
             placeholder="Enter a city!"
           >
+          <div *ngIf="!last">
+            <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
+          </div>
         </div>
       </div>
-      <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
       <button
         class="save-button"
         mat-button
