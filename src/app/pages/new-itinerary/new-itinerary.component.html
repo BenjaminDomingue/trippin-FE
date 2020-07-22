@@ -12,18 +12,23 @@
         class="city-inputs"
         *ngFor="let input of inputFields, index as i; let last = last"
       >
-        <button mat-button>
-          <mat-icon (click)="add()">add</mat-icon>
-        </button>
-        <div class="cityInput">
-          <input
-            (keyup)="inputChange($event, input.id)"
-            id="{{'searchCity-'+ input.id}}"
-            class="controls"
-            type="text"
-            placeholder="Enter a city!"
+        <div class="city-name-travel-mode">
+          <div class="allo">
+            <button mat-button>
+              <mat-icon (click)="add()">add</mat-icon>
+            </button>
+            <input
+              (keyup)="inputChange($event, input.id)"
+              id="{{'searchCity-'+ input.id}}"
+              class="controls"
+              type="text"
+              placeholder="Enter a city!"
+            >
+          </div>
+          <div
+            *ngIf="!last"
+            class="travel-mode"
           >
-          <div *ngIf="!last">
             <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
           </div>
         </div>
