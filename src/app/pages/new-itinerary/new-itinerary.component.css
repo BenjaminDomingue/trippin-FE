@@ -102,7 +102,7 @@ display: flex;
 }
 
 .add-location {
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 30px;
 }
 
@@ -111,7 +111,7 @@ display: flex;
 }
 
 .last-dots {
-  margin-left: -39px;
+  margin-left: -49px;
   font-size: 40px;
   margin-top: 6px;
 }
@@ -131,7 +131,7 @@ display: flex;
 }
 
 .clickable-add-location {
-  margin-left: -33px;
+  margin-left: -43px;
   font-size: 30px;
   margin-top: 19px;
 }

@@ -128,11 +128,6 @@ export class NewItineraryComponent implements OnInit {
     this.itineraryService.saveItinerary(itinerary, this.userId).subscribe();
   }
 
-  saveItineraryName(itineraryName: string) {
-    this.itinerary.name = itineraryName;
-    // return this.handleSaveEvent.emit(this.itinerary);
-  }
-
   receivedSelectedTravelMode($event) {
     this.selectedTravelMode = $event;
     for (let i = 0; i < this.places.length; i++) {
