@@ -19,12 +19,16 @@
 
 .city-inputs {
   display: flex;
-  height: 75px;
+  height: 78px;
 }
 
 .save-button {
-  margin-top: 24px;
-  background-color: #efc3e6;
+  background-color: #4398D3;
+  width: 160px;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-left: 255px;
+  margin-top: 30px;
 }
 
 .optionsInput {
@@ -43,19 +47,13 @@
   outline: none;
 }
 
-
-.nameInput {
-  display: flex;
-  margin-left: 62px;
+.input-name {
+width: 350px;
+margin-left: 11px;
 }
 
 .map {
   width: 100%;
-}
-
-input {
-  width: 100%;
-  margin-right: 48px;
 }
 
 .cityInput {
@@ -68,14 +66,72 @@ input {
   height: 25px;
 }
 
-.allo {
+.inputs-div {
   display: flex;
+  flex-direction: column;
+}
+
+.top-inputs-div {
+display: flex;
 }
 
 .itinerary-name {
   margin-bottom: 32px;
 }
 
-.travel-mode {
-  margin-top: 35px;
+.bottom-inputs-div {
+  display: flex;
+  justify-content: space-between;
+  width: 430px;
+}
+
+.inputs-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dots {
+  margin-left: -5px;
+  font-size: 40px;
+  margin-top: 3px;
+}
+
+.controls {
+  width: 235px !important;
+}
+
+.add-location {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+.add-clickable {
+  display: flex;
+}
+
+.last-dots {
+  margin-left: -39px;
+  font-size: 40px;
+  margin-top: 6px;
+}
+
+.test {
+  display: flex;
+  flex-direction: column;
+}
+
+.invisible-input {
+  border: none;
+  background-color: white;
+}
+
+.last-add {
+  display: flex;
+}
+
+.clickable-add-location {
+  margin-left: -33px;
+  font-size: 30px;
+  margin-top: 19px;
 }

@@ -1,16 +1,17 @@
 .container {
   display: flex;
+  margin-top: 10px;
 }
 
 .icon {
   color: grey;
 }
 
-/* .label {
-    width: 200px;
+.icon:hover {
+  color: #4068EE;
+  cursor: pointer;
 }
 
-.form-field-infix {
-    display: flex !important; 
-    width: 300px !important;   
-} */
+.icon-selected {
+  color: #4068EE;
+}

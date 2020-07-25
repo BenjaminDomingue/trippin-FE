@@ -1,8 +1,11 @@
 <div class="container">
-  <mat-icon *ngFor="let icon of travelModeIcon"
+  <mat-icon
+    *ngFor="let travelMode of isTravelModeSelectedArray"
     class="icon"
-    (click)="selectTravelMode(icon)"
+    (click)="selectTravelMode(travelMode)"
   >
-    {{icon}}
+    <div [ngClass]="travelMode.isSelected === true ? 'icon-selected' : 'icon'">
+      {{travelMode.travelMode}}
+    </div>
   </mat-icon>
 </div>

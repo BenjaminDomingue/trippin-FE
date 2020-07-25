@@ -1,15 +1,15 @@
 .navbar {
-    background-color: #efc3e6;
+    background-color: #4398D3;
     margin-bottom: 88px;
     height: 72px;
 }
 
 .navbar-brand {
-    color: black;
+    color: white;
 }
 
 .nav-link {
-    color: black;
+    color: white;
 }
 
 #loginButton {

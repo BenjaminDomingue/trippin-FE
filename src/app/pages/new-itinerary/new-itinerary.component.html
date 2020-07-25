@@ -1,43 +1,68 @@
-  <div class="container">
-    <div class="itinerary-inputs">
-      <div class="itinerary-name">
-        <input
-          id="itineraryName"
-          [(ngModel)]="itinerary.name"
-          type="text"
-          placeholder="Enter your itinerary's name"
-        >
-      </div>
-      <div
-        class="city-inputs"
-        *ngFor="let input of inputFields, index as i; let last = last"
+<div class="container">
+  <div class="itinerary-inputs">
+    <div class="itinerary-name">
+      <input
+        class="input-name"
+        id="itineraryName"
+        [(ngModel)]="itinerary.name"
+        type="text"
+        placeholder="Enter your itinerary's name"
       >
-        <div class="city-name-travel-mode">
-          <div class="allo">
-            <button mat-button>
-              <mat-icon (click)="add()">add</mat-icon>
-            </button>
-            <input
-              (keyup)="inputChange($event, input.id)"
-              id="{{'searchCity-'+ input.id}}"
-              class="controls"
-              type="text"
-              placeholder="Enter a city!"
-            >
+    </div>
+    <div
+      class="city-inputs"
+      *ngFor="let input of inputFields, index as i; let last = last"
+    >
+      <div class="city-name-travel-mode">
+        <div class="inputs-div">
+          <div class="top-inputs-div">
+            <mat-icon class="add-location">add_location</mat-icon>
+            <div>
+              <input
+                (keyup)="inputChange($event, input.id)"
+                id="{{'searchCity-'+ input.id}}"
+                class="controls"
+                type="text"
+                placeholder="Enter a city!"
+              >
+              <div class="last-add">
+                <div
+                  *ngIf="last"
+                  class="test"
+                >
+                  <mat-icon class="last-dots">more_vert</mat-icon>
+                  <mat-icon
+                    class="clickable-add-location"
+                    (click)="add()"
+                  >add_location</mat-icon>
+                </div>
+                <div
+                  class="add-clickable"
+                  *ngIf="last"
+                >
+                  <input
+                    [disabled]="true"
+                    id="{{'searchCity-'+ input.id}}"
+                    class="invisible-input"
+                  >
+                </div>
+              </div>
+            </div>
           </div>
           <div
             *ngIf="!last"
-            class="travel-mode"
+            class="bottom-inputs-div"
           >
+            <mat-icon class="dots">more_vert</mat-icon>
             <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
           </div>
         </div>
       </div>
-      <button
-        class="save-button"
-        mat-button
-        (click)="saveItinerary(itinerary)"
-      >Save your itinerary</button>
     </div>
-    <div id="googlemap"></div>
+    <button
+      class="save-button"
+      (click)="saveItinerary(itinerary)"
+    >Save your itinerary</button>
   </div>
+  <div id="googlemap"></div>
+</div>

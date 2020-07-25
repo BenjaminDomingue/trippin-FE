@@ -32,11 +32,11 @@ const routes: Routes = [
     path: "users/:userId/itineraries/:itineraryId",
     component: UserItineraryComponent,
   },
-  { path: "", component: RegistrationComponent },
+  { path: "", component: UserPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
