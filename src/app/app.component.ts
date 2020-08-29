@@ -11,16 +11,18 @@ export class AppComponent implements OnInit {
   isUserLoggedIn = false;
   constructor(
     private authorizationService: AuthorizationService,
+    private readonly router: Router
   ) {
     this.authorizationService.loginState.subscribe(
       (isUserLoggedIn) => (this.isUserLoggedIn = isUserLoggedIn)
     );
   }
+
   ngOnInit() {
-    // if (!this.isUserLoggedIn) {
-    // this.router.navigate(["login"]);
-    // } else {
-    this.authorizationService.effectivelyLoginUser();
-    // }
+    if (!this.isUserLoggedIn) {
+      this.router.navigate(["login"]);
+    } else {
+      this.authorizationService.effectivelyLoginUser();
+    }
   }
 }

@@ -32,7 +32,7 @@ export class NewItineraryComponent implements OnInit {
   origin: any;
   destination: any;
   places = [];
-  selectedTravelMode: any;
+  selectedTravelMode: TravelMode;
   // directionsService = new google.maps.DirectionsService();
   // directionsRenderer = new google.maps.DirectionsRenderer();
   inputFields = [{ id: 0 }, { id: 1 }];
@@ -47,7 +47,7 @@ export class NewItineraryComponent implements OnInit {
   constructor(
     private readonly itineraryService: ItineraryService,
     private readonly authorizationService: AuthorizationService
-  ) {}
+  ) { }
 
   initMap() {
     this.setMapAndGetCurrentPosition();
@@ -92,6 +92,11 @@ export class NewItineraryComponent implements OnInit {
 
     const city = this.getCityProperties(this.place, this.city);
     this.itinerary.cities.push(city);
+    for (let i = 0; i < this.places.length; i++) {
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      const directionsService = new google.maps.DirectionsService();
+      this.getDirection(this.map, directionsRenderer, directionsService);
+    }
   }
 
   getCityProperties(place: any, city: City) {
@@ -129,7 +134,8 @@ export class NewItineraryComponent implements OnInit {
   }
 
   receivedSelectedTravelMode($event) {
-    this.selectedTravelMode = $event;
+    const selectedTravelMode = $event;
+    
     for (let i = 0; i < this.places.length; i++) {
       const directionsRenderer = new google.maps.DirectionsRenderer();
       const directionsService = new google.maps.DirectionsService();
@@ -140,6 +146,7 @@ export class NewItineraryComponent implements OnInit {
   add() {
     const input = { id: this.inputFields.length };
     this.inputFields = this.inputFields.concat(input);
+    // this.selectedTravelMode = null;
   }
 
   inputChange(event: any, index: number) {
