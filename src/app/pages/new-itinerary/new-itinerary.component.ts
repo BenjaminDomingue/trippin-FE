@@ -134,8 +134,7 @@ export class NewItineraryComponent implements OnInit {
   }
 
   receivedSelectedTravelMode($event) {
-    const selectedTravelMode = $event;
-    
+    this.selectedTravelMode = $event;
     for (let i = 0; i < this.places.length; i++) {
       const directionsRenderer = new google.maps.DirectionsRenderer();
       const directionsService = new google.maps.DirectionsService();
@@ -146,7 +145,6 @@ export class NewItineraryComponent implements OnInit {
   add() {
     const input = { id: this.inputFields.length };
     this.inputFields = this.inputFields.concat(input);
-    // this.selectedTravelMode = null;
   }
 
   inputChange(event: any, index: number) {
