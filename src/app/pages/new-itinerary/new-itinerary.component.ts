@@ -4,7 +4,7 @@ import { City } from "src/app/models/city.model";
 import { TravelMode } from "src/app/models/travelModeEnum.mode";
 import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
-import { allowedNodeEnvironmentFlags } from 'process';
+import { DirectionsCreationInformation } from 'src/app/models/directionsCreationInformation.model';
 
 @Component({
   selector: "app-new-itinerary",
@@ -34,9 +34,19 @@ export class NewItineraryComponent implements OnInit {
   destination: any;
   places = [];
   selectedTravelMode: TravelMode;
-  // directionsService = new google.maps.DirectionsService();
-  // directionsRenderer = new google.maps.DirectionsRenderer();
-  inputFields = [{ id: 0, isSelected: false }, { id: 1, isSelected: false }];
+  inputFields = [
+    {
+      id: 0,
+      isSelected: false,
+      selectedTravelMode: ""
+    },
+    {
+      id: 1,
+      isSelected: false,
+      selectedTravelMode: TravelMode
+    }
+  ];
+  directionsInformation = [];
   autocompletes = [];
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
@@ -93,11 +103,6 @@ export class NewItineraryComponent implements OnInit {
 
     const city = this.getCityProperties(this.place, this.city);
     this.itinerary.cities.push(city);
-    for (let i = 0; i < this.places.length; i++) {
-      const directionsRenderer = new google.maps.DirectionsRenderer();
-      const directionsService = new google.maps.DirectionsService();
-      this.getDirection(this.map, directionsRenderer, directionsService);
-    }
   }
 
   getCityProperties(place: any, city: City) {
@@ -109,16 +114,16 @@ export class NewItineraryComponent implements OnInit {
     return city;
   }
 
-  getDirection(map, directionsRenderer, directionsService) {
+  getDirection(map, directionsRenderer, directionsService, selectedTravelMode: TravelMode, placesIndex: number) {
     directionsRenderer.setMap(map);
 
-    for (let i = 0; i < this.places.length; i++) {
+    for (let i = placesIndex; i < this.places.length; i++) {
       const start = this.places[i].place_id;
       const end = this.places[i + 1].place_id;
       const request = {
         origin: { placeId: start },
         destination: { placeId: end },
-        travelMode: google.maps.TravelMode[this.selectedTravelMode],
+        travelMode: google.maps.TravelMode[selectedTravelMode],
       };
 
       directionsService.route(request, function (result, status) {
@@ -136,20 +141,41 @@ export class NewItineraryComponent implements OnInit {
 
   receivedSelectedTravelMode($event) {
     this.selectedTravelMode = $event;
-    for (let i = 0; i < this.places.length; i++) {
-      const directionsRenderer = new google.maps.DirectionsRenderer();
-      const directionsService = new google.maps.DirectionsService();
-      this.getDirection(this.map, directionsRenderer, directionsService);
-    }
   }
 
   addCityInput() {
-    const input = { id: this.inputFields.length, isSelected: false };
+    const input = { id: this.inputFields.length, isSelected: false, selectedTravelMode: TravelMode };
     this.inputFields = this.inputFields.concat(input);
   }
 
-  selectedTravelModeInput(i: number) {
-    this.inputFields[i].isSelected = true;
+  createDirectionUtilities(i: number) {
+    if (!this.inputFields[i].isSelected) {
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      const directionsService = new google.maps.DirectionsService();
+      const selectedTravelMode = this.selectedTravelMode;
+      const directionsCreationInformation:
+        DirectionsCreationInformation = {
+        id: "",
+        directionsRenderer: directionsRenderer,
+        directionsService: directionsService,
+        selectedTravelMode: selectedTravelMode
+      }
+
+      this.directionsInformation = this.directionsInformation.concat(directionsCreationInformation);
+      this.inputFields[i].isSelected = true;
+
+      this.getDirection(this.map, directionsRenderer, directionsService, selectedTravelMode, i);
+    }
+    else {
+      this.inputFields[i].selectedTravelMode = this.selectedTravelMode;
+      this.getDirection(
+        this.map,
+        this.directionsInformation[i].directionsRenderer,
+        this.directionsInformation[i].directionsService,
+        this.selectedTravelMode,
+        i
+      );
+    }
     return this.inputFields[i];
   }
 
