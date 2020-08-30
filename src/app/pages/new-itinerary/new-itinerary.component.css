@@ -104,10 +104,12 @@ display: flex;
 .add-location {
   margin-right: 20px;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .add-clickable {
   display: flex;
+    cursor: pointer;
 }
 
 .last-dots {
@@ -116,7 +118,7 @@ display: flex;
   margin-top: 6px;
 }
 
-.test {
+.last {
   display: flex;
   flex-direction: column;
 }
@@ -134,4 +136,5 @@ display: flex;
   margin-left: -43px;
   font-size: 30px;
   margin-top: 19px;
+  cursor: pointer;
 }

@@ -28,12 +28,12 @@
               <div class="last-add">
                 <div
                   *ngIf="last"
-                  class="test"
+                  class="last"
                 >
                   <mat-icon class="last-dots">more_vert</mat-icon>
                   <mat-icon
                     class="clickable-add-location"
-                    (click)="add()"
+                    (click)="addCityInput()"
                   >add_circle_outline</mat-icon>
                 </div>
                 <div
@@ -54,7 +54,10 @@
             class="bottom-inputs-div"
           >
             <mat-icon class="dots">more_vert</mat-icon>
-            <app-select-menu (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"></app-select-menu>
+            <app-select-menu
+              (click)="selectedTravelModeInput(i)"
+              (sendSelectedTravelMode)="receivedSelectedTravelMode($event)"
+            ></app-select-menu>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { City } from "src/app/models/city.model";
 import { TravelMode } from "src/app/models/travelModeEnum.mode";
 import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
+import { allowedNodeEnvironmentFlags } from 'process';
 
 @Component({
   selector: "app-new-itinerary",
@@ -35,7 +36,7 @@ export class NewItineraryComponent implements OnInit {
   selectedTravelMode: TravelMode;
   // directionsService = new google.maps.DirectionsService();
   // directionsRenderer = new google.maps.DirectionsRenderer();
-  inputFields = [{ id: 0 }, { id: 1 }];
+  inputFields = [{ id: 0, isSelected: false }, { id: 1, isSelected: false }];
   autocompletes = [];
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
@@ -142,9 +143,14 @@ export class NewItineraryComponent implements OnInit {
     }
   }
 
-  add() {
-    const input = { id: this.inputFields.length };
+  addCityInput() {
+    const input = { id: this.inputFields.length, isSelected: false };
     this.inputFields = this.inputFields.concat(input);
+  }
+
+  selectedTravelModeInput(i: number) {
+    this.inputFields[i].isSelected = true;
+    return this.inputFields[i];
   }
 
   inputChange(event: any, index: number) {
