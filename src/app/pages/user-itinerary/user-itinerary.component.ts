@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnChanges } from "@angular/core";
 import { City } from "src/app/models/city.model";
 import { ItineraryInformation } from "src/app/models/itineraryInformation.model";
 import { Itinerary } from "src/app/models/itinerary.model";
 import { ActivatedRoute } from "@angular/router";
 import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-user-itinerary",
@@ -26,32 +28,68 @@ export class UserItineraryComponent implements OnInit {
   itinerary: Itinerary | undefined;
   itineraryId: string | undefined;
   userId: string | undefined;
+  stylesJson: any;
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly itineraryService: ItineraryService,
-    private readonly authorizationService: AuthorizationService
-  ) {}
+    private readonly authorizationService: AuthorizationService,
+    private readonly http: HttpClient
+  ) { }
 
-  ngOnInit(): void {
-    this.setMap();
+  ngOnInit() {
+    this.getSelectedMapLayoutColorJSON(1).subscribe((data) => {
+      this.stylesJson = data;
+      this.setMap(this.stylesJson);
+    })
+
     this.route.params.subscribe((params) => {
       this.itineraryId = params.itineraryId;
     });
+
     this.getItineraryById();
   }
 
-  setMap() {
-    const mapProperties = {
+  getSelectedMapLayoutColorJSON(index: number): Observable<any> {
+    switch (index) {
+      case 1:
+        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-standard.json");
+        this.setMap(this.stylesJson);
+        return this.stylesJson;
+      case 2:
+        this.mapProperties.styles = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
+        this.setMap(this.stylesJson);
+        return this.stylesJson;
+      case 3:
+        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-aubergine.json");
+        this.setMap(this.stylesJson);
+        return this.stylesJson;
+      case 4:
+        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-dark.json");
+        this.setMap(this.stylesJson);
+        return this.stylesJson;
+      case 5:
+        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
+        this.setMap(this.stylesJson);
+        return this.stylesJson;
+    }
+  }
+
+  setMap(Json: any) {
+
+    this.mapProperties = {
       zoom: 14,
       mapTypeId: "roadmap",
+      styles: Json
     };
+
     this.map = new google.maps.Map(
       document.getElementById("googlemap"),
-      mapProperties
+      this.mapProperties
     );
+
   }
 
   getItineraryById() {

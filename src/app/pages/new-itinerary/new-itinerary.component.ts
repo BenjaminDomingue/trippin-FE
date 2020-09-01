@@ -57,7 +57,7 @@ export class NewItineraryComponent implements OnInit {
 
   constructor(
     private readonly itineraryService: ItineraryService,
-    private readonly authorizationService: AuthorizationService
+    private readonly authorizationService: AuthorizationService,
   ) { }
 
   initMap() {
@@ -79,6 +79,7 @@ export class NewItineraryComponent implements OnInit {
           zoom: 14,
           mapTypeId: "roadmap",
         };
+
         this.map = new google.maps.Map(
           document.getElementById("googlemap"),
           this.mapProperties
@@ -102,6 +103,7 @@ export class NewItineraryComponent implements OnInit {
     this.places.push(this.place);
 
     const city = this.getCityProperties(this.place, this.city);
+
     this.itinerary.cities.push(city);
   }
 
@@ -111,6 +113,7 @@ export class NewItineraryComponent implements OnInit {
     city.lat = place.geometry.location.lat();
     city.lng = place.geometry.location.lng();
     city.id = place.place_id;
+
     return city;
   }
 
@@ -176,6 +179,7 @@ export class NewItineraryComponent implements OnInit {
         i
       );
     }
+
     return this.inputFields[i];
   }
 
