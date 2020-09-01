@@ -18,7 +18,7 @@ export class UserItineraryComponent implements OnInit {
   cities: City[];
   zoom: number;
   mapProperties: any;
-  map: any;
+  map: google.maps.Map;
   marker: any;
   markers = [];
   origin: any;
@@ -40,10 +40,7 @@ export class UserItineraryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getSelectedMapLayoutColorJSON(1).subscribe((data) => {
-      this.stylesJson = data;
-      this.setMap(this.stylesJson);
-    })
+    this.getSelectedMapLayoutColorJSON(1);
 
     this.route.params.subscribe((params) => {
       this.itineraryId = params.itineraryId;
@@ -52,44 +49,45 @@ export class UserItineraryComponent implements OnInit {
     this.getItineraryById();
   }
 
-  getSelectedMapLayoutColorJSON(index: number): Observable<any> {
+  getSelectedMapLayoutColorJSON(index: number) {
     switch (index) {
       case 1:
         this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-standard.json");
-        this.setMap(this.stylesJson);
-        return this.stylesJson;
+        break;
       case 2:
-        this.mapProperties.styles = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
-        this.setMap(this.stylesJson);
-        return this.stylesJson;
+        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
+        break;
       case 3:
         this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-aubergine.json");
-        this.setMap(this.stylesJson);
-        return this.stylesJson;
+        break;
       case 4:
         this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-dark.json");
-        this.setMap(this.stylesJson);
-        return this.stylesJson;
+        break;
       case 5:
         this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
-        this.setMap(this.stylesJson);
-        return this.stylesJson;
+        break;
     }
+    this.stylesJson.subscribe((data) => {
+      this.setMap(data);
+    })
   }
 
   setMap(Json: any) {
-
     this.mapProperties = {
-      zoom: 14,
+      zoom: 8,
       mapTypeId: "roadmap",
       styles: Json
     };
 
-    this.map = new google.maps.Map(
-      document.getElementById("googlemap"),
-      this.mapProperties
-    );
-
+    if (this.map != undefined) {
+      this.map.setOptions(this.mapProperties);
+    }
+    else {
+      this.map = new google.maps.Map(
+        document.getElementById("googlemap"),
+        this.mapProperties
+      );
+    }
   }
 
   getItineraryById() {
