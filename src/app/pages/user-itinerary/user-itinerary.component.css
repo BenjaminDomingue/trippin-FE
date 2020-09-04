@@ -1,4 +1,10 @@
 #googlemap {
   height: 500px;
   width: 100%;
+  z-index: 1;
+}
+
+.style-element-dropdown {
+  margin-bottom: 400px;
+  z-index: 2;
 }

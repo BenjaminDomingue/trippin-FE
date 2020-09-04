@@ -25,6 +25,7 @@
     "@auth0/angular-jwt": "^4.0.0",
     "@types/googlemaps": "^3.39.3",
     "bootstrap": "^4.4.1",
+    "ngx-color": "^6.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^1.11.1",
     "zone.js": "~0.10.2"

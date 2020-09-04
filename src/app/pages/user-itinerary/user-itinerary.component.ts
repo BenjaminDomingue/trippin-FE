@@ -29,6 +29,7 @@ export class UserItineraryComponent implements OnInit {
   itineraryId: string | undefined;
   userId: string | undefined;
   stylesJson: any;
+  styledMapElements = ["road", "water", "land"];
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
@@ -141,5 +142,9 @@ export class UserItineraryComponent implements OnInit {
         directionsRenderer.setDirections(result);
       }
     });
+  }
+
+  changeColor(event: any) {
+    console.log(event);
   }
 }

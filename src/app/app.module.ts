@@ -23,6 +23,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { RegistrationComponent } from "./pages/registration/registration.component";
 import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
+import { ColorSketchModule } from 'ngx-color/sketch';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.co
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
+    ColorSketchModule
   ],
   providers: [
     AuthorizationDataService,
@@ -67,4 +70,4 @@ import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.co
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
