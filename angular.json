@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "index": "src/index.html",
             "outputPath": "dist/trippin-project-app",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

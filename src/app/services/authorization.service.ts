@@ -25,7 +25,9 @@ export class AuthorizationService {
   constructor(
     private readonly authorizationDataService: AuthorizationDataService,
     private readonly router: Router
-  ) {}
+  ) {
+    this.loginState.next(this.isUserLoggedIn());
+  }
 
   loginUser(userToLogin: UserToLogin) {
     return this.authorizationDataService.login(userToLogin).pipe(
