@@ -7,6 +7,7 @@ import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: "app-user-itinerary",
@@ -30,6 +31,11 @@ export class UserItineraryComponent implements OnInit {
   userId: string | undefined;
   stylesJson: any;
   styledMapElements = ["road", "water", "land"];
+  color = "#FF0000";
+  isOpened = false;
+  white = "#FFFAFA";
+  selectedColor = "";
+  yes = false;
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
@@ -41,7 +47,7 @@ export class UserItineraryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getSelectedMapLayoutColorJSON(1);
+    this.getSelectedMapLayoutColorJSON(1, "");
 
     this.route.params.subscribe((params) => {
       this.itineraryId = params.itineraryId;
@@ -50,26 +56,44 @@ export class UserItineraryComponent implements OnInit {
     this.getItineraryById();
   }
 
-  getSelectedMapLayoutColorJSON(index: number) {
+  getSelectedMapLayoutColorJSON(index: number, elementToStyle: string) {
     switch (index) {
       case 1:
-        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-standard.json");
-        break;
-      case 2:
-        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
-        break;
-      case 3:
-        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-aubergine.json");
-        break;
-      case 4:
-        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-dark.json");
-        break;
-      case 5:
         this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
         break;
+      // case 2:
+      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
+      //   break;
+      // case 3:
+      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-aubergine.json");
+      //   break;
+      // case 4:
+      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-dark.json");
+      //   break;
+      // case 5:
+      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
+      //   break;
     }
     this.stylesJson.subscribe((data) => {
-      this.setMap(data);
+      if (data != null) {
+        switch (elementToStyle) {
+          case "land":
+            data[0]["stylers"][0]["color"] = this.selectedColor;
+            break;
+          case "water":
+            data[16]["stylers"][0]["color"] = this.selectedColor;
+            break;
+          case "road":
+            data[9]["stylers"][0]["color"] = this.selectedColor;
+            data[10]["stylers"][0]["color"] = this.selectedColor;
+            data[11]["stylers"][0]["color"] = this.selectedColor;
+            break;
+        }
+        this.setMap(data);
+      }
+      else {
+        this.setMap(data);
+      }
     })
   }
 
@@ -144,7 +168,15 @@ export class UserItineraryComponent implements OnInit {
     });
   }
 
-  changeColor(event: any) {
-    console.log(event);
+  receivedColor(selectedColor: string) {
+    this.selectedColor = selectedColor;
+  }
+
+  selectElementTostyle(event: MatSelectChange) {
+    event.source.placeholder = event.value;
+    event.source.panelOpen;
+    this.yes = true;
+    const elementToStyle = event.value;
+    this.getSelectedMapLayoutColorJSON(5, elementToStyle);
   }
 }

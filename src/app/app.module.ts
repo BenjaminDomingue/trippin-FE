@@ -23,7 +23,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatIconModule } from "@angular/material/icon";
 import { RegistrationComponent } from "./pages/registration/registration.component";
 import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
-import { ColorSketchModule } from 'ngx-color/sketch';
+import { ColorPickerModule } from 'ngx-color-picker';
+
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import { ColorSketchModule } from 'ngx-color/sketch';
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
-    ColorSketchModule
+    ColorPickerModule,
   ],
   providers: [
     AuthorizationDataService,

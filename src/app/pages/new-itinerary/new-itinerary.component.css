@@ -10,6 +10,7 @@
 
 .container {
   display: flex;
+  margin-top: 88px;
 }
 
 .itinerary-inputs {
