@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Itinerary } from "../models/itinerary.model";
-import { map } from "rxjs/operators";
 import { AppConfig } from "../constants/app.config";
 import { HttpRequestService } from "../services/http-request.service";
 

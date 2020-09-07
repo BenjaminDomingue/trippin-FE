@@ -7,12 +7,12 @@
 #googlemap {
   height: 500px;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
 }
 
 .style-element-dropdown {
   margin-bottom: 400px;
-  z-index: 2;
+  z-index: 10 !important;
 }
 
 .title {
@@ -21,4 +21,8 @@
 
 .myPanelClass{
     margin-top: 30px !important; 
+}
+
+.cdk-overlay-container, .cdk-overlay-pane {
+     z-index: 9999 !important;
 }
