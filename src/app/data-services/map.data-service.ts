@@ -9,6 +9,13 @@ import { MapStyleJSONModel } from '../models/map-style-json.model';
 export class MapDataService {
   constructor(private readonly httpRequestService: HttpRequestService) {
     this.updateMapStylesJson = this.updateMapStylesJson.bind(this);
+    this.getMapStylesJson = this.getMapStylesJson.bind(this);
+  }
+
+  getMapStylesJson(mapStyleId: string) {
+    const url = `${AppConfig.current.apiBaseEndpoint}/maps/map-style/${mapStyleId}`;
+
+    return this.httpRequestService.get<MapStyleJSONModel>(url);
   }
 
   updateMapStylesJson(json: string) {

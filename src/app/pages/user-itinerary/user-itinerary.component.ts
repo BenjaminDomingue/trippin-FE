@@ -7,7 +7,7 @@ import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { HttpClient } from '@angular/common/http';
 import { MatSelectChange } from '@angular/material/select';
-import { MapService } from 'src/app/services/map.service';
+import { TravelMode } from 'src/app/models/travelModeEnum.mode';
 
 @Component({
   selector: "app-user-itinerary",
@@ -26,7 +26,7 @@ export class UserItineraryComponent implements OnInit {
   destination: any;
   itineraryInformation: ItineraryInformation;
   information: ItineraryInformation;
-  itinerary: Itinerary | undefined;
+  itinerary = { id: "", name: "", cities: [], travelMode: TravelMode.DRIVING, mapStyleJsonModel: { id: "", mapStylesJson: "" } }
   itineraryId: string | undefined;
   userId: string | undefined;
   stylesJson: any;
@@ -49,7 +49,6 @@ export class UserItineraryComponent implements OnInit {
     private readonly itineraryService: ItineraryService,
     private readonly authorizationService: AuthorizationService,
     private readonly http: HttpClient,
-    private readonly mapService: MapService,
   ) { }
 
   ngOnInit() {
@@ -57,6 +56,7 @@ export class UserItineraryComponent implements OnInit {
 
     this.route.params.subscribe((params) => {
       this.itineraryId = params.itineraryId;
+      this.userId = params.userId;
     });
 
     this.getItineraryById();
@@ -67,9 +67,9 @@ export class UserItineraryComponent implements OnInit {
       case 1:
         this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
         break;
-      case 2:
-        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
-        break;
+      // case 2:
+      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
+      //   break;
       // case 3:
       //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-aubergine.json");
       //   break;
@@ -85,14 +85,11 @@ export class UserItineraryComponent implements OnInit {
         switch (elementToStyle) {
           case "land":
             data[0]["stylers"][0]["color"] = this.selectedColor;
-            this.mapService.updateMapStylesJson(data).subscribe((data) => {
-              console.log(data);
-              console.log(data.id);
-              var test = JSON.parse(data.MapStylesJsonString);
-              console.log(test);
-              console.log(data.MapStylesJsonString);
-              // console.log(JSON.parse(data["MapStylesJsonString"]));
-              this.landMapStyleJson = JSON.parse(data.MapStylesJsonString);
+            console.log(this.itinerary.id);
+
+            console.log(this.itinerary.mapStyleJsonModel);
+            this.itinerary.mapStyleJsonModel.mapStylesJson = JSON.stringify(data);
+            this.itineraryService.saveItinerary(this.itinerary, this.userId).subscribe((itinerary) => {
             });
             break;
           case "water":

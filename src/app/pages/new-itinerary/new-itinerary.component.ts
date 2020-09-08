@@ -5,6 +5,7 @@ import { TravelMode } from "src/app/models/travelModeEnum.mode";
 import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { DirectionsCreationInformation } from 'src/app/models/directionsCreationInformation.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: "app-new-itinerary",
@@ -18,6 +19,7 @@ export class NewItineraryComponent implements OnInit {
     name: "",
     cities: [],
     travelMode: TravelMode.DRIVING,
+    mapStyleJsonModel: { id: "", mapStylesJson: [{}] },
   };
   city: City = { id: "" };
   cities: City[];
@@ -48,16 +50,19 @@ export class NewItineraryComponent implements OnInit {
   ];
   directionsInformation = [];
   autocompletes = [];
+  mapStyleJson: any = [];
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   ngOnInit() {
     this.initMap();
+    this.getMapStyleJson();
   }
 
   constructor(
     private readonly itineraryService: ItineraryService,
     private readonly authorizationService: AuthorizationService,
+    private readonly http: HttpClient,
   ) { }
 
   initMap() {
@@ -139,7 +144,15 @@ export class NewItineraryComponent implements OnInit {
 
   saveItinerary(itinerary: Itinerary) {
     this.userId = this.authorizationService.userId;
+    console.log(this.mapStyleJson);
+    itinerary.mapStyleJsonModel.mapStylesJson = this.mapStyleJson
     this.itineraryService.saveItinerary(itinerary, this.userId).subscribe();
+  }
+
+  getMapStyleJson() {
+    this.http.get("./assets/map-styles-selection/map-styles-silver.json").subscribe((data) => {
+      this.mapStyleJson = data;
+    })
   }
 
   receivedSelectedTravelMode($event) {

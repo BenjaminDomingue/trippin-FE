@@ -6,6 +6,7 @@ import { MapDataService } from '../data-services/map.data-service';
 })
 export class MapService {
   updateMapStylesJson = this.mapDataService.updateMapStylesJson;
+  getMapStylesJson = this.mapDataService.getMapStylesJson;
 
   constructor(private readonly mapDataService: MapDataService) { }
 }

@@ -18,7 +18,6 @@ export class AuthorizationDataService {
 
   register(userToRegister: UserToRegister) {
     const url = `${AppConfig.current.apiBaseEndpoint}/users/register`;
-    console.log(url);
     return this.httpRequestService.post<UserToRegister, User>(
       url,
       userToRegister

@@ -27,6 +27,7 @@ export class UserItinerariesComponent implements OnInit {
     name: "",
     cities: [],
     travelMode: TravelMode.DRIVING,
+    mapStyleJsonModel: { id: "", mapStylesJson: [{}] }
   };
   userId: string | undefined;
   itineraries: Itinerary[] | undefined;
@@ -55,7 +56,7 @@ export class UserItinerariesComponent implements OnInit {
     private readonly authorizationService: AuthorizationService,
     private readonly itineraryService: ItineraryService,
     private readonly router: Router
-  ) {}
+  ) { }
 
   getUserItineraries = () => {
     this.authorizationService
