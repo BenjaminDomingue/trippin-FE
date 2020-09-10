@@ -19,7 +19,7 @@ export class NewItineraryComponent implements OnInit {
     name: "",
     cities: [],
     travelMode: TravelMode.DRIVING,
-    mapStyleJsonModel: { id: "", mapStylesJson: [{}] },
+    mapStyle: { id: "", mapStyleOptions: [] }
   };
   city: City = { id: "" };
   cities: City[];
@@ -143,9 +143,9 @@ export class NewItineraryComponent implements OnInit {
   }
 
   saveItinerary(itinerary: Itinerary) {
+    this.itinerary = itinerary;
     this.userId = this.authorizationService.userId;
-    console.log(this.mapStyleJson);
-    itinerary.mapStyleJsonModel.mapStylesJson = this.mapStyleJson
+    // this.itinerary.mapStyle.MapStyleOptions = this.setMapStyle();
     this.itineraryService.saveItinerary(itinerary, this.userId).subscribe();
   }
 
@@ -215,5 +215,168 @@ export class NewItineraryComponent implements OnInit {
         () => this.onPlaceChanged(autocomplete.autocomplete)
       );
     }
+  }
+
+  setMapStyle() {
+    return [
+      {
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#FF0000"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#FFA500"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#FFA500"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#FFA500"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#FFC0CB"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      }
+    ];
   }
 }

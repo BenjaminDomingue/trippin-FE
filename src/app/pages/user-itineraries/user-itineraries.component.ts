@@ -27,29 +27,16 @@ export class UserItinerariesComponent implements OnInit {
     name: "",
     cities: [],
     travelMode: TravelMode.DRIVING,
-    mapStyleJsonModel: { id: "", mapStylesJson: [{}] }
+    mapStyle: { id: "", mapStyleOptions: [] }
   };
   userId: string | undefined;
   itineraries: Itinerary[] | undefined;
-
-  // city: City = { id: "", name: "" };
-  // cities: City[];
-  // zoom: number;
-  // mapProperties: any;
-  // map: any;
-  // marker: any;
-  // markers = [];
-  // origin: any;
-  // destination: any;
-  // itineraryInformation: ItineraryInformation;
-  // information: ItineraryInformation;
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   ngOnInit() {
     this.userId = this.authorizationService.userId;
     this.getUserItineraries();
-    // this.initMap();
   }
 
   constructor(

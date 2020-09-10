@@ -26,7 +26,10 @@ export class UserItineraryComponent implements OnInit {
   destination: any;
   itineraryInformation: ItineraryInformation;
   information: ItineraryInformation;
-  itinerary = { id: "", name: "", cities: [], travelMode: TravelMode.DRIVING, mapStyleJsonModel: { id: "", mapStylesJson: "" } }
+  itinerary = {
+    id: "", name: "", cities: [], travelMode: TravelMode.DRIVING, mapStyle: { id: "", mapStyleOptions: [] }
+    ,
+  }
   itineraryId: string | undefined;
   userId: string | undefined;
   stylesJson: any;
@@ -38,9 +41,6 @@ export class UserItineraryComponent implements OnInit {
   landSelected = "";
   waterSelected = "";
   roadSelected = "";
-  landMapStyleJson = "";
-  waterMapStyleJson = "";
-  roadMapStyleJson = "";
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
@@ -52,62 +52,46 @@ export class UserItineraryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getSelectedMapLayoutColorJSON(1, "");
-
     this.route.params.subscribe((params) => {
       this.itineraryId = params.itineraryId;
       this.userId = params.userId;
+
+      this.getItineraryById();
+
     });
 
-    this.getItineraryById();
   }
 
-  getSelectedMapLayoutColorJSON(index: number, elementToStyle: string) {
-    switch (index) {
-      case 1:
-        this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
-        break;
-      // case 2:
-      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-retro.json");
-      //   break;
-      // case 3:
-      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-aubergine.json");
-      //   break;
-      // case 4:
-      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-dark.json");
-      //   break;
-      // case 5:
-      //   this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
-      //   break;
-    }
-    this.stylesJson.subscribe((data) => {
-      if (data != null) {
-        switch (elementToStyle) {
-          case "land":
-            data[0]["stylers"][0]["color"] = this.selectedColor;
-            console.log(this.itinerary.id);
-
-            console.log(this.itinerary.mapStyleJsonModel);
-            this.itinerary.mapStyleJsonModel.mapStylesJson = JSON.stringify(data);
-            this.itineraryService.saveItinerary(this.itinerary, this.userId).subscribe((itinerary) => {
-            });
-            break;
-          case "water":
-            this.stylesJson
-            data[16]["stylers"][0]["color"] = this.selectedColor;
-            break;
-          case "road":
-            data[9]["stylers"][0]["color"] = this.selectedColor;
-            data[10]["stylers"][0]["color"] = this.selectedColor;
-            data[11]["stylers"][0]["color"] = this.selectedColor;
-            break;
+  getSelectedMapLayoutColorJSON(elementToStyle: string) {
+    console.log(this.itinerary.mapStyle.mapStyleOptions);
+    if (this.itinerary.mapStyle.mapStyleOptions.length === 0) {
+      this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
+      this.stylesJson.subscribe((data) => {
+        if (data != null) {
+          switch (elementToStyle) {
+            case "land":
+              data[0]["stylers"][0]["color"] = this.selectedColor;
+              this.itinerary.mapStyle.mapStyleOptions = data;
+              this.itineraryService.saveItinerary(this.itinerary, this.userId).subscribe((itinerary) => {
+              });
+              break;
+            case "water":
+              this.stylesJson
+              data[16]["stylers"][0]["color"] = this.selectedColor;
+              break;
+            case "road":
+              data[9]["stylers"][0]["color"] = this.selectedColor;
+              data[10]["stylers"][0]["color"] = this.selectedColor;
+              data[11]["stylers"][0]["color"] = this.selectedColor;
+              break;
+          }
+          this.setMap(data);
         }
-        this.setMap(data);
-      }
-      else {
-        this.setMap(data);
-      }
-    })
+      })
+    }
+    else {
+      this.setMap(this.itinerary.mapStyle.mapStyleOptions);
+    }
   }
 
   setMap(Json: any) {
@@ -126,6 +110,7 @@ export class UserItineraryComponent implements OnInit {
         this.mapProperties
       );
     }
+    this.onPlaceChanged();
   }
 
   getItineraryById() {
@@ -134,7 +119,7 @@ export class UserItineraryComponent implements OnInit {
       .getItineraryById(this.userId, this.itineraryId)
       .subscribe((response: Itinerary) => {
         this.itinerary = response;
-        this.onPlaceChanged();
+        this.getSelectedMapLayoutColorJSON("");
       });
   }
 
@@ -189,15 +174,15 @@ export class UserItineraryComponent implements OnInit {
     switch (event.value) {
       case "water":
         this.waterSelected = event.value;
-        this.getSelectedMapLayoutColorJSON(5, this.waterSelected);
+        this.getSelectedMapLayoutColorJSON(this.waterSelected);
         break;
       case "land":
         this.landSelected = event.value;
-        this.getSelectedMapLayoutColorJSON(5, this.landSelected);
+        this.getSelectedMapLayoutColorJSON(this.landSelected);
         break;
       case "road":
         this.roadSelected = event.value;
-        this.getSelectedMapLayoutColorJSON(5, this.roadSelected);
+        this.getSelectedMapLayoutColorJSON(this.roadSelected);
         break;
     }
   }
