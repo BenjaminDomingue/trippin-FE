@@ -1,28 +1,38 @@
 <div class="container">
-    <span class="title">Customize your map!</span>
-    <div>
-        <mat-form-field>
-            <mat-label>Select a property</mat-label>
-            <mat-select
-                disableOptionCentering
-                panelClass="myPanelClass"
-                appearance="fill"
-                (selectionChange)="selectElementTostyle($event)"
-            >
-                <mat-option
+    <div class="test">
+        <div>
+            <label id="mat-radio-label">Choose your element to customize</label>
+            <mat-radio-group class="radio-group">
+                <mat-radio-button
+                    class="radio-button"
                     *ngFor="let element of styledMapElements"
                     [value]="element"
-                >{{element}}
-                    <!-- <span
+                    (change)="selectElementToStyle($event)"
+                >
+                    {{ element }}
+                </mat-radio-button>
+            </mat-radio-group>
+
+
+
+            <!-- <mat-form-field>
+                <mat-label>Select a property</mat-label>
+                <mat-select (selectionChange)="selectElementToStyle($event)">
+                    <mat-option
+                        *ngFor="let element of styledMapElements"
+                        [value]="element"
+                    >{{element}}
+                        <span
                         [(colorPicker)]="color"
                         [style.background]="white"
                         (colorPickerChange)="receivedColor($event)"
                         [cpToggle]="true"
                     >{{element}} -->
-                    <!-- </span> -->
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <!-- </span> 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+        </div>
         <button
             [(colorPicker)]="color"
             [style.background]="white"

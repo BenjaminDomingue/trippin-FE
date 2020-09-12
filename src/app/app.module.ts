@@ -24,7 +24,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { RegistrationComponent } from "./pages/registration/registration.component";
 import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
 import { ColorPickerModule } from 'ngx-color-picker';
-
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -55,6 +55,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MatIconModule,
     ReactiveFormsModule,
     ColorPickerModule,
+    MatRadioModule
   ],
   providers: [
     AuthorizationDataService,

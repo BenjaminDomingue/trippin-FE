@@ -8,6 +8,7 @@ import { AuthorizationService } from "src/app/services/authorization.service";
 import { HttpClient } from '@angular/common/http';
 import { MatSelectChange } from '@angular/material/select';
 import { TravelMode } from 'src/app/models/travelModeEnum.mode';
+import { MapStyle } from 'src/app/models/map-style.model';
 
 @Component({
   selector: "app-user-itinerary",
@@ -38,9 +39,7 @@ export class UserItineraryComponent implements OnInit {
   isOpened = false;
   white = "#FFFAFA";
   selectedColor = "";
-  landSelected = "";
-  waterSelected = "";
-  roadSelected = "";
+  selectedElementToSTyle = "";
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
@@ -57,48 +56,37 @@ export class UserItineraryComponent implements OnInit {
       this.userId = params.userId;
 
       this.getItineraryById();
-
     });
-
   }
 
-  getSelectedMapLayoutColorJSON(elementToStyle: string) {
-    console.log(this.itinerary.mapStyle.mapStyleOptions);
-    if (this.itinerary.mapStyle.mapStyleOptions.length === 0) {
-      this.stylesJson = this.http.get("./assets/map-styles-selection/map-styles-silver.json");
-      this.stylesJson.subscribe((data) => {
-        if (data != null) {
-          switch (elementToStyle) {
-            case "land":
-              data[0]["stylers"][0]["color"] = this.selectedColor;
-              this.itinerary.mapStyle.mapStyleOptions = data;
-              this.itineraryService.saveItinerary(this.itinerary, this.userId).subscribe((itinerary) => {
-              });
-              break;
-            case "water":
-              this.stylesJson
-              data[16]["stylers"][0]["color"] = this.selectedColor;
-              break;
-            case "road":
-              data[9]["stylers"][0]["color"] = this.selectedColor;
-              data[10]["stylers"][0]["color"] = this.selectedColor;
-              data[11]["stylers"][0]["color"] = this.selectedColor;
-              break;
-          }
-          this.setMap(data);
-        }
-      })
+  setMapLayout(elementToStyle: string) {
+    const mapStyleOptions = this.itinerary.mapStyle.mapStyleOptions;
+    switch (elementToStyle) {
+      case "land":
+        mapStyleOptions[0]["stylers"][0]["color"] = this.selectedColor;
+        break;
+      case "water":
+        mapStyleOptions[16]["stylers"][0]["color"] = this.selectedColor;
+        break;
+      case "road":
+        mapStyleOptions[9]["stylers"][0]["color"] = this.selectedColor;
+        mapStyleOptions[10]["stylers"][0]["color"] = this.selectedColor;
+        mapStyleOptions[11]["stylers"][0]["color"] = this.selectedColor;
+        break;
     }
-    else {
+    this.itineraryService.updateItinerary(this.itinerary.id, this.itinerary.mapStyle, this.userId).subscribe((mapStyle: MapStyle) => {
       this.setMap(this.itinerary.mapStyle.mapStyleOptions);
-    }
+    });
   }
 
-  setMap(Json: any) {
+
+  setMap(mapStyleOptions: any) {
     this.mapProperties = {
       zoom: 8,
       mapTypeId: "roadmap",
-      styles: Json
+      styles: mapStyleOptions,
+      mapTypeControl: false
+
     };
 
     if (this.map != undefined) {
@@ -119,7 +107,8 @@ export class UserItineraryComponent implements OnInit {
       .getItineraryById(this.userId, this.itineraryId)
       .subscribe((response: Itinerary) => {
         this.itinerary = response;
-        this.getSelectedMapLayoutColorJSON("");
+
+        this.setMap(this.itinerary.mapStyle.mapStyleOptions);
       });
   }
 
@@ -170,20 +159,19 @@ export class UserItineraryComponent implements OnInit {
     this.selectedColor = selectedColor;
   }
 
-  selectElementTostyle(event: MatSelectChange) {
+  selectElementToStyle(event: MatSelectChange) {
+    let selectedElementToStyle = "";
     switch (event.value) {
       case "water":
-        this.waterSelected = event.value;
-        this.getSelectedMapLayoutColorJSON(this.waterSelected);
+        selectedElementToStyle = event.value;
         break;
       case "land":
-        this.landSelected = event.value;
-        this.getSelectedMapLayoutColorJSON(this.landSelected);
+        selectedElementToStyle = event.value;
         break;
       case "road":
-        this.roadSelected = event.value;
-        this.getSelectedMapLayoutColorJSON(this.roadSelected);
+        selectedElementToStyle = event.value;
         break;
     }
+    this.setMapLayout(selectedElementToStyle);
   }
 }

@@ -6,23 +6,21 @@
 
 #googlemap {
   height: 500px;
-  width: 100%;
+  width: 85em;
   z-index: 0;
+  position: absolute;
 }
 
-.style-element-dropdown {
-  margin-bottom: 400px;
-  z-index: 10 !important;
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
 }
 
-.title {
-  margin-bottom: 20px;
+.radio-button {
+  margin: 5px;
 }
 
-.myPanelClass{
-    margin-top: 30px !important; 
-}
-
-.cdk-overlay-container, .cdk-overlay-pane {
-     z-index: 9999 !important;
+::ng-deep .mat-radio-outer-circle {
+border-style: none !important;
 }

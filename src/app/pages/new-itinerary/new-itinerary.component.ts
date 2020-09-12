@@ -6,6 +6,7 @@ import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { DirectionsCreationInformation } from 'src/app/models/directionsCreationInformation.model';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-new-itinerary",
@@ -50,24 +51,21 @@ export class NewItineraryComponent implements OnInit {
   ];
   directionsInformation = [];
   autocompletes = [];
-  mapStyleJson: any = [];
+  mapStyleOptions: any = [];
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   ngOnInit() {
-    this.initMap();
-    this.getMapStyleJson();
+    this.setMapAndGetCurrentPosition();
+    this.setMapStyleOptions();
   }
 
   constructor(
     private readonly itineraryService: ItineraryService,
     private readonly authorizationService: AuthorizationService,
     private readonly http: HttpClient,
+    private readonly router: Router
   ) { }
-
-  initMap() {
-    this.setMapAndGetCurrentPosition();
-  }
 
   setMapAndGetCurrentPosition() {
     if (navigator.geolocation) {
@@ -145,13 +143,15 @@ export class NewItineraryComponent implements OnInit {
   saveItinerary(itinerary: Itinerary) {
     this.itinerary = itinerary;
     this.userId = this.authorizationService.userId;
-    // this.itinerary.mapStyle.MapStyleOptions = this.setMapStyle();
-    this.itineraryService.saveItinerary(itinerary, this.userId).subscribe();
+    this.itinerary.mapStyle.mapStyleOptions = this.mapStyleOptions;
+    this.itineraryService.saveItinerary(itinerary, this.userId).subscribe((receivedItinerary: Itinerary) => {
+      this.router.navigate(["users", this.userId, "itineraries", receivedItinerary.id])
+    });
   }
 
-  getMapStyleJson() {
+  setMapStyleOptions() {
     this.http.get("./assets/map-styles-selection/map-styles-silver.json").subscribe((data) => {
-      this.mapStyleJson = data;
+      this.mapStyleOptions = data;
     })
   }
 
@@ -215,168 +215,5 @@ export class NewItineraryComponent implements OnInit {
         () => this.onPlaceChanged(autocomplete.autocomplete)
       );
     }
-  }
-
-  setMapStyle() {
-    return [
-      {
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#FF0000"
-          }
-        ]
-      },
-      {
-        "elementType": "labels.icon",
-        "stylers": [
-          {
-            "visibility": "off"
-          }
-        ]
-      },
-      {
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#616161"
-          }
-        ]
-      },
-      {
-        "elementType": "labels.text.stroke",
-        "stylers": [
-          {
-            "color": "#f5f5f5"
-          }
-        ]
-      },
-      {
-        "featureType": "administrative.land_parcel",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#f5f5f5"
-          }
-        ]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#eeeeee"
-          }
-        ]
-      },
-      {
-        "featureType": "poi",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#757575"
-          }
-        ]
-      },
-      {
-        "featureType": "poi.park",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#e5e5e5"
-          }
-        ]
-      },
-      {
-        "featureType": "poi.park",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#9e9e9e"
-          }
-        ]
-      },
-      {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#FFA500"
-          }
-        ]
-      },
-      {
-        "featureType": "road.arterial",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#FFA500"
-          }
-        ]
-      },
-      {
-        "featureType": "road.highway",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#FFA500"
-          }
-        ]
-      },
-      {
-        "featureType": "road.highway",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#616161"
-          }
-        ]
-      },
-      {
-        "featureType": "road.local",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#9e9e9e"
-          }
-        ]
-      },
-      {
-        "featureType": "transit.line",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#e5e5e5"
-          }
-        ]
-      },
-      {
-        "featureType": "transit.station",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#eeeeee"
-          }
-        ]
-      },
-      {
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [
-          {
-            "color": "#FFC0CB"
-          }
-        ]
-      },
-      {
-        "featureType": "water",
-        "elementType": "labels.text.fill",
-        "stylers": [
-          {
-            "color": "#9e9e9e"
-          }
-        ]
-      }
-    ];
   }
 }
