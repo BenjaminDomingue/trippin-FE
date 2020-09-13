@@ -34,7 +34,8 @@ export class UserItineraryComponent implements OnInit {
   itineraryId: string | undefined;
   userId: string | undefined;
   stylesJson: any;
-  styledMapElements = ["road", "water", "land"];
+  styledMapElementsColor = ["Road", "Water", "Land"];
+  styledMapElementsPrecision = ["Roads", "Landmarks", "Labels"];
   color = "#FF0000";
   isOpened = false;
   white = "#FFFAFA";
@@ -58,27 +59,6 @@ export class UserItineraryComponent implements OnInit {
       this.getItineraryById();
     });
   }
-
-  setMapLayout(elementToStyle: string) {
-    const mapStyleOptions = this.itinerary.mapStyle.mapStyleOptions;
-    switch (elementToStyle) {
-      case "land":
-        mapStyleOptions[0]["stylers"][0]["color"] = this.selectedColor;
-        break;
-      case "water":
-        mapStyleOptions[16]["stylers"][0]["color"] = this.selectedColor;
-        break;
-      case "road":
-        mapStyleOptions[9]["stylers"][0]["color"] = this.selectedColor;
-        mapStyleOptions[10]["stylers"][0]["color"] = this.selectedColor;
-        mapStyleOptions[11]["stylers"][0]["color"] = this.selectedColor;
-        break;
-    }
-    this.itineraryService.updateItinerary(this.itinerary.id, this.itinerary.mapStyle, this.userId).subscribe((mapStyle: MapStyle) => {
-      this.setMap(this.itinerary.mapStyle.mapStyleOptions);
-    });
-  }
-
 
   setMap(mapStyleOptions: any) {
     this.mapProperties = {
@@ -157,6 +137,26 @@ export class UserItineraryComponent implements OnInit {
 
   receivedColor(selectedColor: string) {
     this.selectedColor = selectedColor;
+  }
+
+  setMapLayout(elementToStyle: string) {
+    const mapStyleOptions = this.itinerary.mapStyle.mapStyleOptions;
+    switch (elementToStyle) {
+      case "land":
+        mapStyleOptions[0]["stylers"][0]["color"] = this.selectedColor;
+        break;
+      case "water":
+        mapStyleOptions[16]["stylers"][0]["color"] = this.selectedColor;
+        break;
+      case "road":
+        mapStyleOptions[9]["stylers"][0]["color"] = this.selectedColor;
+        mapStyleOptions[10]["stylers"][0]["color"] = this.selectedColor;
+        mapStyleOptions[11]["stylers"][0]["color"] = this.selectedColor;
+        break;
+    }
+    this.itineraryService.updateItinerary(this.itinerary.id, this.itinerary.mapStyle, this.userId).subscribe((mapStyle: MapStyle) => {
+      this.setMap(this.itinerary.mapStyle.mapStyleOptions);
+    });
   }
 
   selectElementToStyle(event: MatSelectChange) {

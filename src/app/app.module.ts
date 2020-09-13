@@ -1,4 +1,4 @@
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, HammerModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -25,6 +25,7 @@ import { RegistrationComponent } from "./pages/registration/registration.compone
 import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -55,7 +56,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MatIconModule,
     ReactiveFormsModule,
     ColorPickerModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSliderModule,
+    HammerModule
   ],
   providers: [
     AuthorizationDataService,
