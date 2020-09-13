@@ -1,4 +1,4 @@
-import { BrowserModule, HammerModule } from "@angular/platform-browser";
+import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -58,7 +58,6 @@ import { MatSliderModule } from '@angular/material/slider';
     ColorPickerModule,
     MatRadioModule,
     MatSliderModule,
-    HammerModule
   ],
   providers: [
     AuthorizationDataService,
