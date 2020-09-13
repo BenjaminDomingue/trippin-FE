@@ -25,7 +25,6 @@ import { RegistrationComponent } from "./pages/registration/registration.compone
 import { UserItineraryComponent } from "./pages/user-itinerary/user-itinerary.component";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -56,8 +55,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatIconModule,
     ReactiveFormsModule,
     ColorPickerModule,
-    MatRadioModule,
-    MatSliderModule,
+    MatRadioModule
   ],
   providers: [
     AuthorizationDataService,

@@ -20,10 +20,6 @@
   margin: 5px;
 }
 
-::ng-deep .mat-radio-outer-circle {
-border-style: none !important;
-}
-
 .color-choice {
   width: 15%;
 }

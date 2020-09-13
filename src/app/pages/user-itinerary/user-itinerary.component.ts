@@ -142,13 +142,13 @@ export class UserItineraryComponent implements OnInit {
   setMapLayout(elementToStyle: string) {
     const mapStyleOptions = this.itinerary.mapStyle.mapStyleOptions;
     switch (elementToStyle) {
-      case "land":
+      case "Land":
         mapStyleOptions[0]["stylers"][0]["color"] = this.selectedColor;
         break;
-      case "water":
+      case "Water":
         mapStyleOptions[16]["stylers"][0]["color"] = this.selectedColor;
         break;
-      case "road":
+      case "Road":
         mapStyleOptions[9]["stylers"][0]["color"] = this.selectedColor;
         mapStyleOptions[10]["stylers"][0]["color"] = this.selectedColor;
         mapStyleOptions[11]["stylers"][0]["color"] = this.selectedColor;
@@ -162,13 +162,13 @@ export class UserItineraryComponent implements OnInit {
   selectElementToStyle(event: MatSelectChange) {
     let selectedElementToStyle = "";
     switch (event.value) {
-      case "water":
+      case "Water":
         selectedElementToStyle = event.value;
         break;
-      case "land":
+      case "Land":
         selectedElementToStyle = event.value;
         break;
-      case "road":
+      case "Road":
         selectedElementToStyle = event.value;
         break;
     }
