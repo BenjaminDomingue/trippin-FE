@@ -1,3 +1,4 @@
+<div class="container">
   <h1>Which itinerary do you want to see?</h1>
   <div *ngFor="let itinerary of itineraries">
     <button
@@ -5,3 +6,4 @@
       (click)="getItineraryById(itinerary.id)"
     >{{itinerary.name}}</button>
   </div>
+</div>

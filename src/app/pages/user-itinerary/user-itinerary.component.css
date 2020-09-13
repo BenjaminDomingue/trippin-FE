@@ -1,10 +1,36 @@
-#googlemap {
-  height: 500px;
+.container {
+  margin-top: 60px;
+  margin-left: 20px;
   width: 100%;
-  z-index: 1;
 }
 
-.style-element-dropdown {
-  margin-bottom: 400px;
-  z-index: 2;
+#googlemap {
+  height: 500px;
+  width: 80em;
+  position: absolute;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.radio-button {
+  margin: 5px;
+}
+
+.color-choice {
+  width: 15%;
+}
+
+.customization-container {
+  display: flex;
+}
+
+.precision-choice {
+  display: flex;
+  flex-direction: column;
+  margin-left: 60px;
+  margin-top: 55px;
 }

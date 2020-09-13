@@ -7,6 +7,7 @@ import { ItineraryDataService } from '../data-services/itinerary.data-service';
 export class ItineraryService {
   saveItinerary = this.itineraryDataService.saveItinerary;
   getItineraryById = this.itineraryDataService.getItineraryById;
+  updateItinerary = this.itineraryDataService.updateItinerary;
 
   constructor(private readonly itineraryDataService: ItineraryDataService) { }
 }

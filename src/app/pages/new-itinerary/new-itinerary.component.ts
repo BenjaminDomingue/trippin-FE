@@ -5,6 +5,8 @@ import { TravelMode } from "src/app/models/travelModeEnum.mode";
 import { ItineraryService } from "src/app/services/itinerary.service";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { DirectionsCreationInformation } from 'src/app/models/directionsCreationInformation.model';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-new-itinerary",
@@ -18,6 +20,7 @@ export class NewItineraryComponent implements OnInit {
     name: "",
     cities: [],
     travelMode: TravelMode.DRIVING,
+    mapStyle: { id: "", mapStyleOptions: [] }
   };
   city: City = { id: "" };
   cities: City[];
@@ -48,21 +51,21 @@ export class NewItineraryComponent implements OnInit {
   ];
   directionsInformation = [];
   autocompletes = [];
+  mapStyleOptions: any = [];
 
   @ViewChild("googlemap", { static: true }) mapView: ElementRef;
 
   ngOnInit() {
-    this.initMap();
+    this.setMapAndGetCurrentPosition();
+    this.setMapStyleOptions();
   }
 
   constructor(
     private readonly itineraryService: ItineraryService,
     private readonly authorizationService: AuthorizationService,
+    private readonly http: HttpClient,
+    private readonly router: Router
   ) { }
-
-  initMap() {
-    this.setMapAndGetCurrentPosition();
-  }
 
   setMapAndGetCurrentPosition() {
     if (navigator.geolocation) {
@@ -138,8 +141,18 @@ export class NewItineraryComponent implements OnInit {
   }
 
   saveItinerary(itinerary: Itinerary) {
+    this.itinerary = itinerary;
     this.userId = this.authorizationService.userId;
-    this.itineraryService.saveItinerary(itinerary, this.userId).subscribe();
+    this.itinerary.mapStyle.mapStyleOptions = this.mapStyleOptions;
+    this.itineraryService.saveItinerary(itinerary, this.userId).subscribe((receivedItinerary: Itinerary) => {
+      this.router.navigate(["users", this.userId, "itineraries", receivedItinerary.id])
+    });
+  }
+
+  setMapStyleOptions() {
+    this.http.get("./assets/map-styles-selection/map-styles-silver.json").subscribe((data) => {
+      this.mapStyleOptions = data;
+    })
   }
 
   receivedSelectedTravelMode($event) {

@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Itinerary } from "../models/itinerary.model";
-import { map } from "rxjs/operators";
 import { AppConfig } from "../constants/app.config";
 import { HttpRequestService } from "../services/http-request.service";
+import { MapStyle } from '../models/map-style.model';
 
 @Injectable({
   providedIn: "root",
@@ -11,8 +10,8 @@ import { HttpRequestService } from "../services/http-request.service";
 export class ItineraryDataService {
   constructor(private readonly httpRequestService: HttpRequestService) {
     this.saveItinerary = this.saveItinerary.bind(this);
-
     this.getItineraryById = this.getItineraryById.bind(this);
+    this.updateItinerary = this.updateItinerary.bind(this);
   }
 
   saveItinerary(itinerary: Itinerary, userId: string) {
@@ -25,4 +24,10 @@ export class ItineraryDataService {
 
     return this.httpRequestService.get<Itinerary>(url);
   }
+
+  updateItinerary(itineraryId: string, mapStyle: MapStyle, userId: string) {
+    const url = `${AppConfig.current.apiBaseEndpoint}/users/${userId}/itineraries/${itineraryId}`;
+    return this.httpRequestService.put<MapStyle, MapStyle>(url, mapStyle);
+  }
+
 }
