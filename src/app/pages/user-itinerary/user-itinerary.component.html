@@ -3,7 +3,10 @@
         <div class="color-choice">
             <div>
                 <label id="mat-radio-label">Choose your element to customize</label>
-                <mat-radio-group class="radio-group">
+                <mat-radio-group
+                    id="test"
+                    class="radio-group"
+                >
                     <mat-radio-button
                         class="radio-button"
                         *ngFor="let element of styledMapElementsColor"
@@ -22,5 +25,6 @@
             </div>
         </div>
     </div>
+    <button (click)="exportMapAsPdf()">Export as PDF!</button>
     <div id="googlemap"></div>
 </div>

@@ -9,6 +9,9 @@ import { HttpClient } from '@angular/common/http';
 import { MatSelectChange } from '@angular/material/select';
 import { TravelMode } from 'src/app/models/travelModeEnum.mode';
 import { MapStyle } from 'src/app/models/map-style.model';
+import jsPDF from 'jspdf';
+import html2canvas from "html2canvas"
+
 
 @Component({
   selector: "app-user-itinerary",
@@ -173,5 +176,20 @@ export class UserItineraryComponent implements OnInit {
         break;
     }
     this.setMapLayout(selectedElementToStyle);
+  }
+
+  exportMapAsPdf() {
+    let dataPdf = document.getElementById('googlemap');
+    const pdf = new jsPDF("l", "mm", "a4");
+    pdf.setDisplayMode(2, 'single', 'UseOutlines');
+    html2canvas(dataPdf, {
+      allowTaint: true,
+      useCORS: true,
+      scrollY: -window.scrollY
+    }).then((canvas) => {
+      let img = canvas.toDataURL('image/png');
+      pdf.addImage(img, 'png', 5, 15, 400, 200);
+      pdf.save(`${this.itinerary.name}` + '.pdf');
+    })
   }
 }

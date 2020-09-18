@@ -34,3 +34,5 @@
   margin-left: 60px;
   margin-top: 55px;
 }
+
+.html2canvas-container { width: 3000px !important; height: 3000px !important; }
